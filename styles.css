@@ -274,23 +274,38 @@ footer {
     color: #666;
 }
 
-/* 新增样式使图片在文本旁边显示 */
+/* 默认的布局：图片在文本旁边 */
 .thought-content {
     display: flex;
-    align-items: flex-start; /* Align items to the start */
-    margin-bottom: 20px; /* Space between thought items */
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
 
 .thought-content img {
-    margin-left: 30px; /* Space between text and image */
-    max-width: 300px; /* Adjust as necessary */
-    height: 300px; /* Maintain aspect ratio */
+    margin-left: 30px;
+    max-width: 300px;
+    height: auto; /* 确保图片保持比例 */
+}
+
+/* 在手机上显示时，图片和文本堆叠 */
+@media (max-width: 768px) {
+    .thought-content {
+        display: block; /* 改为块状布局 */
+    }
+
+    .thought-content img {
+        margin-left: 0;
+        margin-top: 10px;
+        max-width: 100%; /* 让图片占满容器宽度 */
+        height: auto; /* 保持图片比例 */
+    }
 }
 
 .thought-time {
-    font-size: 1.5em; /* 字体大小 */
-    color: gray; /* 字体颜色 */
-    margin-top: 10px; /* 与上方内容的间距 */
+    font-size: 1.5em;
+    color: gray;
+    margin-top: 10px;
 }
+
 
 
