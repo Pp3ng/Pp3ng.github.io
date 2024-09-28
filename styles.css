@@ -2,8 +2,8 @@ body {
     margin: 0;
     padding-top: 60px;
     font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(135deg, #cfd7e0 0%, #6ecce7 100%);
-    color: #333;
+    background: linear-gradient(135deg, #cad0b8 0%, #6bad44 100%);
+    color: #2a3c02;
 }
 
 .container {
@@ -14,7 +14,7 @@ body {
 }
 
 .navbar {
-    background-color: #0199ff;
+    background-color: #2a3c02;
     padding: 15px;
     text-align: center;
     position: fixed;
@@ -33,7 +33,7 @@ body {
 }
 
 .navbar a:hover {
-    color: #2980b9;
+    color: #91b37c;
 }
 
 img {
@@ -48,23 +48,22 @@ img {
 h1 {
     font-size: 3em;
     margin-top: 20px;
-    color: #4a4a4a;
+    color: #2a3c02;
     font-weight: bold;
 }
 
 p {
     font-size: 1.2em;
-    color: #666;
+    color: #4a5c3c;
     max-width: 600px;
     margin: 20px auto;
     line-height: 1.6em;
 }
 
-
 footer {
     margin-top: 50px;
     font-size: 0.9em;
-    color: #aaa;
+    color: #aab19f;
     text-align: center;
     padding: 20px;
 }
@@ -81,7 +80,7 @@ footer {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -105,12 +104,12 @@ footer {
 
 .interest-description h3 {
     margin: 0;
-    color: #3498db;
+    color: #2a3c02;
 }
 
 .interest-description p {
     margin: 5px 0 0;
-    color: #666;
+    color: #4a5c3c;
 }
 
 #Social-Accounts {
@@ -129,13 +128,13 @@ footer {
 
 .social-links a {
     text-decoration: none;
-    color: #3498db;
+    color: #2a3c02;
     font-size: 1.2em;
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: #2980b9;
+    color: #91b37c;
 }
 
 .modal {
@@ -163,7 +162,7 @@ footer {
 }
 
 .close {
-    color: #aaa;
+    color: #888;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -176,8 +175,8 @@ footer {
 
 .close:hover,
 .close:focus {
-    color: black;
-    background-color: #e0e0e0;
+    color: #2a3c02;
+    background-color: #d5d8c7;
 }
 
 .modal img {
@@ -196,7 +195,7 @@ footer {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -207,22 +206,22 @@ footer {
 
 .project-description h3 {
     margin: 0;
-    color: #3498db;
+    color: #2a3c02;
 }
 
 .project-description p {
     margin: 5px 0 0;
-    color: #666;
+    color: #4a5c3c;
 }
 
 .project-description a {
-    color: #3498db;
+    color: #2a3c02;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .project-description a:hover {
-    color: #2980b9;
+    color: #91b37c;
 }
 
 @media screen and (max-width: 600px) {
@@ -245,3 +244,53 @@ footer {
         text-align: center;
     }
 }
+
+#thoughts {
+    margin-top: 50px;
+}
+
+.thought-item {
+    margin: 20px 0;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thought-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.thought-item h3 {
+    margin: 0;
+    color: #435422;
+}
+
+.thought-item p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+/* 新增样式使图片在文本旁边显示 */
+.thought-content {
+    display: flex;
+    align-items: flex-start; /* Align items to the start */
+    margin-bottom: 20px; /* Space between thought items */
+}
+
+.thought-content img {
+    margin-left: 30px; /* Space between text and image */
+    max-width: 300px; /* Adjust as necessary */
+    height: 300px; /* Maintain aspect ratio */
+}
+
+.thought-time {
+    font-size: 1.5em; /* 字体大小 */
+    color: gray; /* 字体颜色 */
+    margin-top: 10px; /* 与上方内容的间距 */
+}
+
+
