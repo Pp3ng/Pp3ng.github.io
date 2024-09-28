@@ -4,19 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUOPENG's Personal Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="icon.ico" type="image/x-icon">
     <style>
         body {
             margin: 0;
             padding: 0;
+            padding-top: 60px; /* 根据导航栏的高度调整填充 */
             font-family: 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
+        }
+
+        .container {
+            max-width: 1200px; /* 增加兴趣部分的容器宽度 */
+            margin: 0 auto;
+            padding: 50px;
+            text-align: center;
         }
 
         .navbar {
             background-color: #3498db;
             padding: 15px;
             text-align: center;
+            position: fixed; /* 固定定位 */
+            width: 100%; /* 全宽 */
+            top: 0; /* 距顶部0 */
+            z-index: 1000; /* 确保在其他元素上方 */
         }
 
         .navbar a {
@@ -28,13 +42,6 @@
 
         .navbar a:hover {
             text-decoration: underline;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 50px;
-            text-align: center;
         }
 
         img {
@@ -82,70 +89,209 @@
             color: #aaa;
         }
 
-        .interests {
-            margin-top: 40px;
-            font-size: 1.1em;
-            color: #555;
+        #interests {
+            margin-top: 50px;
+        }
+
+        .interest-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 20px; /* 增加内边距 */
+            border-radius: 10px; /* 加个圆角 */
+        }
+
+        .interest-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .interest-image {
+            width: 150px; /* 增加兴趣图像的宽度 */
+            height: 150px; /* 增加兴趣图像的高度 */
+            border-radius: 10px;
+            margin-right: 20px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .interest-item:hover .interest-image {
+            transform: rotate(5deg);
+        }
+
+        .interest-description h3 {
+            margin: 0;
+            color: #3498db;
+        }
+
+        .interest-description p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+
+        #contact {
+            margin-top: 50px;
         }
 
         .social-links {
-            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .social-links li {
+            display: inline;
+            margin: 0 10px;
         }
 
         .social-links a {
-            margin: 0 10px;
-            color: #3498db;
             text-decoration: none;
+            color: #3498db;
+            font-size: 1.2em;
         }
 
         .social-links a:hover {
             text-decoration: underline;
+        }
+
+        .modal {
+            display: none; /* 隐藏模态窗口 */
+            position: fixed;
+            z-index: 1001; /* 保证在导航栏之上 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明 */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px; /* 限制最大宽度 */
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .qr-code {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
+    <a href="#interests">Interests</a>
     <a href="#contact">Contact</a>
 </div>
 
 <div class="container" id="about">
     <img src="my_photo.jpg" alt="My Photo">
-    <h1>Hello, I'm LUOPENG ZHOU (周罗鹏)😊</h1>
+    <h1>Hello, I'm LUOPENG ZHOU(周罗鹏)</h1>
     <p>I'm a passionate individual who loves to create and explore new technologies. Welcome to my personal website
         where I share my projects, thoughts, and more.</p>
-    <div class="interests">
-        <h2>My Interests</h2>
-        <p>I enjoy programming, Billiards</p>
-    </div>
     <a href="#" class="button">Explore More</a>
 </div>
 
-<div class="container" id="projects">
-    <h2>My Projects</h2>
-    <p>Check out some of my work on GitHub!</p>
-    <a href="https://github.com/Pp3ng" class="button">View My GitHub</a>
+<div class="container" id="interests">
+    <h2>My Interests</h2>
+    <div class="interest-item">
+        <img src="programming.jpg" alt="Programming" class="interest-image">
+        <div class="interest-description">
+            <h3>Programming</h3>
+            <p>C and C++ are my go-to languages for building projects. I enjoy solving problems and creating
+                efficient code.</p>
+        </div>
+    </div>
+    <div class="interest-item">
+        <img src="photography.jpg" alt="Photography" class="interest-image">
+        <div class="interest-description">
+            <h3>Photography</h3>
+            <p>Capturing moments through my lens is one of my favorite hobbies. I enjoy landscape and portrait
+                photography.</p>
+        </div>
+    </div>
+    <div class="interest-item">
+        <img src="billiards.jpg" alt="Billiards" class="interest-image">
+        <div class="interest-description">
+            <h3>Billiards</h3>
+            <p>Playing billiards is a fun way to relax and challenge myself. I enjoy the strategy and precision required
+                in the game, and I often play with friends.</p>
+        </div>
+    </div>
 </div>
 
 <div class="container" id="contact">
     <h2>Contact Me</h2>
-    <p>If you'd like to get in touch, feel free to reach out on social media!</p>
-    <div class="social-links">
-        <a href="https://instagram.com/pp3ng___" target="_blank">Instagram</a>
-        <a href="weixin://dl/chat?username=ZHOULUOPENG_" target="_blank">WeChat</a>
-        <a href="https://github.com/Pp3ng" target="_blank">GitHub</a>
-    </div>
+    <ul class="social-links">
+        <li><a href="https://www.instagram.com/pp3ng___" target="_blank"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#" id="wechat-link"><i class="fab fa-weixin"></i></a></li>
+        <li><a href="mailto:pp3ng@outlook.com"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="https://github.com/Pp3ng"><i class="fab fa-github"></i></a></li>
+    </ul>
 </div>
 
 <footer>
     &copy; 2024 LUOPENG ZHOU. All rights reserved.
 </footer>
 
-</body>
-</html>
+<!-- 模态窗口结构 -->
+<div id="wechat-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Scan my WeChat QR Code</h2>
+        <img src="wechat_qr_code.jpg" alt="WeChat QR Code" class="qr-code">
+    </div>
+</div>
 
+<script>
+    // 获取模态窗口
+    modal = document.getElementById("wechat-modal");
+
+    // 获取链接元素
+    link = document.getElementById("wechat-link");
+
+    // 获取 <span> 元素，用于关闭模态窗口
+    span = document.getElementsByClassName("close")[0];
+
+    // 当用户点击链接，打开模态窗口
+    link.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // 当用户点击 <span> (x)，关闭模态窗口
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // 当用户点击模态窗口外部，关闭模态窗口
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 
 </body>
-</html>
+<
