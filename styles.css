@@ -224,3 +224,24 @@ footer {
 .project-description a:hover {
     color: #2980b9;
 }
+
+@media screen and (max-width: 600px) {
+    .interest-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .interest-image {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .interest-description {
+        width: 100%;
+        max-width: none;
+        text-align: center;
+    }
+}
