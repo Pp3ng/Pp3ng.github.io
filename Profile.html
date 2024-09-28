@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
+    <title>LUOPENG's Personal Website</title>
     <style>
         body {
             margin: 0;
@@ -11,6 +11,23 @@
             font-family: 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
+        }
+
+        .navbar {
+            background-color: #3498db;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
         }
 
         .container {
@@ -64,20 +81,66 @@
             font-size: 0.9em;
             color: #aaa;
         }
+
+        .interests {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="navbar">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="container" id="about">
     <img src="my_photo.jpg" alt="My Photo">
-    <h1>Hello, I'm LUOPENG ZHOU(周罗鹏)</h1>
+    <h1>Hello, I'm LUOPENG ZHOU (周罗鹏)😊</h1>
     <p>I'm a passionate individual who loves to create and explore new technologies. Welcome to my personal website
         where I share my projects, thoughts, and more.</p>
+    <div class="interests">
+        <h2>My Interests</h2>
+        <p>I enjoy programming, Billiards</p>
+    </div>
     <a href="#" class="button">Explore More</a>
 </div>
 
+<div class="container" id="projects">
+    <h2>My Projects</h2>
+    <p>Check out some of my work on GitHub!</p>
+    <a href="https://github.com/Pp3ng" class="button">View My GitHub</a>
+</div>
+
+<div class="container" id="contact">
+    <h2>Contact Me</h2>
+    <p>If you'd like to get in touch, feel free to reach out on social media!</p>
+    <div class="social-links">
+        <a href="https://instagram.com/pp3ng___" target="_blank">Instagram</a>
+        <a href="weixin://dl/chat?username=ZHOULUOPENG_" target="_blank">WeChat</a>
+        <a href="https://github.com/Pp3ng" target="_blank">GitHub</a>
+    </div>
+</div>
+
 <footer>
-    &copy; 2024 Your Name. All rights reserved.
+    &copy; 2024 LUOPENG ZHOU. All rights reserved.
 </footer>
 
 </body>
