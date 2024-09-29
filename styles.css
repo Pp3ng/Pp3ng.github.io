@@ -265,27 +265,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-    body {
-        padding-top: 50px;
-    }
-
-    .container {
-        padding: 20px;
-        text-align: left;
-    }
-
-    .navbar a {
-        font-size: 1em;
-        margin: 0 10px;
-    }
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    p {
-        font-size: 1em;
-    }
 
     .interest-item {
         flex-direction: column;
@@ -305,4 +284,22 @@ footer {
         font-size: 1em;
         max-width: 100%;
     }
+
+    .thought-content {
+        display: block; /* 改为块状布局 */
+    }
+
+    .thought-content img {
+        margin-left: 0;
+        margin-top: 10px;
+        max-width: 100%; /* 让图片占满容器宽度 */
+        height: auto; /* 保持图片比例 */
+    }
+
+    .thought-time {
+        font-size: 1.5em;
+        color: gray;
+        margin-top: 10px;
+    }
 }
+
