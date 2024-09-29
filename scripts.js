@@ -1,45 +1,53 @@
-const wechatModal = document.getElementById("wechat-modal");
-const imageModal = document.getElementById("image-modal");
-const modalImage = document.getElementById("modal-image");
-const wechatLink = document.getElementById("wechat-link");
-const wechatSpan = wechatModal.getElementsByClassName("close")[0];
-const imageSpan = imageModal.getElementsByClassName("close")[0];
-const images = document.getElementsByClassName("clickable-image");
+const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😊";
+let index = 0;
 
-// 打开模态窗口的函数
-function openModal(modal) {
-    modal.style.display = "block";
+function typeWriter() {
+    if (index < text.length) {
+        document.querySelector('h1').textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100); // 控制打字速度
+    }
 }
 
-// 关闭模态窗口的函数
-function closeModal(modal) {
-    modal.style.display = "none";
-}
+// 等页面加载完毕后开始打字
+window.onload = function () {
+    document.querySelector('h1').textContent = ''; // 清除初始内容
+    typeWriter();
+};
 
-// 图像点击函数
-function onImageClick(event) {
-    openModal(imageModal);
-    modalImage.src = event.target.src;
-}
+const images = document.querySelectorAll('img');
 
-// 为微信链接添加点击事件
-wechatLink.addEventListener('click', () => openModal(wechatModal));
+const lazyLoad = (image) => {
+    const src = image.getAttribute('data-src');
+    if (!src) return;
+    image.src = src;
+    image.removeAttribute('data-src');
+};
 
-// 为关闭按钮添加点击事件
-wechatSpan.addEventListener('click', () => closeModal(wechatModal));
-imageSpan.addEventListener('click', () => closeModal(imageModal));
-
-// 为所有可点击图片添加点击事件
-Array.from(images).forEach(image => {
-    image.addEventListener('click', onImageClick);
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            lazyLoad(entry.target);
+            observer.unobserve(entry.target);
+        }
+    });
 });
 
-// 在窗口上点击时，关闭模态窗口
-window.addEventListener('click', (event) => {
-    if (event.target === wechatModal) {
-        closeModal(wechatModal);
-    }
-    if (event.target === imageModal) {
-        closeModal(imageModal);
-    }
+images.forEach(image => {
+    imageObserver.observe(image);
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const showOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+        }
+    });
+});
+
+fadeElements.forEach(element => {
+    showOnScroll.observe(element);
 });
