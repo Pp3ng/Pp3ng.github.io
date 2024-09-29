@@ -17,6 +17,7 @@ body {
     text-align: center;
 }
 
+/* 导航栏样式 */
 .navbar {
     background-color: #2a3c02;
     padding: 15px;
@@ -38,17 +39,10 @@ body {
 
 .navbar a:hover {
     color: #91b37c;
-}
-.navbar a:hover {
-    color: #91b37c;
-    transform: scale(1.1); /* Slightly enlarges the text */
+    transform: scale(1.1);
 }
 
-.project-description a:hover {
-    color: #91b37c;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Adds a glowing effect */
-}
-
+/* 图片样式 */
 img {
     border-radius: 20px;
     width: 300px;
@@ -56,11 +50,14 @@ img {
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-}
-img:hover {
-    transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
+img:hover {
+    transform: scale(1.05);
+}
+
+/* 动画效果 */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -72,21 +69,29 @@ img:hover {
     transform: translateY(0);
 }
 
+/* 标题和段落 */
+h1, .interest-description h3 {
+    color: #2a3c02;
+}
+
 h1 {
     font-size: 3em;
     margin-top: 20px;
-    color: #2a3c02;
     font-weight: bold;
+}
+
+p, .interest-description p {
+    color: #4a5c3c;
+    line-height: 1.6em;
 }
 
 p {
     font-size: 1.2em;
-    color: #4a5c3c;
     max-width: 600px;
     margin: 20px auto;
-    line-height: 1.6em;
 }
 
+/* 页脚 */
 footer {
     margin-top: 50px;
     font-size: 0.9em;
@@ -95,20 +100,16 @@ footer {
     padding: 20px;
 }
 
-#interests {
-    margin-top: 50px;
-}
-
+/* 兴趣项样式 */
 .interest-item {
     display: flex;
     align-items: center;
     margin: 20px 0;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     border-radius: 10px;
     background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .interest-item:hover {
@@ -129,20 +130,7 @@ footer {
     transform: rotate(5deg);
 }
 
-.interest-description h3 {
-    margin: 0;
-    color: #2a3c02;
-}
-
-.interest-description p {
-    margin: 5px 0 0;
-    color: #4a5c3c;
-}
-
-#Social-Accounts {
-    margin-top: 50px;
-}
-
+/* 社交账号列表 */
 .social-links {
     list-style-type: none;
     padding: 0;
@@ -164,6 +152,7 @@ footer {
     color: #91b37c;
 }
 
+/* 模态框 */
 .modal {
     display: none;
     position: fixed;
@@ -193,15 +182,14 @@ footer {
     float: right;
     font-size: 28px;
     font-weight: bold;
-    transition: color 0.3s ease;
     cursor: pointer;
     padding: 10px;
     border-radius: 50%;
     background-color: #f5f5f5;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
     color: #2a3c02;
     background-color: #d5d8c7;
 }
@@ -212,18 +200,14 @@ footer {
     border-radius: 10px;
 }
 
-#projects {
-    margin-top: 50px;
-}
-
+/* 项目项样式 */
 .project-item {
     margin: 20px 0;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     border-radius: 10px;
     background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-item:hover {
@@ -231,47 +215,7 @@ footer {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.project-description h3 {
-    margin: 0;
-    color: #2a3c02;
-}
-
-.project-description p {
-    margin: 5px 0 0;
-    color: #4a5c3c;
-}
-
-.project-description a {
-    color: #2a3c02;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.project-description a:hover {
-    color: #91b37c;
-}
-
-@media screen and (max-width: 600px) {
-    .interest-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .interest-image {
-        width: 100%;
-        max-width: none;
-        height: auto;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .interest-description {
-        width: 100%;
-        max-width: none;
-        text-align: center;
-    }
-}
-
+/* 保留原来的想法栏样式 */
 #thoughts {
     margin-top: 50px;
 }
@@ -314,29 +258,51 @@ footer {
     height: auto; /* 确保图片保持比例 */
 }
 
-/* 在手机上显示时，图片和文本堆叠 */
-@media (max-width: 768px) {
-    .thought-content {
-        display: block; /* 改为块状布局 */
-    }
-
-    .thought-content img {
-        margin-left: 0;
-        margin-top: 10px;
-        max-width: 100%; /* 让图片占满容器宽度 */
-        height: auto; /* 保持图片比例 */
-    }
-}
-
 .thought-time {
     font-size: 1.5em;
     color: gray;
     margin-top: 10px;
 }
 
-.background-parallax {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+@media (max-width: 768px) {
+    body {
+        padding-top: 50px;
+    }
+
+    .container {
+        padding: 20px;
+        text-align: left;
+    }
+
+    .navbar a {
+        font-size: 1em;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    .interest-item {
+        flex-direction: column;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .interest-image {
+        max-width: 100%;
+    }
+
+    .project-item {
+        padding: 10px;
+    }
+
+    .thought-item p {
+        font-size: 1em;
+        max-width: 100%;
+    }
 }
