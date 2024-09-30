@@ -51,3 +51,4 @@ const showOnScroll = new IntersectionObserver((entries, observer) => {
 fadeElements.forEach(element => {
     showOnScroll.observe(element);
 });
+

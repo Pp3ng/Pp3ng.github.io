@@ -91,7 +91,6 @@ p {
     margin: 20px auto;
 }
 
-/* 页脚 */
 footer {
     margin-top: 50px;
     font-size: 0.9em;
@@ -104,31 +103,33 @@ footer {
 .interest-item {
     display: flex;
     align-items: center;
+    justify-content: center; /* 水平居中 */
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
     background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.interest-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.interest-title-container {
+    flex: 1;
+    text-align: center; /* 使文本居中 */
+}
+
+.interest-title {
+    margin: 0 auto;
+    font-size: 1.5em; /* 根据需要调整字体大小 */
+    font-weight: bold;
 }
 
 .interest-image {
     width: 200px;
     height: 200px;
     border-radius: 10px;
-    margin-right: 20px;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    margin: 0 20px; /* 图片与内容之间的间距 */
 }
 
-.interest-item:hover .interest-image {
-    transform: rotate(5deg);
-}
 
 /* 社交账号列表 */
 .social-links {
@@ -302,4 +303,3 @@ footer {
         margin-top: 10px;
     }
 }
-
