@@ -99,7 +99,7 @@ footer {
     padding: 20px;
 }
 
-/* 兴趣项样式 */
+/* 兴趣项样式 （添加鼠标悬停效果） */
 .interest-item {
     display: flex;
     align-items: center;
@@ -109,6 +109,13 @@ footer {
     border-radius: 10px;
     background-color: #fefefe;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 鼠标悬停时的效果 */
+.interest-item:hover {
+    transform: translateY(-10px); /* 上移 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 增加阴影 */
 }
 
 .interest-title-container {
@@ -129,8 +136,6 @@ footer {
     object-fit: cover;
     margin: 0 20px; /* 图片与内容之间的间距 */
 }
-
-
 /* 社交账号列表 */
 .social-links {
     list-style-type: none;
