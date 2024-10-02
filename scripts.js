@@ -1,6 +1,5 @@
 const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
 let index = 0;
-
 function typeWriter() {
     if (index < text.length) {
         document.querySelector('h1').textContent += text.charAt(index);

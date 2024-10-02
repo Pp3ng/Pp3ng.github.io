@@ -5,7 +5,7 @@ html {
 body {
     margin: 0;
     padding-top: 60px;
-    font-family: 'Fira Code', monospace;  /* 使用 Fira Code */
+    font-family: 'Fira Code', monospace; /* 使用 Fira Code */
     font-weight: 800;
     background: linear-gradient(135deg, #cad0b8 0%, #6bad44 100%);
     color: #2a3c02;
@@ -137,6 +137,7 @@ footer {
     object-fit: cover;
     margin: 0 20px; /* 图片与内容之间的间距 */
 }
+
 /* 社交账号列表 */
 .social-links {
     list-style-type: none;
@@ -308,4 +309,38 @@ footer {
         color: gray;
         margin-top: 10px;
     }
+}
+
+
+.skills {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.skills h2 {
+    font-size: 2.5em;
+    color: #2a3c02;
+    margin-bottom: 20px;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skill-item {
+    margin: 20px;
+    text-align: center;
+}
+
+.skill-item i {
+    font-size: 8em; /* Increased font size */
+    color: #4a5c3c;
+    margin-bottom: 10px;
+}
+
+.skill-item p {
+    font-size: 1.2em;
+    color: #4a5c3c;
 }
