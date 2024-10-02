@@ -1,4 +1,4 @@
-const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😊";
+const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
 let index = 0;
 
 function typeWriter() {

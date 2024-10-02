@@ -5,7 +5,8 @@ html {
 body {
     margin: 0;
     padding-top: 60px;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Fira Code', monospace;  /* 使用 Fira Code */
+    font-weight: 800;
     background: linear-gradient(135deg, #cad0b8 0%, #6bad44 100%);
     color: #2a3c02;
 }
