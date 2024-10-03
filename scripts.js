@@ -1,5 +1,6 @@
 const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
 let index = 0;
+
 function typeWriter() {
     if (index < text.length) {
         document.querySelector('h1').textContent += text.charAt(index);
@@ -54,19 +55,21 @@ fadeElements.forEach(element => {
 
 // 平滑滚动到页面顶部的按钮
 const scrollToTopBtn = document.createElement('button');
-scrollToTopBtn.textContent = '⬆️ Top';
+scrollToTopBtn.textContent = '⬆️Top';
 scrollToTopBtn.style.position = 'fixed';
 scrollToTopBtn.style.bottom = '20px';
 scrollToTopBtn.style.right = '20px';
 scrollToTopBtn.style.padding = '10px';
 scrollToTopBtn.style.display = 'none';
 scrollToTopBtn.style.fontSize = '18px';
-scrollToTopBtn.style.backgroundColor = '#2a3c02';
+scrollToTopBtn.style.backgroundColor = 'rgba(42, 60, 2, 0.7)'; // 设置透明背景
 scrollToTopBtn.style.color = 'white';
 scrollToTopBtn.style.border = 'none';
 scrollToTopBtn.style.cursor = 'pointer';
 scrollToTopBtn.style.borderRadius = '5px';
+scrollToTopBtn.style.fontFamily = 'Fira Code, monospace'; // 设置 Fira Code 字体
 document.body.appendChild(scrollToTopBtn);
+
 
 // 显示或隐藏按钮
 window.onscroll = () => {

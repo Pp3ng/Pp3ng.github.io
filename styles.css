@@ -311,7 +311,6 @@ footer {
     }
 }
 
-
 .skills {
     padding: 50px 0;
     text-align: center;
@@ -324,23 +323,82 @@ footer {
 }
 
 .skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 每行显示 5 列 */
+    gap: 20px; /* 固定的项目之间的间距 */
+    justify-items: center; /* 项目居中 */
+    max-width: 1200px; /* 可选：设置容器最大宽度 */
+    margin: 0 auto; /* 可选：使容器在页面中居中 */
 }
 
 .skill-item {
-    margin: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px; /* 可选：设置每个项目的固定宽度 */
 }
 
+
+
 .skill-item i {
-    font-size: 8em; /* Increased font size */
+    font-size: 8em;
     color: #4a5c3c;
     margin-bottom: 10px;
+    line-height: 1;
+    vertical-align: middle;
 }
 
 .skill-item p {
     font-size: 1.2em;
     color: #4a5c3c;
+}
+
+
+.skill-item i {
+    font-size: 8em; /* 统一图标大小 */
+    color: #4a5c3c;
+    margin-bottom: 10px;
+    line-height: 1; /* 设置行高为1 */
+    vertical-align: middle; /* 垂直居中 */
+}
+
+/* 针对 Font Awesome 图标库的样式调整 */
+.fa {
+    line-height: 1; /* 行高 */
+    vertical-align: middle; /* 垂直居中 */
+}
+
+.fa-brands, .fa-solid {
+    font-size: 7.5em; /* 调整 Font Awesome 图标大小 */
+}
+
+/* 针对 Devicon 图标库的样式调整 */
+.devicon {
+    font-size: 8em; /* 调整 Devicon 图标大小 */
+    line-height: 1; /* 行高 */
+    vertical-align: middle; /* 垂直居中 */
+}
+
+.skill-item p {
+    font-size: 1.2em;
+    color: #4a5c3c;
+}
+
+/* 媒体查询：当屏幕宽度小于 768px 时，调整列数 */
+@media (max-width: 768px) {
+    .skills-container {
+        grid-template-columns: repeat(2, 1fr); /* 每行显示 2 列 */
+    }
+}
+
+/* 在您的styles.css文件中增加或修改如下代码 */
+a {
+    color: #4d899f; /* 使用父元素的颜色 */
+}
+
+a:hover {
+    color: #1500ff; /* 鼠标悬停时的颜色，可以根据需要修改 */
+    text-decoration: underline; /* 鼠标悬停时显示下划线 */
 }
