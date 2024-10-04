@@ -5,10 +5,10 @@ html {
 body {
     margin: 0;
     padding-top: 60px;
-    font-family: 'Fira Code', monospace; /* 使用 Fira Code */
-    font-weight: 800;
-    background: linear-gradient(135deg, #cad0b8 0%, #6bad44 100%);
-    color: #2a3c02;
+    font-family: 'Fira Code', monospace;
+    font-weight: 500;
+    background: linear-gradient(#cae7b9, #90ee90);
+    color: #006400;
 }
 
 .container {
@@ -20,7 +20,7 @@ body {
 
 /* 导航栏样式 */
 .navbar {
-    background-color: #2a3c02;
+    background-color: #006400;
     padding: 15px;
     text-align: center;
     position: fixed;
@@ -39,7 +39,7 @@ body {
 }
 
 .navbar a:hover {
-    color: #91b37c;
+    color: #90ee90;
     transform: scale(1.1);
 }
 
@@ -72,7 +72,7 @@ img:hover {
 
 /* 标题和段落 */
 h1, .interest-description h3 {
-    color: #2a3c02;
+    color: #006400;
 }
 
 h1 {
@@ -82,7 +82,7 @@ h1 {
 }
 
 p, .interest-description p {
-    color: #4a5c3c;
+    color: #008000;
     line-height: 1.6em;
 }
 
@@ -95,7 +95,7 @@ p {
 footer {
     margin-top: 50px;
     font-size: 0.9em;
-    color: #aab19f;
+    color: #006400;
     text-align: center;
     padding: 20px;
 }
@@ -108,7 +108,7 @@ footer {
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fefefe;
+    background-color: #f0fff0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
 }
@@ -208,19 +208,42 @@ footer {
     border-radius: 10px;
 }
 
-/* 项目项样式 */
+/* Project item styles */
 .project-item {
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fefefe;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f0fff0;
+    box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
 }
 
 .project-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 100, 0, 0.2);
+}
+
+.project-item h3 {
+    margin-top: 0;
+    text-align: center; /* 将标题居中 */
+}
+
+
+.project-technologies {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.technology-tag {
+    display: inline-block;
+    background-color: #90EE90;
+    color: #006400;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
 }
 
 /* 保留原来的想法栏样式 */
@@ -234,7 +257,7 @@ footer {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #f0fff0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -311,6 +334,7 @@ footer {
     }
 }
 
+/* Skills section */
 .skills {
     padding: 50px 0;
     text-align: center;
@@ -318,17 +342,17 @@ footer {
 
 .skills h2 {
     font-size: 2.5em;
-    color: #2a3c02;
+    color: #006400;
     margin-bottom: 20px;
 }
 
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 每行显示 5 列 */
-    gap: 20px; /* 固定的项目之间的间距 */
-    justify-items: center; /* 项目居中 */
-    max-width: 1200px; /* 可选：设置容器最大宽度 */
-    margin: 0 auto; /* 可选：使容器在页面中居中 */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .skill-item {
@@ -337,32 +361,20 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 150px; /* 可选：设置每个项目的固定宽度 */
+    width: 150px;
 }
 
-
-
 .skill-item i {
-    font-size: 8em;
-    color: #4a5c3c;
+    font-size: 4em;
+    color: #006400;
     margin-bottom: 10px;
-    line-height: 1;
-    vertical-align: middle;
 }
 
 .skill-item p {
     font-size: 1.2em;
-    color: #4a5c3c;
+    color: #008000;
 }
 
-
-.skill-item i {
-    font-size: 8em; /* 统一图标大小 */
-    color: #4a5c3c;
-    margin-bottom: 10px;
-    line-height: 1; /* 设置行高为1 */
-    vertical-align: middle; /* 垂直居中 */
-}
 
 /* 针对 Font Awesome 图标库的样式调整 */
 .fa {
@@ -395,7 +407,7 @@ footer {
 
 /* 在您的styles.css文件中增加或修改如下代码 */
 a {
-    color: #4d899f; /* 使用父元素的颜色 */
+    color: #006400;
 }
 
 a:hover {
