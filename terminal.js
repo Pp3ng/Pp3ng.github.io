@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const welcomeMessage = `${ASCII_LOGO}\nWelcome to LUOPENG ZHOU's Terminal\nType 'help' for available commands.\n\n`;
 
+    // 调整字体大小
+    if (isMobile()) {
+        output.style.fontSize = '8px'; // 根据需要调整字体大小
+    }
+
     const commands = {
         help: () => 'Available commands: help, about, skills, interests, projects, contact, clear, goto [section]',
         about: () => 'Name: LUOPENG ZHOU(周罗鹏)\nOccupation: Unix Programmer\nPassion: Crafting elegant code and mastering the command line.',
@@ -44,6 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
             return `Command not found: ${cmd}. Type 'help' for available commands.`;
         }
         return '';
+    }
+
+    function isMobile() {
+        return window.innerWidth <= 600;
     }
 
     input.addEventListener('keydown', function (event) {

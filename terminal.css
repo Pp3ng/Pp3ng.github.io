@@ -14,15 +14,9 @@
 }
 
 #terminal-output {
-    font-family: 'Courier New', Courier, monospace;
-    /* 使用等宽字体 */
-    font-size: 12px;
-    /* 可以根据需要调整 */
     white-space: pre;
-    /* 保持空格和换行 */
     word-wrap: break-word;
     text-align: left;
-    /* 确保文本左对齐 */
 }
 
 #terminal-input-line {
@@ -53,7 +47,6 @@
 
 @media (max-width: 600px) {
     #terminal-output {
-        font-size: 10px;
-        /* 在小屏幕上使用较小的字体 */
+        font-size: 8px;
     }
 }
