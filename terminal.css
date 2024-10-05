@@ -10,7 +10,6 @@
     border: 2px solid #006400;
     box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
     text-align: left;
-    /* 确保文本左对齐 */
 }
 
 #terminal-output {

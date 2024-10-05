@@ -20,9 +20,11 @@ body {
 
 /* 导航栏样式 */
 .navbar {
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
     background-color: #006400;
     padding: 15px;
-    text-align: center;
     position: fixed;
     width: 100%;
     top: 0;
@@ -53,17 +55,13 @@ body {
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap; /* 允许导航链接换行 */
+    }
+
     .navbar a {
-        display: none; /* 隐藏导航链接 */
-    }
-
-    .menu-toggle {
-        display: inline-block; /* 显示汉堡菜单按钮 */
-    }
-
-    .navbar.active a {
         display: block; /* 显示导航链接 */
-        margin: 10px 0;
+        margin: 5px; /* 调整间距 */
     }
 }
 
