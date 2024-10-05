@@ -43,6 +43,30 @@ body {
     transform: scale(1.1);
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .navbar a {
+        display: none; /* 隐藏导航链接 */
+    }
+
+    .menu-toggle {
+        display: inline-block; /* 显示汉堡菜单按钮 */
+    }
+
+    .navbar.active a {
+        display: block; /* 显示导航链接 */
+        margin: 10px 0;
+    }
+}
+
 /* 图片样式 */
 img {
     border-radius: 20px;
@@ -413,4 +437,24 @@ a {
 a:hover {
     color: #1500ff; /* 鼠标悬停时的颜色，可以根据需要修改 */
     text-decoration: underline; /* 鼠标悬停时显示下划线 */
+}
+
+/* 添加到现有的styles.css文件中 */
+
+#terminal {
+    background-color: #f0fff0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    padding: 20px;
+}
+
+#terminal h2 {
+    color: #006400;
+    margin-bottom: 20px;
+}
+
+#terminal-window {
+    border: 2px solid #006400;
+    border-radius: 5px;
 }
