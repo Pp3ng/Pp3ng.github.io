@@ -1,3 +1,4 @@
+/* Global styles */
 html {
     scroll-behavior: smooth;
 }
@@ -11,18 +12,14 @@ body {
     color: #006400;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px;
-    text-align: center;
-}
-
-/* 导航栏样式 */
+/* Navbar styles */
 .navbar {
-    display: flex; /* 使用 flexbox 布局 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
+    display: flex;
+    /* use flexbox for layout */
+    justify-content: center;
+    /* vertical alignment */
+    align-items: center;
+    /* horizontal alignment */
     background-color: #006400;
     padding: 15px;
     position: fixed;
@@ -56,16 +53,34 @@ body {
 
 @media (max-width: 768px) {
     .navbar {
-        flex-wrap: wrap; /* 允许导航链接换行 */
+        flex-wrap: wrap;
+        /* allow items to wrap */
     }
 
     .navbar a {
-        display: block; /* 显示导航链接 */
-        margin: 5px; /* 调整间距 */
+        display: block;
+        /* display links as block elements */
+        margin: 5px;
+        /* add margin between links */
     }
 }
 
-/* 图片样式 */
+/* Container styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 2.5em;
+    color: #006400;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* About section styles */
 img {
     border-radius: 20px;
     width: 300px;
@@ -80,365 +95,22 @@ img:hover {
     transform: scale(1.05);
 }
 
-/* 动画效果 */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 标题和段落 */
-h1, .interest-description h3 {
-    color: #006400;
-}
-
 h1 {
     font-size: 3em;
     margin-top: 20px;
     font-weight: bold;
-}
-
-p, .interest-description p {
-    color: #008000;
-    line-height: 1.6em;
+    color: #006400;
 }
 
 p {
     font-size: 1.2em;
     max-width: 600px;
     margin: 20px auto;
-}
-
-footer {
-    margin-top: 50px;
-    font-size: 0.9em;
-    color: #006400;
-    text-align: center;
-    padding: 20px;
-}
-
-/* 兴趣项样式 （添加鼠标悬停效果） */
-.interest-item {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 水平居中 */
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f0fff0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
-}
-
-/* 鼠标悬停时的效果 */
-.interest-item:hover {
-    transform: translateY(-10px); /* 上移 */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 增加阴影 */
-}
-
-.interest-title-container {
-    flex: 1;
-    text-align: center; /* 使文本居中 */
-}
-
-.interest-title {
-    margin: 0 auto;
-    font-size: 1.5em; /* 根据需要调整字体大小 */
-    font-weight: bold;
-}
-
-.interest-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin: 0 20px; /* 图片与内容之间的间距 */
-}
-
-/* 社交账号列表 */
-.social-links {
-    list-style-type: none;
-    padding: 0;
-}
-
-.social-links li {
-    display: inline;
-    margin: 0 10px;
-}
-
-.social-links a {
-    text-decoration: none;
-    color: #2a3c02;
-    font-size: 1.2em;
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #91b37c;
-}
-
-/* 模态框 */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.close {
-    color: #888;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: #f5f5f5;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.close:hover, .close:focus {
-    color: #2a3c02;
-    background-color: #d5d8c7;
-}
-
-.modal img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-/* Project item styles */
-.project-item {
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f0fff0;
-    box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left;
-}
-
-.project-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 100, 0, 0.2);
-}
-
-.project-item h3 {
-    margin-top: 0;
-    text-align: center; /* 将标题居中 */
-}
-
-
-.project-technologies {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.technology-tag {
-    display: inline-block;
-    background-color: #90EE90;
-    color: #006400;
-    padding: 5px 10px;
-    border-radius: 15px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-}
-
-/* 保留原来的想法栏样式 */
-#thoughts {
-    margin-top: 50px;
-}
-
-.thought-item {
-    margin: 20px 0;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f0fff0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.thought-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.thought-item h3 {
-    margin: 0;
-    color: #435422;
-}
-
-.thought-item p {
-    margin: 5px 0 0;
-    color: #666;
-}
-
-/* 默认的布局：图片在文本旁边 */
-.thought-content {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.thought-content img {
-    margin-left: 30px;
-    max-width: 300px;
-    height: auto; /* 确保图片保持比例 */
-}
-
-.thought-time {
-    font-size: 1.5em;
-    color: gray;
-    margin-top: 10px;
-}
-
-@media (max-width: 768px) {
-
-    .interest-item {
-        flex-direction: column;
-        text-align: left;
-        padding: 10px;
-    }
-
-    .interest-image {
-        max-width: 100%;
-    }
-
-    .project-item {
-        padding: 10px;
-    }
-
-    .thought-item p {
-        font-size: 1em;
-        max-width: 100%;
-    }
-
-    .thought-content {
-        display: block; /* 改为块状布局 */
-    }
-
-    .thought-content img {
-        margin-left: 0;
-        margin-top: 10px;
-        max-width: 100%; /* 让图片占满容器宽度 */
-        height: auto; /* 保持图片比例 */
-    }
-
-    .thought-time {
-        font-size: 1.5em;
-        color: gray;
-        margin-top: 10px;
-    }
-}
-
-/* Skills section */
-.skills {
-    padding: 50px 0;
-    text-align: center;
-}
-
-.skills h2 {
-    font-size: 2.5em;
-    color: #006400;
-    margin-bottom: 20px;
-}
-
-.skills-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    justify-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.skill-item {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-}
-
-.skill-item i {
-    font-size: 4em;
-    color: #006400;
-    margin-bottom: 10px;
-}
-
-.skill-item p {
-    font-size: 1.2em;
     color: #008000;
+    line-height: 1.6em;
 }
 
-
-/* 针对 Font Awesome 图标库的样式调整 */
-.fa {
-    line-height: 1; /* 行高 */
-    vertical-align: middle; /* 垂直居中 */
-}
-
-.fa-brands, .fa-solid {
-    font-size: 7.5em; /* 调整 Font Awesome 图标大小 */
-}
-
-/* 针对 Devicon 图标库的样式调整 */
-.devicon {
-    font-size: 8em; /* 调整 Devicon 图标大小 */
-    line-height: 1; /* 行高 */
-    vertical-align: middle; /* 垂直居中 */
-}
-
-.skill-item p {
-    font-size: 1.2em;
-    color: #4a5c3c;
-}
-
-/* 媒体查询：当屏幕宽度小于 768px 时，调整列数 */
-@media (max-width: 768px) {
-    .skills-container {
-        grid-template-columns: repeat(2, 1fr); /* 每行显示 2 列 */
-    }
-}
-
-/* 在您的styles.css文件中增加或修改如下代码 */
-a {
-    color: #006400;
-}
-
-a:hover {
-    color: #1500ff; /* 鼠标悬停时的颜色，可以根据需要修改 */
-    text-decoration: underline; /* 鼠标悬停时显示下划线 */
-}
-
-/* 添加到现有的styles.css文件中 */
-
+/* Terminal section styles */
 #terminal {
     background-color: #f0fff0;
     border-radius: 10px;
@@ -455,16 +127,6 @@ a:hover {
 #terminal-window {
     border: 2px solid #006400;
     border-radius: 5px;
-}
-
-.container h2 {
-    font-size: 2.5em;
-    color: #006400;
-    margin-bottom: 20px;
-    text-align: center; /* 确保标题居中 */
-}
-
-#terminal-window {
     background-color: rgba(250, 250, 250, 0.1);
     color: #006400;
     font-family: 'Fira Code', monospace;
@@ -473,7 +135,6 @@ a:hover {
     border-radius: 10px;
     height: 400px;
     overflow-y: auto;
-    border: 2px solid #006400;
     box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
     text-align: left;
 }
@@ -514,4 +175,347 @@ a:hover {
     #terminal-output {
         font-size: 8px;
     }
+}
+
+/* Interests section styles */
+.interest-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* vertical and horizontal alignment */
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0fff0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interest-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.interest-title-container {
+    flex: 1;
+    text-align: center;
+    /* center the text */
+}
+
+.interest-title {
+    margin: 0 auto;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.interest-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin: 0 20px;
+    /* add margin between image and text */
+}
+
+@media (max-width: 768px) {
+    .interest-item {
+        flex-direction: column;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .interest-image {
+        max-width: 100%;
+    }
+}
+
+/* Skills section styles */
+.skills {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.skills h2 {
+    font-size: 2.5em;
+    color: #006400;
+    margin-bottom: 20px;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skill-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: scale(1.1);
+}
+
+.skill-item i {
+    font-size: 4em;
+    color: #006400;
+    margin-bottom: 10px;
+}
+
+.skill-item p {
+    font-size: 1.2em;
+    color: #008000;
+}
+
+@media (max-width: 768px) {
+    .skills-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Projects section styles */
+.project-item {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0fff0;
+    box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 100, 0, 0.2);
+}
+
+.project-item h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.project-technologies {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.technology-tag {
+    display: inline-block;
+    background-color: #90EE90;
+    color: #006400;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+    .project-item {
+        padding: 10px;
+    }
+}
+
+/* Thoughts section styles */
+#thoughts {
+    margin-top: 50px;
+}
+
+.thought-item {
+    margin: 20px 0;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0fff0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thought-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.thought-item h3 {
+    margin: 0;
+    color: #435422;
+}
+
+.thought-item p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.thought-content {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.thought-content img {
+    margin-left: 30px;
+    max-width: 300px;
+    height: auto;
+}
+
+.thought-time {
+    font-size: 1.5em;
+    color: gray;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .thought-item p {
+        font-size: 1em;
+        max-width: 100%;
+    }
+
+    .thought-content {
+        display: block;
+    }
+
+    .thought-content img {
+        margin-left: 0;
+        margin-top: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .thought-time {
+        font-size: 1.5em;
+        color: gray;
+        margin-top: 10px;
+    }
+}
+
+/* Social Accounts section styles */
+.social-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.social-links li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #2a3c02;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #91b37c;
+}
+
+.social-links .custom-icon-size {
+    font-size: 40px;
+}
+
+/* Footer styles */
+footer {
+    margin-top: 50px;
+    font-size: 0.9em;
+    color: #006400;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #888;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #2a3c02;
+    background-color: #d5d8c7;
+}
+
+.modal img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Font Awesome icons */
+.fa {
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.fa-brands,
+.fa-solid {
+    font-size: 7.5em;
+}
+
+/* Devicon icons */
+.devicon {
+    font-size: 8em;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Animation classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Link styles */
+a {
+    color: #006400;
+}
+
+a:hover {
+    color: #1500ff;
+    text-decoration: underline;
 }

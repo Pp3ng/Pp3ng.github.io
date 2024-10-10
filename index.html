@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUOPENG's Personal Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.14.0/devicon.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="icon" href="/photos/icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -27,14 +30,16 @@
 
 <div class="container" id="about">
     <img src="photos/my_photo.jpg" alt="My Photo">
-    <h1>Hello, I'm LUOPENG ZHOU(周罗鹏)</h1>
-    <p>I'm a passionate individual with a deep interest in the world of technology, especially the fascinating interplay
-        between hardware <i class="fas fa-microchip"></i> and software <i class="fas fa-file-code"></i>. Welcome to my
+    <h1>Hello, I'm LUOPENG ZHOU(周罗鹏)😁</h1>
+    <p>I'm a passionate individual with a deep interest in the world of technology, especially the fascinating
+        interplay
+        between hardware <i class="fas fa-microchip"></i> and software <i class="fas fa-file-code"></i>. Welcome to
+        my
         personal website where I share my projects, thoughts, and more.</p>
 </div>
 
-<div class="container">
-    <h2>Terminal</h2> <!-- 确保标题在 .container 内 -->
+<div class="container" data-aos="fade-up">
+    <h2>Terminal</h2>
     <div id="terminal">
         <div id="terminal-window">
             <div id="terminal-output"></div>
@@ -46,14 +51,16 @@
     </div>
 </div>
 
-<div class="container" id="interests">
+<div class="container" id="interests" data-aos="fade-up">
     <h2>My Interests</h2>
     <div class="interest-item">
         <img src="photos/programming.JPG" alt="Programming" class="interest-image">
         <div class="interest-description">
             <h3>Programming</h3>
-            <p>I thoroughly enjoy the experience of using C and C++ in the Linux environment. The power and flexibility
-                of these languages, combined with the robustness of Linux, make solving problems and creating efficient
+            <p>I thoroughly enjoy the experience of using C and C++ in the Linux environment. The power and
+                flexibility
+                of these languages, combined with the robustness of Linux, make solving problems and creating
+                efficient
                 code an immensely satisfying endeavor.</p>
         </div>
         <img src="photos/coding.JPG" alt="Coding" class="interest-image">
@@ -63,8 +70,10 @@
         <img src="photos/photography.jpg" alt="Photography" class="interest-image">
         <div class="interest-description">
             <h3>Photography</h3>
-            <p>I enjoy capturing moments through photography, finding beauty in everyday scenes. It allows me to express
-                creativity and perspective, whether it's in nature, architecture, or candid shots. I love experimenting
+            <p>I enjoy capturing moments through photography, finding beauty in everyday scenes. It allows me to
+                express
+                creativity and perspective, whether it's in nature, architecture, or candid shots. I love
+                experimenting
                 with lighting, angles, and compositions to tell a visual story.</p>
         </div>
         <img src="photos/photography2.jpg" alt="Travel" class="interest-image">
@@ -74,7 +83,8 @@
         <img src="photos/billiards.jpg" alt="Billiards" class="interest-image ">
         <div class="interest-description">
             <h3>Billiards</h3>
-            <p>I find billiards to be both a strategic and relaxing game. It requires precision, focus, and patience,
+            <p>I find billiards to be both a strategic and relaxing game. It requires precision, focus, and
+                patience,
                 which makes every shot challenging yet satisfying. I enjoy the mental aspect of planning moves and
                 setting up the perfect shot.It's also a great way to unwind and spend time with friends.
                 Billiards is a game that improves with practice, and I like pushing myself to get better.</p>
@@ -84,7 +94,7 @@
 </div>
 
 
-<div class="skills" id="skills">
+<div class="skills" id="skills" data-aos="fade-up">
     <h2>My Skills in progress</h2>
     <div class="skills-container">
         <div class="skill-item">
@@ -124,20 +134,21 @@
             <p><a href="https://en.wikipedia.org/wiki/Computer_network" target="_blank">Network</a></p>
         </div>
         <div class="skill-item">
-            <i class="fas fa-shield"></i>
+            <i class="fa-solid fa-shield-halved"></i>
             <p><a href="https://en.wikipedia.org/wiki/Computer_security" target="_blank">Cybersecurity</a></p>
         </div>
     </div>
 </div>
 
-<div class="container" id="projects">
+<div class="container" id="projects" data-aos="fade-up">
     <h2>My Projects</h2>
     <div class="project-item">
         <div class="project-description">
             <h3>
                 <a href="https://github.com/Pp3ng/huffman_encrypt" target="_blank">HuffmanTree_encrypt</a>
             </h3>
-            <p>This project implements HuffmanTree coding for file encryption and decryption. HuffmanTree coding is a
+            <p>This project implements HuffmanTree coding for file encryption and decryption. HuffmanTree coding is
+                a
                 lossless
                 data process algorithm.This technique ensures that no data is lost during the process,
                 making it ideal for applications where data integrity is crucial.</p>
@@ -153,8 +164,10 @@
             <h3>
                 <a href="https://github.com/Pp3ng/Mandelbrot-Set" target="_blank">Mandelbrot-Set</a>
             </h3>
-            <p>This project generates and visualizes the Mandelbrot set using C, C++, and CUDA. The Mandelbrot set is a
-                famous fractal that is generated by iterating a simple mathematical formula.Compares the performance of
+            <p>This project generates and visualizes the Mandelbrot set using C, C++, and CUDA. The Mandelbrot set
+                is a
+                famous fractal that is generated by iterating a simple mathematical formula.Compares the performance
+                of
                 the three implementations and demonstrates the benefits of parallel processing using CUDA.</p>
         </div>
         <div class="project-technologies">
@@ -171,7 +184,8 @@
             </h3>
             <p>
                 This is a simple chat server and client written in C. The server is multithreaded and can handle
-                multiple clients at once. The server is able to broadcast messages to all connected clients.The client
+                multiple clients at once. The server is able to broadcast messages to all connected clients.The
+                client
                 is able to send messages to the other clients and receive messages from them or private
                 message to a specified client.
             </p>
@@ -189,8 +203,10 @@
                 <a href="https://github.com/Pp3ng/Pshell" target="_blank">PShell</a>
             </h3>
             <p>
-                This is a simple shell implementation in C. Shell is a command interpreter that provides a command-line
-                user interface for Unix-like operating systems. The shell is both an interactive command language and a
+                This is a simple shell implementation in C. Shell is a command interpreter that provides a
+                command-line
+                user interface for Unix-like operating systems. The shell is both an interactive command language
+                and a
                 scripting language, and is used by the operating system to control the execution of the system using
                 shell scripts.
             </p>
@@ -208,7 +224,8 @@
                 <a href="https://github.com/Pp3ng/design_pattern" target="_blank">Design-Pattern</a>
             </h3>
             <p>This project showcases various common design patterns implemented in C++. Each design pattern is
-                encapsulated in a separate file, accompanied by a simple main function that demonstrates its usage. The
+                encapsulated in a separate file, accompanied by a simple main function that demonstrates its usage.
+                The
                 project aims to provide clear examples of each pattern's structure, advantages, and applicable
                 scenarios, helping developers understand when to use specific design patterns in their
                 applications.</p>
@@ -227,7 +244,8 @@
             </h3>
             <p>Bookkeeper is a simple financial management system that allows users to add, remove, and update
                 transaction records.
-                This project uses a MYSQL database to store transaction records and C++ API to interact with database,
+                This project uses a MYSQL database to store transaction records and C++ API to interact with
+                database,
                 provides a command-line interface for user interaction.</p>
         </div>
         <div class="project-technologies">
@@ -238,7 +256,7 @@
     </div>
 
 </div>
-<div class="container" id="thoughts">
+<div class="container" id="thoughts" data-aos="fade-up">
     <h2>My Thoughts</h2>
     <div class="thought-item">
         <h3>Exploring Linux</h3>
@@ -250,10 +268,13 @@
                 <mark>hardware</mark>
                 and
                 <mark>software</mark>
-                , managing resources and providing a seamless way for developers to interact with the physical world of
+                , managing resources and providing a seamless way for developers to interact with the physical world
+                of
                 circuits and devices. It’s fascinating how a simple <strong>system call</strong> can unlock powerful
-                hardware capabilities, whether it's managing memory, handling processes, or controlling file systems.
-                Every time I write a program that communicates directly with the <strong>kernel</strong>, I’m reminded
+                hardware capabilities, whether it's managing memory, handling processes, or controlling file
+                systems.
+                Every time I write a program that communicates directly with the <strong>kernel</strong>, I’m
+                reminded
                 of how elegantly Linux brings together this complexity under one unified interface.
             </p>
             <img src="photos/linux.png" alt="Linux System Programming" class="thought-image">
@@ -262,12 +283,17 @@
             <p>One of the tools I’ve come to rely on is
                 <mark>Vim</mark>
                 . It’s more than just a text editor—it’s like a window into the world of <strong>system
-                    programming</strong>. With its efficiency, handy shortcuts, and customization options, Vim lets me
+                    programming</strong>. With its efficiency, handy shortcuts, and customization options, Vim lets
+                me
                 navigate and edit code at lightning speed without ever leaving the terminal. In a world where every
-                keystroke counts, especially when dealing with systems-level code, Vim feels like an extension of the OS
-                itself, helping me maintain a workflow that feels natural and intuitive. Whether I’m debugging kernel
-                modules, writing shell scripts, or configuring server settings, Vim has become an invaluable tool that
-                bridges the gap between the precision of hardware control and the flexibility of software development.
+                keystroke counts, especially when dealing with systems-level code, Vim feels like an extension of
+                the OS
+                itself, helping me maintain a workflow that feels natural and intuitive. Whether I’m debugging
+                kernel
+                modules, writing shell scripts, or configuring server settings, Vim has become an invaluable tool
+                that
+                bridges the gap between the precision of hardware control and the flexibility of software
+                development.
             </p>
             <img src="photos/vim.jpg" alt="Vim Editor" class="thought-image">
         </div>
@@ -276,12 +302,17 @@
                 <mark>Command Line Interface (CLI)</mark>
                 has been a game-changer for me. The terminal offers a direct and efficient way to interact with the
                 operating system, allowing me to execute commands, manipulate files, and control processes with
-                impressive speed. It opens up powerful <strong>scripting</strong> capabilities, automating repetitive
+                impressive speed. It opens up powerful <strong>scripting</strong> capabilities, automating
+                repetitive
                 tasks and boosting productivity. Whether I’m navigating directories, managing system resources, or
-                compiling code, the CLI gives me granular control over the system. Typing commands and getting instant
-                feedback creates a dynamic environment that encourages experimentation and learning. Plus, with tools
-                like <strong>grep</strong>, <strong>awk</strong>, and <strong>sed</strong>, I can effortlessly handle
-                complex text processing and data manipulation. Embracing the CLI has truly deepened my understanding of
+                compiling code, the CLI gives me granular control over the system. Typing commands and getting
+                instant
+                feedback creates a dynamic environment that encourages experimentation and learning. Plus, with
+                tools
+                like <strong>grep</strong>, <strong>awk</strong>, and <strong>sed</strong>, I can effortlessly
+                handle
+                complex text processing and data manipulation. Embracing the CLI has truly deepened my understanding
+                of
                 Linux and how operating systems function.
             </p>
             <img src="photos/Terminalicon2.png" alt="Terminal" class="thought-image">
@@ -289,12 +320,16 @@
         <div class="thought-content">
             <p>On a broader level, Linux, as an
                 <mark>open-source</mark>
-                operating system, showcases the harmony between hardware and software. Being able to explore and modify
-                the <strong>source code</strong> empowers me to tailor the system to meet specific needs or explore new
+                operating system, showcases the harmony between hardware and software. Being able to explore and
+                modify
+                the <strong>source code</strong> empowers me to tailor the system to meet specific needs or explore
+                new
                 possibilities. This hands-on interaction with the lower levels of computing, from <strong>memory
-                    management</strong> to <strong>process scheduling</strong>, has given me a deeper appreciation for
+                    management</strong> to <strong>process scheduling</strong>, has given me a deeper appreciation
+                for
                 how these systems are designed to be both robust and efficient. It’s in this interaction—where the
-                abstract world of software meets the tangible reality of hardware—that the magic of operating systems
+                abstract world of software meets the tangible reality of hardware—that the magic of operating
+                systems
                 truly comes to life.
             </p>
             <img src="photos/open-source.jpg" alt="Ubuntu" class="thought-image">
@@ -318,7 +353,7 @@
                 ,
                 <mark>iptables</mark>
                 , and
-                <mark>Wireshark<</mark>
+                <mark>Wireshark<<</mark>
                 , Linux provides an extensive toolkit for
                 managing and troubleshooting networks.
             </p>
@@ -326,13 +361,16 @@
         </div>
         <div class="thought-content">
             <p><strong>Kali Linux Networking Tools</strong><br>
-                Kali Linux, known for its penetration testing capabilities, comes with a suite of powerful networking
+                Kali Linux, known for its penetration testing capabilities, comes with a suite of powerful
+                networking
                 tools. One tool that really stands out is
                 <mark>Netdiscover</mark>
                 , which helps me effortlessly scan and discover devices on the local network. Tools like
                 <mark>nmap</mark>
-                allow for comprehensive network scanning, helping me analyze open ports, the services running on them,
-                and potential vulnerabilities in the network. The integration of these tools in Kali Linux makes it an
+                allow for comprehensive network scanning, helping me analyze open ports, the services running on
+                them,
+                and potential vulnerabilities in the network. The integration of these tools in Kali Linux makes it
+                an
                 essential platform for anyone serious about network security.
             </p>
             <img src="photos/kali.png" alt="Kali Linux Networking Tools" class="thought-image">
@@ -342,8 +380,10 @@
                 Recently, I’ve spent a lot of time with
                 <mark>iptables</mark>
                 . This firewall and packet filtering framework lets me set custom rules for managing incoming and
-                outgoing traffic. Learning to create and apply these rules has given me a deeper understanding of how
-                Linux secures communication with other systems. The elegance of Linux’s ability to provide such granular
+                outgoing traffic. Learning to create and apply these rules has given me a deeper understanding of
+                how
+                Linux secures communication with other systems. The elegance of Linux’s ability to provide such
+                granular
                 control over data packets is truly impressive.
             </p>
             <img src="photos/iptables.png" alt="Iptables Firewall" class="thought-image">
@@ -352,9 +392,12 @@
             <p><strong>Bettercap and Network Security Auditing</strong><br>
                 As I continue my exploration of Linux, I’ve been diving into network security with tools like
                 <mark>Bettercap</mark>
-                . It’s a versatile tool designed for network monitoring, attacks, and testing, allowing me to audit my
-                network for potential vulnerabilities. By capturing network packets and examining the data, I’m starting
-                to understand how easily sensitive information can be exposed on an unsecured network. This has really
+                . It’s a versatile tool designed for network monitoring, attacks, and testing, allowing me to audit
+                my
+                network for potential vulnerabilities. By capturing network packets and examining the data, I’m
+                starting
+                to understand how easily sensitive information can be exposed on an unsecured network. This has
+                really
                 made me appreciate the importance of encryption and secure communication protocols like SSL/TLS.
             </p>
             <img src="photos/bettercap.jpg" alt="Bettercap" class="thought-image">
@@ -363,7 +406,8 @@
             <p><strong>Securing SSH Connections</strong><br>
                 You can’t talk about Linux security without mentioning
                 <mark>Secure Shell (SSH)</mark>
-                . SSH has become a crucial tool for remote system administration. Whether I’m managing a remote server
+                . SSH has become a crucial tool for remote system administration. Whether I’m managing a remote
+                server
                 or accessing a personal machine over a secure connection, SSH keeps my data safe from prying eyes.
                 Recently, I’ve been experimenting with key-based authentication, which uses cryptographic key pairs
                 instead of passwords. This not only boosts security but also simplifies the login process.
@@ -380,15 +424,17 @@
 <div class="container" id="Social-Accounts">
     <h2>My Social Accounts</h2>
     <ul class="social-links">
-        <li><a href="https://www.instagram.com/pp3ng___" target="_blank"><i class="fab fa-instagram"></i></a></li>
-        <li><a href="mailto:pp3ng@outlook.com"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="https://www.instagram.com/pp3ng___" target="_blank"><i class="fa-brands fa-instagram custom-icon-size"></i></a></li>
+        <li><a href="https://x.com/Pp3ng_" target="_blank"><i class="fa-brands fa-x-twitter custom-icon-size"></i></a></li>
+        <li><a href="mailto:pp3ng@outlook.com"><i class="fa-solid fa-envelope custom-icon-size"></i></a></li>
     </ul>
 </div>
 
 
 <footer>
-    &copy; 2024 LUOPENG ZHOU. All rights reserved.
+    &copy; 2024 LUOPENG ZHOU. All rights reserved.😊
 </footer>
 <script src="scripts.js"></script>
 </body>
+
 </html>

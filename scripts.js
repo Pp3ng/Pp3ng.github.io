@@ -5,13 +5,12 @@ function typeWriter() {
     if (index < text.length) {
         document.querySelector('h1').textContent += text.charAt(index);
         index++;
-        setTimeout(typeWriter, 100); // 控制打字速度
+        setTimeout(typeWriter, 100); // control the speed of typing
     }
 }
 
-// 等页面加载完毕后开始打字
 window.onload = function () {
-    document.querySelector('h1').textContent = ''; // 清除初始内容
+    document.querySelector('h1').textContent = ''; // clear the text
     typeWriter();
 };
 
@@ -53,7 +52,7 @@ fadeElements.forEach(element => {
 });
 
 
-// 平滑滚动到页面顶部的按钮
+// button to scroll to top
 const scrollToTopBtn = document.createElement('button');
 scrollToTopBtn.textContent = '⬆️Top';
 scrollToTopBtn.style.position = 'fixed';
@@ -62,16 +61,16 @@ scrollToTopBtn.style.right = '20px';
 scrollToTopBtn.style.padding = '10px';
 scrollToTopBtn.style.display = 'none';
 scrollToTopBtn.style.fontSize = '18px';
-scrollToTopBtn.style.backgroundColor = 'rgba(42, 60, 2, 0.7)'; // 设置透明背景
+scrollToTopBtn.style.backgroundColor = 'rgba(42, 60, 2, 0.7)'; // set background color with alpha
 scrollToTopBtn.style.color = 'white';
 scrollToTopBtn.style.border = 'none';
 scrollToTopBtn.style.cursor = 'pointer';
 scrollToTopBtn.style.borderRadius = '5px';
-scrollToTopBtn.style.fontFamily = 'Fira Code, monospace'; // 设置 Fira Code 字体
+scrollToTopBtn.style.fontFamily = 'Fira Code, monospace';
 document.body.appendChild(scrollToTopBtn);
 
 
-// 显示或隐藏按钮
+// show or hide the button based on scroll position
 window.onscroll = () => {
     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         scrollToTopBtn.style.display = 'block';
@@ -80,7 +79,7 @@ window.onscroll = () => {
     }
 };
 
-// 滚动到页面顶部
+// scroll to top when the button is clicked
 scrollToTopBtn.onclick = () => {
     window.scrollTo({
         top: 0,
@@ -88,7 +87,7 @@ scrollToTopBtn.onclick = () => {
     });
 };
 
-// 导航栏链接平滑滚动
+// smooth scroll to anchor links
 document.querySelectorAll('.navbar a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -111,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const output = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
     const prompt = document.getElementById('terminal-prompt');
+    const terminalWindow = document.getElementById('terminal-window');
 
     const ASCII_LOGO = `
   ____            _____                 
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         about: () => 'Name: LUOPENG ZHOU(周罗鹏)\nOccupation: Programmer\nPassion: Crafting elegant code and mastering the command line.',
         skills: () => 'Languages: C, C++, Python, Bash\nTools: Vim, Git, Make, GDB\nSystems: Linux, BSD, macOS\nOther: WebDev, Raspberry-PI, Database, Network, Cybersecurity',
         interests: () => 'Programming: C and C++ in Linux environment\nPhotography: Capturing moments and finding beauty in everyday scenes\nBilliards: Strategic and relaxing game, enjoying the mental challenge',
-        projects: () => '1. HuffmanTree_encrypt: File encryption using Huffman coding\n2. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n3. Design-Pattern: Showcasing common design patterns in C++\n4. Network-chat: Simple chat server and client in C\n5. Bookkeeper_mysql: Financial management system with MySQL',
+        projects: () => '1. HuffmanTree_encrypt: File encryption using Huffman coding\n2. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n3. Design-Pattern: Showcasing common design patterns in C++\n4. Network-chat: Simple chat server and client in C\n5. Bookkeeper_mysql: Financial management system with MySQL\n6. PShell: A simple shell(command interpreter) written in C',
         contact: () => 'Instagram: @pp3ng___\nGitHub: github.com/Pp3ng\nEmail: Pp3ng@outlook.com',
         clear: () => {
             output.innerHTML = welcomeMessage;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         goto: (section) => {
             const element = document.getElementById(section);
             if (element) {
-                element.scrollIntoView({behavior: 'smooth'});
+                element.scrollIntoView({ behavior: 'smooth' });
                 return `Navigating to ${section}...`;
             } else {
                 return `Section not found: ${section}.`;
@@ -196,6 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return window.innerWidth <= 600;
     }
 
+    function scrollToBottom() {
+        terminalWindow.scrollTop = terminalWindow.scrollHeight;
+    }
+
     input.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             const command = this.value.trim();
@@ -206,9 +210,40 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             this.value = '';
-            output.scrollTop = output.scrollHeight;
+            scrollToBottom();
         }
     });
 
+    input.addEventListener('input', scrollToBottom);
+
     output.innerHTML = welcomeMessage;
+    scrollToBottom();
+});
+document.addEventListener('DOMContentLoaded', function () {
+    AOS.init({
+        duration: 500,
+        easing: 'ease-in-sine',
+        once: true,
+    });
+});
+
+
+$(document).ready(function () {
+    $('#thoughts .thought-content').hide();
+    $('#thoughts .thought-item').click(function (e) {
+        if ($(e.target).is('a') || $(e.target).parents('a').length) {
+            return;
+        }
+        var $content = $(this).find('.thought-content');
+
+        $content.slideToggle(300);
+
+        $(this).toggleClass('active');
+
+        if ($content.is(':visible')) {
+            $('html, body').animate({
+                scrollTop: $(this).offset().top - 20
+            }, 300);
+        }
+    });
 });
