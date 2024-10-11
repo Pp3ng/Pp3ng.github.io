@@ -308,3 +308,21 @@ $(document).ready(function () {
         once: true,
     });
 });
+
+lightbox.option({
+    'showImageNumberLabel': false,
+    'wrapAround': true,
+    'alwaysShowNavOnTouchDevices': false,
+    'disableScrolling': true,
+    'fadeDuration': 300,
+    'resizeDuration': 300,
+    'imageFadeDuration': 300,
+    'closeButtonEnabled': false // 禁用关闭按钮
+});
+
+// 点击图片关闭 Lightbox
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('lb-image')) {
+        lightbox.end();
+    }
+});

@@ -520,3 +520,37 @@ a:hover {
     color: #1500ff;
     text-decoration: underline;
 }
+
+/* 相册样式 */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.gallery-container a {
+    display: block;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.gallery-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-container a:hover img {
+    transform: scale(1.05);
+}
+
+.lb-closeContainer {
+    display: none !important;
+}
+
+/* 自定义光标样式 */
+.lb-container {
+    cursor: pointer !important;
+}
