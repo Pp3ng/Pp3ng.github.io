@@ -8,7 +8,9 @@ body {
     padding-top: 60px;
     font-family: 'Fira Code', monospace;
     font-weight: 500;
-    background: linear-gradient(#cae7b9, #90ee90);
+    background: linear-gradient(to bottom, rgba(168, 230, 207, 1), rgba(132, 220, 169, 0.8));
+
+
     color: #006400;
 }
 
@@ -20,13 +22,13 @@ body {
     /* vertical alignment */
     align-items: center;
     /* horizontal alignment */
-    background-color: #006400;
+    background-color: #377551;
     padding: 15px;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .navbar a {
@@ -346,12 +348,11 @@ p {
 
 .thought-item h3 {
     margin: 0;
-    color: #435422;
 }
 
 .thought-item p {
     margin: 5px 0 0;
-    color: #666;
+    color: #000000;
 }
 
 .thought-content {

@@ -1,116 +1,99 @@
-const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
-let index = 0;
+$(document).ready(function () {
+    // Typewriter Effect
+    const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
+    let index = 0;
 
-function typeWriter() {
-    if (index < text.length) {
-        document.querySelector('h1').textContent += text.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100); // control the speed of typing
+    function typeWriter() {
+        if (index < text.length) {
+            $('h1').append(text.charAt(index));
+            index++;
+            setTimeout(typeWriter, 100);
+        }
     }
-}
 
-window.onload = function () {
-    document.querySelector('h1').textContent = ''; // clear the text
+    $('h1').text(''); // clear the text
     typeWriter();
-};
 
-const images = document.querySelectorAll('img');
+    // Lazy Loading Images
+    const lazyLoad = (image) => {
+        const src = $(image).data('src');
+        if (!src) return;
+        $(image).attr('src', src).removeAttr('data-src');
+    };
 
-const lazyLoad = (image) => {
-    const src = image.getAttribute('data-src');
-    if (!src) return;
-    image.src = src;
-    image.removeAttribute('data-src');
-};
-
-const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            lazyLoad(entry.target);
-            observer.unobserve(entry.target);
-        }
-    });
-});
-
-images.forEach(image => {
-    imageObserver.observe(image);
-});
-
-const fadeElements = document.querySelectorAll('.fade-in');
-
-const showOnScroll = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            observer.unobserve(entry.target);
-        }
-    });
-});
-
-fadeElements.forEach(element => {
-    showOnScroll.observe(element);
-});
-
-
-// button to scroll to top
-const scrollToTopBtn = document.createElement('button');
-scrollToTopBtn.textContent = '⬆️Top';
-scrollToTopBtn.style.position = 'fixed';
-scrollToTopBtn.style.bottom = '20px';
-scrollToTopBtn.style.right = '20px';
-scrollToTopBtn.style.padding = '10px';
-scrollToTopBtn.style.display = 'none';
-scrollToTopBtn.style.fontSize = '18px';
-scrollToTopBtn.style.backgroundColor = 'rgba(42, 60, 2, 0.7)'; // set background color with alpha
-scrollToTopBtn.style.color = 'white';
-scrollToTopBtn.style.border = 'none';
-scrollToTopBtn.style.cursor = 'pointer';
-scrollToTopBtn.style.borderRadius = '5px';
-scrollToTopBtn.style.fontFamily = 'Fira Code, monospace';
-document.body.appendChild(scrollToTopBtn);
-
-
-// show or hide the button based on scroll position
-window.onscroll = () => {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollToTopBtn.style.display = 'block';
-    } else {
-        scrollToTopBtn.style.display = 'none';
-    }
-};
-
-// scroll to top when the button is clicked
-scrollToTopBtn.onclick = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-};
-
-// smooth scroll to anchor links
-document.querySelectorAll('.navbar a').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                lazyLoad(entry.target);
+                observer.unobserve(entry.target);
+            }
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navbar = document.querySelector('.navbar');
-
-    menuToggle.addEventListener('click', function () {
-        navbar.classList.toggle('active');
+    $('img').each(function () {
+        imageObserver.observe(this);
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    const output = document.getElementById('terminal-output');
-    const input = document.getElementById('terminal-input');
-    const prompt = document.getElementById('terminal-prompt');
-    const terminalWindow = document.getElementById('terminal-window');
+    // Show on Scroll
+    const showOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                $(entry.target).addClass('show');
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    $('.fade-in').each(function () {
+        showOnScroll.observe(this);
+    });
+
+    // Scroll to Top Button
+    const scrollToTopBtn = $('<button>⬆️Top</button>').css({
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        padding: '10px',
+        display: 'none',
+        fontSize: '18px',
+        backgroundColor: 'rgba(42, 60, 2, 0.7)',
+        color: 'white',
+        border: 'none',
+        cursor: 'pointer',
+        borderRadius: '5px',
+        fontFamily: 'Fira Code, monospace'
+    }).appendTo('body');
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            scrollToTopBtn.fadeIn();
+        } else {
+            scrollToTopBtn.fadeOut();
+        }
+    });
+
+    scrollToTopBtn.click(function () {
+        $('html, body').animate({scrollTop: 0}, 'smooth');
+    });
+
+    // Smooth Scroll to Anchor Links
+    $('.navbar a').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
+    });
+
+    // Menu Toggle
+    $('.menu-toggle').click(function () {
+        $('.navbar').toggleClass('active');
+    });
+
+    // Terminal Input Handling
+    const output = $('#terminal-output');
+    const input = $('#terminal-input');
+    const prompt = $('#terminal-prompt');
+    const terminalWindow = $('#terminal-window');
 
     const ASCII_LOGO = `
   ____            _____                 
@@ -124,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const welcomeMessage = `${ASCII_LOGO}\nWelcome to LUOPENG ZHOU's Terminal\nType 'help' for available commands.\n\n`;
 
     if (isMobile()) {
-        output.style.fontSize = '8px';
+        output.css('fontSize', '8px');
     }
 
     const jokes = [
@@ -231,9 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "What did the compiler say to the programmer? 'You’ve got errors to fix!' 🧑‍💻",
         "Why was the electrical engineer always calm? Because they knew how to stay grounded. 🌍⚡",
         "Why don’t robotics engineers get tired? They have endless power! 🔋🤖",
-
     ];
-
 
     const commands = {
         help: () => 'Available commands: help, about, skills, interests, projects, contact, clear, goto [section], joke',
@@ -243,13 +224,13 @@ document.addEventListener('DOMContentLoaded', function () {
         projects: () => '1. HuffmanTree_encrypt: File encryption using Huffman coding\n2. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n3. Design-Pattern: Showcasing common design patterns in C++\n4. Network-chat: Simple chat server and client in C\n5. Bookkeeper_mysql: Financial management system with MySQL\n6. PShell: A simple shell(command interpreter) written in C',
         contact: () => 'Instagram: @pp3ng___\nGitHub: github.com/Pp3ng\nEmail: Pp3ng@outlook.com',
         clear: () => {
-            output.innerHTML = welcomeMessage;
+            output.html(welcomeMessage);
             return null;
         },
         goto: (section) => {
-            const element = document.getElementById(section);
-            if (element) {
-                element.scrollIntoView({behavior: 'smooth'});
+            const element = $(`#${section}`);
+            if (element.length) {
+                $('html, body').animate({scrollTop: element.offset().top}, 'smooth');
                 return `Navigating to ${section}...`;
             } else {
                 return `Section not found: ${section}.`;
@@ -273,38 +254,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function scrollToBottom() {
-        terminalWindow.scrollTop = terminalWindow.scrollHeight;
+        terminalWindow.scrollTop(terminalWindow[0].scrollHeight);
     }
 
-    input.addEventListener('keydown', function (event) {
+    input.on('keydown', function (event) {
         if (event.key === 'Enter') {
-            const command = this.value.trim();
+            const command = $(this).val().trim();
             const result = handleCommand(command);
 
             if (result !== null) {
-                output.innerHTML += `${prompt.textContent} ${command}\n${result}\n\n`;
+                output.append(`${prompt.text()} ${command}\n${result}\n\n`);
             }
 
-            this.value = '';
+            $(this).val('');
             scrollToBottom();
         }
     });
 
-    input.addEventListener('input', scrollToBottom);
+    input.on('input', scrollToBottom);
 
-    output.innerHTML = welcomeMessage;
+    output.html(welcomeMessage);
     scrollToBottom();
-});
-document.addEventListener('DOMContentLoaded', function () {
-    AOS.init({
-        duration: 500,
-        easing: 'ease-in-sine',
-        once: true,
-    });
-});
 
-
-$(document).ready(function () {
+    // Thoughts section toggle
     $('#thoughts .thought-content').hide();
     $('#thoughts .thought-item').click(function (e) {
         if ($(e.target).is('a') || $(e.target).parents('a').length) {
@@ -321,5 +293,12 @@ $(document).ready(function () {
                 scrollTop: $(this).offset().top - 20
             }, 300);
         }
+    });
+
+    // Initialize AOS
+    AOS.init({
+        duration: 500,
+        easing: 'ease-in-sine',
+        once: true,
     });
 });
