@@ -226,7 +226,7 @@ $(document).ready(function () {
         about: () => 'Name: LUOPENG ZHOU(周罗鹏)\nOccupation: Programmer\nPassion: Crafting elegant code and mastering the command line.',
         skills: () => 'Languages: C, C++, Python, Bash\nTools: Vim, Git, Make, GDB\nSystems: Linux, BSD, macOS\nOther: WebDev, Raspberry-PI, Database, Network, Cybersecurity',
         interests: () => 'Programming: C and C++ in Linux environment\nPhotography: Capturing moments and finding beauty in everyday scenes\nBilliards: Strategic and relaxing game, enjoying the mental challenge',
-        projects: () => '\n1. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n2. Design-Pattern: Showcasing common design patterns in C++\n3. Network-chat: Simple chat server and client in C\n4. Bookkeeper_mysql: Financial management system with MySQL\n5. PShell: A simple shell(command interpreter) written in C',
+        projects: () => '\n1. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n2. Design-Pattern: Showcasing common design patterns in C++\n3. Network-chat: Simple chat server and client in C\n4. Bookkeeper_mysql: Financial management system with MySQL\n5. PShell: A simple shell(command interpreter) written in C\n6. Tiny_Packer: A lightweight compression/decompression tool specifically designed for small files.',
         contact: () => 'Instagram: @pp3ng___\nGitHub: github.com/Pp3ng\nEmail: Pp3ng@outlook.com',
         clear: () => {
             output.html(welcomeMessage);
