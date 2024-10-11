@@ -85,7 +85,6 @@ $(document).ready(function () {
                 scrollTop: target.offset().top
             }, {
                 duration: 300,
-                easing: 'linear'
             });
         }
     });
@@ -317,10 +316,10 @@ lightbox.option({
     'fadeDuration': 300,
     'resizeDuration': 300,
     'imageFadeDuration': 300,
-    'closeButtonEnabled': false // 禁用关闭按钮
+    'closeButtonEnabled': false
 });
 
-// 点击图片关闭 Lightbox
+// Close lightbox on click outside image
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('lb-image')) {
         lightbox.end();
