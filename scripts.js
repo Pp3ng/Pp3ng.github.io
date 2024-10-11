@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Typewriter Effect
-    const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)😀";
+    const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)";
     let index = 0;
 
     function typeWriter() {
@@ -73,15 +73,21 @@ $(document).ready(function () {
     });
 
     scrollToTopBtn.click(function () {
-        $('html, body').animate({scrollTop: 0}, 'smooth');
+        $('html, body').animate({ scrollTop: 0 }, 'smooth');
     });
 
     // Smooth Scroll to Anchor Links
     $('.navbar a').click(function (e) {
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($.attr(this, 'href')).offset().top
-        }, 500);
+        const target = $($.attr(this, 'href'));
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top
+            }, {
+                duration: 300,
+                easing: 'linear'
+            });
+        }
     });
 
     // Menu Toggle
@@ -230,7 +236,7 @@ $(document).ready(function () {
         goto: (section) => {
             const element = $(`#${section}`);
             if (element.length) {
-                $('html, body').animate({scrollTop: element.offset().top}, 'smooth');
+                $('html, body').animate({ scrollTop: element.offset().top }, 'smooth');
                 return `Navigating to ${section}...`;
             } else {
                 return `Section not found: ${section}.`;
