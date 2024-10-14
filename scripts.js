@@ -48,32 +48,63 @@ $(document).ready(function () {
         showOnScroll.observe(this);
     });
 
-    // Scroll to Top Button
-    const scrollToTopBtn = $('<button>⬆️Top</button>').css({
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        padding: '10px',
-        display: 'none',
-        fontSize: '18px',
-        backgroundColor: 'rgba(42, 60, 2, 0.7)',
-        color: 'white',
-        border: 'none',
-        cursor: 'pointer',
-        borderRadius: '5px',
-        fontFamily: 'Fira Code, monospace'
-    }).appendTo('body');
+    $(document).ready(function () {
+        // Scroll to Top Button
+        const scrollToTopBtn = $('<button id="back-to-top" aria-label="Scroll to top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>').css({
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#059669',
+            color: 'white',
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '24px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'background-color 0.2s, transform 0.2s',
+            zIndex: 9999,
+            opacity: 0,
+            visibility: 'hidden'
+        }).appendTo('body');
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            scrollToTopBtn.fadeIn();
-        } else {
-            scrollToTopBtn.fadeOut();
-        }
-    });
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                scrollToTopBtn.css({
+                    opacity: 1,
+                    visibility: 'visible'
+                });
+            } else {
+                scrollToTopBtn.css({
+                    opacity: 0,
+                    visibility: 'hidden'
+                });
+            }
+        });
 
-    scrollToTopBtn.click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 'smooth');
+        scrollToTopBtn.on('click', function (e) {
+            e.preventDefault();
+            $('html, body').animate({scrollTop: 0}, {
+                duration: 300,
+                easing: 'swing'
+            });
+        }).on('mouseover', function () {
+            $(this).css({
+                backgroundColor: '#047857',
+                transform: 'translateY(-2px)'
+            });
+        }).on('mouseout', function () {
+            $(this).css({
+                backgroundColor: '#059669',
+                transform: 'translateY(0)'
+            });
+        });
+
+        console.log("Scroll to top button has been added and initialized.");
     });
 
     // Smooth Scroll to Anchor Links
@@ -235,7 +266,7 @@ $(document).ready(function () {
         goto: (section) => {
             const element = $(`#${section}`);
             if (element.length) {
-                $('html, body').animate({ scrollTop: element.offset().top }, 'smooth');
+                $('html, body').animate({scrollTop: element.offset().top}, 'smooth');
                 return `Navigating to ${section}...`;
             } else {
                 return `Section not found: ${section}.`;
