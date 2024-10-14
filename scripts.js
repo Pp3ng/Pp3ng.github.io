@@ -48,12 +48,12 @@ $(document).ready(function () {
         showOnScroll.observe(this);
     });
 
+    // Scroll to Top Button
     $(document).ready(function () {
-        // Scroll to Top Button
-        const scrollToTopBtn = $('<button id="back-to-top" aria-label="Scroll to top">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
+        const scrollToTopBtn = $('<button id="back-to-top" aria-label="滚动到顶部">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" ' +
             'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-            '<polyline points="18 15 12 9 6 15" stroke="white"></polyline></svg></button>').css({
+            '<polyline points="18 15 12 9 6 15"></polyline></svg></button>').css({
             position: 'fixed',
             bottom: '20px',
             right: '20px',
@@ -67,13 +67,18 @@ $(document).ready(function () {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '24px',
+            padding: '0',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             transition: 'background-color 0.2s, transform 0.2s',
             zIndex: 9999,
             opacity: 0,
             visibility: 'hidden'
         }).appendTo('body');
+
+        scrollToTopBtn.find('svg').css({
+            width: '60%',
+            height: '60%'
+        });
 
         $(window).scroll(function () {
             if ($(this).scrollTop() > 100) {
