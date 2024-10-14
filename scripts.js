@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Typewriter Effect
-    const text = "Hello, I'm LUOPENG ZHOU(周罗鹏)";
+    const text = "Hello, I'm ZHOU.";
     let index = 0;
 
     function typeWriter() {

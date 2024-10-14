@@ -17,11 +17,9 @@ body {
 /* Navbar styles */
 .navbar {
     display: flex;
-    /* use flexbox for layout */
+    flex-wrap: wrap;
     justify-content: center;
-    /* vertical alignment */
     align-items: center;
-    /* horizontal alignment */
     background-color: #377551;
     padding: 15px;
     position: fixed;
@@ -34,14 +32,32 @@ body {
 .navbar a {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
+    margin: 5px 10px;
     font-size: 1.1em;
     transition: color 0.3s ease;
 }
 
 .navbar a:hover {
     color: #90ee90;
-    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 5px;
+    }
+
+    .navbar a {
+        flex-basis: calc(25% - 20px); /* four per line */
+        text-align: center;
+        font-size: 0.9em;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar a {
+        font-size: 0.9em;
+    }
 }
 
 .menu-toggle {
@@ -51,20 +67,6 @@ body {
     color: white;
     font-size: 1.5em;
     cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-wrap: wrap;
-        /* allow items to wrap */
-    }
-
-    .navbar a {
-        display: block;
-        /* display links as block elements */
-        margin: 5px;
-        /* add margin between links */
-    }
 }
 
 /* Container styles */
