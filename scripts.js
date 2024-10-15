@@ -364,3 +364,116 @@ document.addEventListener('click', function (e) {
         lightbox.end();
     }
 });
+
+// Add this to your existing scripts.js file, inside the $(document).ready function
+function populateBookshelf() {
+    const githubUsername = 'Pp3ng';
+    const githubRepo = 'My-bookshelf';
+    // Sample book data - replace with your actual book data
+    const books = [
+        {
+            title: "UNIX Network Programming Volume1",
+            author: "W.Richard Stevens",
+            cover: "BookCovers/UNPV1.png",
+            pdfFilename: "UNIX Network Programming V1.pdf"
+        },
+        {
+            title: "Advanced Programming in UNIX Environment",
+            author: "W.Richard Stevens",
+            cover: "BookCovers/APUE.jpg",
+            pdfFilename: "Advanced Programming in the UNIX Environment 3rd Edition.pdf"
+        },
+        {
+            title: "Tcp IP Illustrated Volume1",
+            author: "W.Richard Stevens",
+            cover: "BookCovers/TCPV1.jpg",
+            pdfFilename: "TCP-IP-Illustrated-Volume-1-The-Protocols.pdf"
+        },
+        {
+            title: "Tcp IP Illustrated Volume2",
+            author: "W.Richard Stevens",
+            cover: "BookCovers/TCPV2.png",
+            pdfFilename: "TCP-IP-Illustrated-Volume-2-The-Implementation.pdf"
+        },
+        {
+            title: "The Art of UNIX Programming",
+            author: "Eric S.Raymond",
+            cover: "BookCovers/ART.png",
+            pdfFilename: "The Art of Unix Programming.pdf"
+        },
+        {
+            title: "The C++ Programming Language",
+            author: "Bjarne Stroustrup",
+            cover: "BookCovers/C++.png",
+            pdfFilename: "The C++ Programming Language-4th.pdf"
+        },
+        {
+            title: "Computer Systems A Programmer's Perspective",
+            author: "Randal E. Bryant & David R. O'Hallaron",
+            cover: "BookCovers/CSAPP.png",
+            pdfFilename: "Computer Systems A Programmer's Perspective.pdf"
+        },
+        {
+            title: "Introduction To Algorithms",
+            author: "Thomas H.Cormen & Charles E.Leiserson & Ronald L.Rivest & Clifford Stein",
+            cover: "BookCovers/ITA.png",
+            pdfFilename: "Introduction to Algorithms 4th.pdf"
+        },
+        {
+            title: "Computer Organization and Design",
+            author: "David A.Patterson & John L.Hennessy",
+            cover: "BookCovers/COAD.png",
+            pdfFilename: "Computer Organization and Design 5E.pdf"
+        },
+        {
+            title: "Operating System Three Easy Pieces",
+            author: "Remzi H.Arpaci-Dusseau & Andrea C.Arpaci-Dusseau",
+            cover: "BookCovers/OSTEP.png",
+            pdfFilename: "Operating System Three Easy Pieces.pdf"
+        },
+        {
+            title: "Computer Netwoking-A Top Down Approach",
+            author: "James F.Kurose & Keith W.Ross",
+            cover: "BookCovers/NW.png",
+            pdfFilename: "Computer Networking-A Top Down Approach-7th.pdf"
+        },
+        {
+            title: "Database System Concepts",
+            author: "Abraham Silberschatz & Henry F.Kort & S.Sudarshan",
+            cover: "BookCovers/DSC.png",
+            pdfFilename: "Database System Concepts-7th.pdf"
+        },
+    ];
+
+    const bookshelfContainer = $('.bookshelf-container');
+
+    books.forEach(book => {
+        const bookItem = $('<div>').addClass('book-item');
+        const coverImg = $('<img>').addClass('book-cover').attr('src', book.cover).attr('alt', `${book.title} cover`);
+        const title = $('<h3>').addClass('book-title').text(book.title);
+        const author = $('<p>').addClass('book-author').text(book.author);
+
+        // Construct the GitHub raw content URL for the PDF
+        const pdfUrl = `https://github.com/${githubUsername}/${githubRepo}/raw/main/${book.pdfFilename}`;
+
+        const link = $('<a>').addClass('book-link').attr('href', pdfUrl).attr('target', '_blank').text('View');
+
+        bookItem.append(coverImg, title, author, link);
+        bookshelfContainer.append(bookItem);
+    });
+}
+
+// Call the function to populate the bookshelf
+populateBookshelf();
+
+
+// Add this to your existing smooth scroll functionality
+$('.navbar a[href^="#"]').on('click', function (e) {
+    e.preventDefault();
+    var target = $(this.hash);
+    if (target.length) {
+        $('html, body').animate({
+            scrollTop: target.offset().top
+        }, 300);
+    }
+});
