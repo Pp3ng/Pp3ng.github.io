@@ -555,6 +555,7 @@ a:hover {
     color: #1500ff;
     text-decoration: underline;
 }
+
 /* Bookshelf styles */
 .bookshelf-container {
     display: grid;
