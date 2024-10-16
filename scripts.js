@@ -408,6 +408,12 @@ function populateBookshelf() {
             pdfFilename: "The C++ Programming Language-4th.pdf"
         },
         {
+            title: "Linux Command Line And Shell Scripting Bible",
+            author: "Richard Blum & Christine Bresnahan",
+            cover: "BookCovers/CLIBIBLE.png",
+            pdfFilename: "Linux Command Line And Shell Scripting Bible.pdf"
+        },
+        {
             title: "Computer Systems A Programmer's Perspective",
             author: "Randal E. Bryant & David R. O'Hallaron",
             cover: "BookCovers/CSAPP.png",
@@ -442,6 +448,18 @@ function populateBookshelf() {
             author: "Abraham Silberschatz & Henry F.Kort & S.Sudarshan",
             cover: "BookCovers/DSC.png",
             pdfFilename: "Database System Concepts-7th.pdf"
+        },
+        {
+            title: "Compilers Principles Techniques and Tools",
+            author: "Alfred V.Aho & Monica S.lan & Ravi Sethi & jeffrey D.Ullman",
+            cover: "BookCovers/COMPILER.png",
+            pdfFilename: "Compilers Principles Techniques and Tools.pdf"
+        },
+        {
+            title: "Programming Massively Parallel Processors",
+            author: "David B.Kirk & Wen-mei W.hwu",
+            cover: "BookCovers/CUDA.png",
+            pdfFilename: "Programming Massively Parallel Processors.pdf"
         },
     ];
 

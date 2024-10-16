@@ -559,22 +559,46 @@ a:hover {
 /* Bookshelf styles */
 .bookshelf-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 60px 30px; /* Increased vertical and horizontal gap */
+    grid-template-columns: repeat(5, 1fr); /* Display 5 books per row on desktop */
+    gap: 60px 20px; /* Increased vertical gap to 60px */
     padding: 30px;
+}
+
+@media (max-width: 1200px) {
+    .bookshelf-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 books per row on smaller desktops */
+    }
+}
+
+@media (max-width: 992px) {
+    .bookshelf-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 books per row on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .bookshelf-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 books per row on large phones */
+    }
+}
+
+@media (max-width: 480px) {
+    .bookshelf-container {
+        grid-template-columns: 1fr; /* 1 book per row on small phones */
+    }
 }
 
 .book-item {
     background-color: #f0fff0;
     border-radius: 10px;
-    padding: 25px;
+    padding: 25px; /* Increased padding */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
-    min-height: 450px; /* Increased minimum height */
+    justify-content: space-between; /* Distribute space evenly */
 }
 
 .book-item:hover {
@@ -583,28 +607,28 @@ a:hover {
 }
 
 .book-cover {
-    width: 160px;
-    height: 220px;
+    width: 100%;
+    height: auto;
+    max-width: 120px;
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 20px; /* Increased margin */
 }
 
 .book-title {
-    font-size: 1.2em;
+    font-size: 1em;
     margin-bottom: 15px; /* Increased margin */
     color: #006400;
     text-align: center;
-    flex-grow: 1;
+    line-height: 1.3;
+    flex-grow: 1; /* Allow title to grow and push other elements */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    line-height: 1.4; /* Improved readability */
 }
 
 .book-author {
-    font-size: 1em;
+    font-size: 0.9em;
     color: #008000;
     margin-bottom: 20px; /* Increased margin */
     text-align: center;
@@ -615,16 +639,14 @@ a:hover {
     display: inline-block;
     background-color: #90EE90;
     color: #006400;
-    padding: 10px 20px; /* Increased padding */
-    border-radius: 20px;
+    padding: 8px 15px;
+    border-radius: 15px;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: auto;
-    font-weight: bold;
-    font-size: 1.1em; /* Increased font size */
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+    margin-top: auto; /* Push link to bottom */
 }
 
 .book-link:hover {
     background-color: #32CD32;
-    transform: scale(1.05);
 }
