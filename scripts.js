@@ -365,11 +365,9 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// Add this to your existing scripts.js file, inside the $(document).ready function
 function populateBookshelf() {
     const githubUsername = 'Pp3ng';
     const githubRepo = 'My-bookshelf';
-    // Sample book data - replace with your actual book data
     const books = [
         {
             title: "UNIX Network Programming Volume1",
@@ -481,17 +479,4 @@ function populateBookshelf() {
     });
 }
 
-// Call the function to populate the bookshelf
 populateBookshelf();
-
-
-// Add this to your existing smooth scroll functionality
-$('.navbar a[href^="#"]').on('click', function (e) {
-    e.preventDefault();
-    var target = $(this.hash);
-    if (target.length) {
-        $('html, body').animate({
-            scrollTop: target.offset().top
-        }, 300);
-    }
-});
