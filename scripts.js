@@ -405,6 +405,16 @@ function populateBookshelf() {
             pdfFilename: "Linux Command Line And Shell Scripting Bible.pdf"
         },
         {
+            title: "Learning the vi and vim Editors",
+            cover: "BookCovers/LTVAVE.jpg",
+            pdfFilename: "Learning the vi and Vim Editors 8th Edition-2021.pdf"
+        },
+        {
+            title: "The Linux Programming Interface",
+            cover: "BookCovers/TLPI.png",
+            pdfFilename: "The Linux Programming Interface-2010.pdf"
+        },
+        {
             title: "Computer Systems A Programmer's Perspective",
             cover: "BookCovers/CSAPP.png",
             pdfFilename: "Computer Systems A Programmer's Perspective.pdf"
@@ -430,6 +440,11 @@ function populateBookshelf() {
             pdfFilename: "Computer Networking-A Top Down Approach-7th.pdf"
         },
         {
+            title: "System Performance",
+            cover: "BookCovers/SP.png",
+            pdfFilename: "Systems Performance-Enterprise And The Cloud.pdf"
+        },
+        {
             title: "Database System Concepts",
             cover: "BookCovers/DSC.png",
             pdfFilename: "Database System Concepts-7th.pdf"
@@ -444,6 +459,16 @@ function populateBookshelf() {
             cover: "BookCovers/CUDA.png",
             pdfFilename: "Programming Massively Parallel Processors.pdf"
         },
+        {
+            title: "How Linux Works",
+            cover: "BookCovers/HLW.jpg",
+            pdfFilename: "How Linux Works.pdf"
+        },
+        {
+            title: "Absolute FreeBSD",
+            cover: "BookCovers/AF.jpg",
+            pdfFilename: "Absolute FreeBSD 3rd Edition.pdf"
+        },
     ];
 
     const bookshelfContainer = $('.bookshelf-container');
@@ -456,7 +481,7 @@ function populateBookshelf() {
         // Construct the GitHub raw content URL for the PDF
         const pdfUrl = `https://github.com/${githubUsername}/${githubRepo}/raw/main/${book.pdfFilename}`;
 
-        const link = $('<a>').addClass('book-link').attr('href', pdfUrl).attr('target', '_blank').text('View');
+        const link = $('<a>').addClass('book-link').attr('href', pdfUrl).attr('target', '_blank').text('Download');
 
         bookItem.append(coverImg, title, link);
         bookshelfContainer.append(bookItem);
