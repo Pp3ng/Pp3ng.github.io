@@ -370,24 +370,24 @@ function populateBookshelf() {
     const githubRepo = 'My-bookshelf';
     const books = [
         {
-            title: "UNIX Network Programming Volume1",
-            cover: "BookCovers/UNPV1.png",
-            pdfFilename: "UNIX Network Programming V1.pdf"
-        },
-        {
             title: "Advanced Programming in UNIX Environment",
             cover: "BookCovers/APUE.jpg",
             pdfFilename: "Advanced Programming in the UNIX Environment 3rd Edition.pdf"
         },
         {
-            title: "Tcp IP Illustrated Volume1",
+            title: "TCP/IP Illustrated Volume1",
             cover: "BookCovers/TCPV1.jpg",
             pdfFilename: "TCP-IP-Illustrated-Volume-1-The-Protocols.pdf"
         },
         {
-            title: "Tcp IP Illustrated Volume2",
-            cover: "BookCovers/TCPV2.png",
+            title: "TCP/IP Illustrated Volume2",
+            cover: "BookCovers/TCPV2.jpg",
             pdfFilename: "TCP-IP-Illustrated-Volume-2-The-Implementation.pdf"
+        },
+        {
+            title: "UNIX Network Programming Volume1",
+            cover: "BookCovers/UNPV1.jpg",
+            pdfFilename: "UNIX Network Programming V1.pdf"
         },
         {
             title: "The Art of UNIX Programming",
@@ -396,12 +396,12 @@ function populateBookshelf() {
         },
         {
             title: "The C++ Programming Language",
-            cover: "BookCovers/C++.png",
+            cover: "BookCovers/C++.jpg",
             pdfFilename: "The C++ Programming Language-4th.pdf"
         },
         {
             title: "Linux Command Line And Shell Scripting Bible",
-            cover: "BookCovers/CLIBIBLE.png",
+            cover: "BookCovers/CLIBIBLE.jpg",
             pdfFilename: "Linux Command Line And Shell Scripting Bible.pdf"
         },
         {
@@ -416,17 +416,17 @@ function populateBookshelf() {
         },
         {
             title: "Computer Systems A Programmer's Perspective",
-            cover: "BookCovers/CSAPP.png",
+            cover: "BookCovers/CSAPP.jpg",
             pdfFilename: "Computer Systems A Programmer's Perspective.pdf"
         },
         {
             title: "Introduction To Algorithms",
-            cover: "BookCovers/ITA.png",
+            cover: "BookCovers/ITA.jpg",
             pdfFilename: "Introduction to Algorithms 4th.pdf"
         },
         {
             title: "Computer Organization and Design",
-            cover: "BookCovers/COAD.png",
+            cover: "BookCovers/COAD.jpg",
             pdfFilename: "Computer Organization and Design 5E.pdf"
         },
         {
@@ -436,27 +436,27 @@ function populateBookshelf() {
         },
         {
             title: "Computer Netwoking-A Top Down Approach",
-            cover: "BookCovers/NW.png",
+            cover: "BookCovers/NW.jpg",
             pdfFilename: "Computer Networking-A Top Down Approach-7th.pdf"
         },
         {
             title: "System Performance",
-            cover: "BookCovers/SP.png",
+            cover: "BookCovers/SP.jpg",
             pdfFilename: "Systems Performance-Enterprise And The Cloud.pdf"
         },
         {
             title: "Database System Concepts",
-            cover: "BookCovers/DSC.png",
+            cover: "BookCovers/DSC.jpg",
             pdfFilename: "Database System Concepts-7th.pdf"
         },
         {
             title: "Compilers Principles Techniques and Tools",
-            cover: "BookCovers/COMPILER.png",
+            cover: "BookCovers/COMPILER.jpg",
             pdfFilename: "Compilers Principles Techniques and Tools.pdf"
         },
         {
             title: "Programming Massively Parallel Processors",
-            cover: "BookCovers/CUDA.png",
+            cover: "BookCovers/CUDA.jpg",
             pdfFilename: "Programming Massively Parallel Processors.pdf"
         },
         {
