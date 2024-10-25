@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Typewriter Effect
-    const text = "Hello, I'm ZHOU.";
+    const text = "Hello,World! I'm ZHOU.";
     let index = 0;
 
     function typeWriter() {
