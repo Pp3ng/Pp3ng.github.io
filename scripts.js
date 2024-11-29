@@ -321,12 +321,12 @@ $(document).ready(function () {
     scrollToBottom();
 
     // Thoughts section toggle
-    $('#thoughts .thought-content').hide();
-    $('#thoughts .thought-item').click(function (e) {
+    $('#notes .note-content').hide();
+    $('#notes .note-item').click(function (e) {
         if ($(e.target).is('a') || $(e.target).parents('a').length) {
             return;
         }
-        var $content = $(this).find('.thought-content');
+        var $content = $(this).find('.note-content');
 
         $content.slideToggle(300);
 

@@ -362,11 +362,11 @@ p {
 }
 
 /* Thoughts section styles */
-#thoughts {
+#notes {
     margin-top: 50px;
 }
 
-.thought-item {
+.note-item {
     margin: 20px 0;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -376,56 +376,56 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.thought-item:hover {
+.note-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.thought-item h3 {
+.note-item h3 {
     margin: 0;
 }
 
-.thought-item p {
+.note-item p {
     margin: 5px 0 0;
     color: #000000;
 }
 
-.thought-content {
+.note-content {
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
 }
 
-.thought-content img {
+.note-content img {
     margin-left: 30px;
     max-width: 300px;
     height: auto;
 }
 
-.thought-time {
+.note-time {
     font-size: 1.5em;
     color: gray;
     margin-top: 10px;
 }
 
 @media (max-width: 768px) {
-    .thought-item p {
+    .note-item p {
         font-size: 1em;
         max-width: 100%;
     }
 
-    .thought-content {
+    .note-content {
         display: block;
     }
 
-    .thought-content img {
+    .note-content img {
         margin-left: 0;
         margin-top: 10px;
         max-width: 100%;
         height: auto;
     }
 
-    .thought-time {
+    .note-time {
         font-size: 1.5em;
         color: gray;
         margin-top: 10px;
