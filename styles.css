@@ -438,6 +438,9 @@ p {
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
     margin: 30px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .note-item:hover {
@@ -837,7 +840,7 @@ strong {
     transition: opacity 0.3s ease;
 }
 
-.container:not(#about):hover::before, .project-item:hover::before, .note-item:hover::before, .book-item:hover::before {
+.container:not(#about):hover::before, .project-item:hover::before, .note-item:not(.active):hover::before, .book-item:hover::before {
     opacity: 1;
 }
 
@@ -874,4 +877,9 @@ strong {
     left: 0;
     z-index: -1; /* ensure particles are behind all content */
     pointer-events: none; /* allow clicks to pass through */
+}
+
+/* Ensure active state doesn't show hover effect */
+.note-item.active::before {
+    opacity: 0;
 }
