@@ -57,7 +57,7 @@ $(document).ready(function () {
             position: 'fixed',
             bottom: '20px',
             right: '20px',
-            backgroundColor: '#059669',
+            backgroundColor: '#3498db',
             color: 'white',
             width: '50px',
             height: '50px',
@@ -68,8 +68,8 @@ $(document).ready(function () {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.2s, transform 0.2s',
+            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)',
+            transition: 'all 0.3s ease',
             zIndex: 9999,
             opacity: 0,
             visibility: 'hidden'
@@ -102,13 +102,15 @@ $(document).ready(function () {
             });
         }).on('mouseover', function () {
             $(this).css({
-                backgroundColor: '#047857',
-                transform: 'translateY(-2px)'
+                backgroundColor: '#2980b9',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 12px 40px rgba(31, 38, 135, 0.2)'
             });
         }).on('mouseout', function () {
             $(this).css({
-                backgroundColor: '#059669',
-                transform: 'translateY(0)'
+                backgroundColor: '#3498db',
+                transform: 'translateY(0)',
+                boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
             });
         });
 
