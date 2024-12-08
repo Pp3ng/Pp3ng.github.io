@@ -873,6 +873,6 @@ strong {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1; /* ensure particles at the bottom */
+    z-index: -1; /* ensure particles are behind content */
     pointer-events: none; /*allow click through*/
 }
