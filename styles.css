@@ -433,21 +433,16 @@ p {
 .note-item {
     margin: 20px 0;
     text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f0fff0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
     padding: 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
     margin: 30px 0;
 }
 
 .note-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: none;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
 }
 
 .note-item h3 {
@@ -666,6 +661,8 @@ a:hover {
 }
 
 .book-item {
+    position: relative;
+    z-index: 1;
     background-color: #f0fff0;
     border-radius: 10px;
     padding: 25px; /* Increased padding */
@@ -728,6 +725,8 @@ a:hover {
 }
 
 .book-link {
+    position: relative;
+    z-index: 2;
     display: inline-block;
     background-color: #90EE90;
     color: #006400;
@@ -814,19 +813,19 @@ strong {
 }
 
 /* Enhanced card hover effects */
-.container, .project-item, .note-item, .book-item {
+.container:not(#about), .project-item, .note-item, .book-item {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
 
-.container:hover, .project-item:hover, .note-item:hover, .book-item:hover {
+.container:not(#about):hover, .project-item:hover, .note-item:hover, .book-item:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* Add gradient overlay on hover */
-.container::before, .project-item::before, .note-item::before, .book-item::before {
+.container:not(#about)::before, .project-item::before, .note-item::before, .book-item::before {
     content: '';
     position: absolute;
     top: 0;
@@ -838,7 +837,7 @@ strong {
     transition: opacity 0.3s ease;
 }
 
-.container:hover::before, .project-item:hover::before, .note-item:hover::before, .book-item:hover::before {
+.container:not(#about):hover::before, .project-item:hover::before, .note-item:hover::before, .book-item:hover::before {
     opacity: 1;
 }
 
@@ -873,6 +872,6 @@ strong {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1; /* ensure particles are behind content */
-    pointer-events: none; /*allow click through*/
+    z-index: -1; /* ensure particles are behind all content */
+    pointer-events: none; /* allow clicks to pass through */
 }
