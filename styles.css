@@ -226,12 +226,11 @@ p {
     }
 }
 
-/* Interests section styles */
-.interest-item {
+/* Passions section styles */
+.passion-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* vertical and horizontal alignment */
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
@@ -241,40 +240,38 @@ p {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.interest-item:hover {
+.passion-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.interest-title-container {
+.passion-title-container {
     flex: 1;
     text-align: center;
-    /* center the text */
 }
 
-.interest-title {
+.passion-title {
     margin: 0 auto;
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.interest-image {
+.passion-image {
     width: 200px;
     height: 200px;
     border-radius: 10px;
     object-fit: cover;
     margin: 0 20px;
-    /* add margin between image and text */
 }
 
 @media (max-width: 768px) {
-    .interest-item {
+    .passion-item {
         flex-direction: column;
         text-align: left;
         padding: 10px;
     }
 
-    .interest-image {
+    .passion-image {
         max-width: 100%;
     }
 }

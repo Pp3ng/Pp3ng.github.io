@@ -263,12 +263,20 @@ $(document).ready(function () {
     ];
 
     const commands = {
-        help: () => 'Available commands: help, about, skills, interests, projects, contact, clear, goto [section], joke',
-        about: () => 'Name: LUOPENG ZHOU(周罗鹏)\nOccupation: Programmer\nPassion: Crafting elegant code and mastering the command line.',
-        skills: () => 'Languages: C, C++, Python, Bash\nTools: Vim, Git, Make, GDB\nSystems: Linux, BSD, macOS\nOther: WebDev, Raspberry-PI, Database, Network, Cybersecurity',
-        interests: () => 'Programming: C and C++ in Linux environment\nPhotography: Capturing moments and finding beauty in everyday scenes\nBilliards: Strategic and relaxing game, enjoying the mental challenge',
-        projects: () => '\n1. Mandelbrot-Set: Fractal visualization with C, C++, and CUDA\n2. Design-Pattern: Showcasing common design patterns in C++\n3. Network-chat: Simple chat server and client in C\n4. Bookkeeper_mysql: Financial management system with MySQL\n5. PShell: A simple shell(command interpreter) written in C\n6. Tiny_Packer: A lightweight compression/decompression tool specifically designed for small files.',
-        contact: () => 'Instagram: @pp3ng___\nGitHub: github.com/Pp3ng\nEmail: Pp3ng@outlook.com',
+        help: () => `Available commands:
+- help: Show this help message
+- whoami: Display personal information
+- contact: Show contact information
+- clear: Clear terminal
+- goto [section]: Navigate to a section
+- joke: Tell a programming joke
+- time: Show current time
+- cowsay [message]: Make a cow say something
+- weather [city]: Show weather (your location if no city specified)
+
+Type any command to execute.`,
+        whoami: () => 'Name: LUOPENG ZHOU(周罗鹏)\nOccupation: Programmer\nPassions:\n- Programming: C/C++ development in Linux environment\n- Photography: Capturing moments and finding beauty in everyday scenes\n- Billiards: Strategic game requiring precision and focus',
+        contact: () => '<a href="https://www.instagram.com/pp3ng___" target="_blank">Instagram: @pp3ng___</a>\n<a href="https://github.com/Pp3ng" target="_blank">GitHub: github.com/Pp3ng</a>\n<a href="mailto:pp3ng@outlook.com">Email: Pp3ng@outlook.com</a>',
         clear: () => {
             output.html(welcomeMessage);
             return null;
@@ -282,13 +290,58 @@ $(document).ready(function () {
                 return `Section not found: ${section}.`;
             }
         },
-        joke: () => jokes[Math.floor(Math.random() * jokes.length)]
+        joke: () => jokes[Math.floor(Math.random() * jokes.length)],
+        time: () => `Current time: ${new Date().toLocaleTimeString()}`,
+        cowsay: (message = "Mooooo!") => {
+            // Join all arguments back together to handle multi-word messages
+            const fullMessage = message.toString() + (arguments.length > 1 ? ' ' + Array.from(arguments).slice(1).join(' ') : '');
+            return `
+  ${"-".repeat(fullMessage.length + 2)}
+< ${fullMessage} >
+  ${"-".repeat(fullMessage.length + 2)}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||
+        `;
+        },
+        weather: async (city) => {
+            try {
+                if (!city) {
+                    try {
+                        const ipResponse = await fetch('https://api.ipify.org?format=json');
+                        const ipData = await ipResponse.json();
+                        const locationResponse = await fetch(`http://ip-api.com/json/${ipData.ip}`);
+                        const locationData = await locationResponse.json();
+                        if (locationData.status === 'fail' || !locationData.city) {
+                            return "Failed to get your location. Please specify a city name.";
+                        }
+                        city = locationData.city;
+                    } catch (e) {
+                        return "Failed to get your location. Please specify a city name.";
+                    }
+                }
+                const response = await fetch(`https://wttr.in/${city}?format=3`);
+                return await response.text();
+            } catch (e) {
+                return "Failed to fetch weather data. Please try again later.";
+            }
+        },
     };
 
-    function handleCommand(cmd) {
+    async function handleCommand(cmd) {
         const [command, ...args] = cmd.split(' ');
         if (commands[command]) {
-            return commands[command](...args);
+            if (command === 'cowsay') {
+                return commands[command](args.join(' '));
+            }
+            
+            const result = commands[command](...args);
+            if (result instanceof Promise) {
+                return await result;
+            }
+            return result;
         } else if (cmd.trim() !== '') {
             return `Command not found: ${cmd}. Type 'help' for available commands.`;
         }
@@ -303,10 +356,10 @@ $(document).ready(function () {
         terminalWindow.scrollTop(terminalWindow[0].scrollHeight);
     }
 
-    input.on('keydown', function (event) {
+    input.on('keydown', async function (event) {
         if (event.key === 'Enter') {
             const command = $(this).val().trim();
-            const result = handleCommand(command);
+            const result = await handleCommand(command);
 
             if (result !== null) {
                 output.append(`${prompt.text()} ${command}\n${result}\n\n`);
