@@ -266,63 +266,53 @@
 
 </div>
 <div class="container" id="notes" data-aos="fade-up">
-    <h2>My Notes</h2>
+    <h2>Technical Notes</h2>
 
     <div class="note-item">
-        <h3>Low-level vs High-level Languages</h3>
+        <h3>Language Abstraction Levels: Performance vs Productivity</h3>
         <div class="note-content">
-            <p>As I continue my journey in programming, I've been reflecting on the differences between
+            <p>
+                The distinction between
                 <mark>low-level languages</mark>
-                like C and C++, and
-                <mark>higher-level languages</mark>
-                . Working with C and C++ has given me a deep appreciation for how computers actually work at a
-                <strong>fundamental level</strong>. These languages provide <strong>direct control</strong> over
-                <mark>hardware</mark>
-                resources, allowing for <strong>optimized memory management</strong> and <strong>efficient
-                    execution</strong>. They're closer to
+                like C/C++ and
+                <mark>higher-level alternatives</mark>
+                presents a fundamental trade-off in software development. Low-level languages provide <strong>direct
+                hardware access</strong> and <strong>memory management capabilities</strong>, enabling <strong>precise
+                system control</strong> and <strong>optimal performance</strong>. This proximity to
                 <mark>machine code</mark>
-                , which means they
-                can be incredibly <strong>fast and powerful</strong> when used correctly. However, this power comes
-                with
-                increased
-                <strong>complexity and responsibility</strong> for the programmer.
+                allows for highly efficient execution when properly implemented.
             </p>
             <img src="photos/hardwares.png" alt="hardware" class="note-image">
         </div>
-
         <div class="note-content">
-            <p>In contrast,
-                <mark>high-level languages</mark>
-                abstract away many of the low-level details, making them <strong>easier to write, read, and
-                    maintain</strong>. They often
-                include features like <strong>automatic memory management</strong> (garbage collection) and more
-                <strong>intuitive syntax</strong>, which can significantly <strong>speed up development
-                    time</strong>.
-                The choice between low-level and
-                high-level languages often depends on the specific needs of a project. For <strong>system
-                    programming</strong>, <strong>embedded systems</strong>, or <strong>performance-critical
-                    applications</strong>, C and C++ remain invaluable. For <strong>rapid application
-                    development</strong> or when
-                working with <strong>complex abstractions</strong>, high-level languages might be more suitable.
+            <p>
+                Higher-level languages <strong>abstract implementation details</strong> through features like
+                <mark>automatic memory management</mark>
+                and
+                <mark>intuitive syntax constructs</mark>
+                . While this abstraction can impact performance, it significantly <strong>accelerates development
+                cycles</strong> and <strong>reduces potential errors</strong>. The choice between abstraction levels
+                typically depends on <strong>specific project requirements</strong> -
+                <mark>system programming</mark>
+                and
+                <mark>performance-critical applications</mark>
+                benefit from low-level control, while <strong>rapid development</strong> often favors higher-level
+                abstractions.
             </p>
             <img src="photos/languages.png" alt="Programming Languages" class="note-image">
         </div>
         <div class="note-content">
-            <p>Ultimately, I believe that understanding both
-                <mark>low-level and high-level languages</mark>
-                provides a more <strong>comprehensive view of programming</strong>. It allows developers to
-                <strong>choose
-                    the right tool for the
-                    job</strong> and to appreciate the <strong>tradeoffs</strong> involved in different language
-                designs. This
-                <mark>dual perspective</mark>
-                has
-                enhanced my ability to <strong>write efficient code</strong> and make <strong>informed
-                    decisions</strong> about language selection for
-                various projects. Whether I'm <strong>optimizing a critical system component</strong> or
-                <strong>rapidly
-                    prototyping a new
-                    application</strong>, having a grasp of both paradigms proves invaluable.
+            <p>
+                Understanding both paradigms provides <strong>comprehensive insight</strong> into the software
+                development spectrum. This knowledge enables <strong>informed decisions</strong> about language
+                selection based on
+                <mark>project requirements</mark>
+                ,
+                <mark>performance constraints</mark>
+                , and
+                <mark>development timelines</mark>
+                . The ability to navigate different abstraction levels proves invaluable when <strong>optimizing
+                critical systems</strong> or <strong>rapidly prototyping solutions</strong>.
             </p>
             <img src="photos/programmer.png" alt="Coder" class="note-image">
         </div>
@@ -331,110 +321,74 @@
         </div>
     </div>
 
-
     <div class="note-item">
-        <h3>Exploring Operating Systems</h3>
+        <h3>Operating Systems: Linux and FreeBSD Deep Dive</h3>
         <div class="note-content">
             <p>
-                Lately, I've been diving deeper into
                 <mark>Linux system programming</mark>
-                , and it's really opened my eyes to how operating systems work. Linux, as a powerful Unix-like system,
-                serves as the core bridge between
+                reveals the sophisticated interface between
                 <mark>hardware</mark>
                 and
-                <mark>software</mark>
-                . It ingeniously manages system resources, providing developers with a seamless way to interact with the
-                physical world of circuits and devices.
-                What's fascinating is how a simple <strong>system call</strong> can unlock powerful
-                <mark>hardware capabilities</mark>
-                . Whether it's <strong>managing memory</strong>, <strong>handling processes</strong>, or <strong>controlling
-                file systems</strong>, Linux handles these tasks with efficiency and flexibility. Every time I write a
-                program that communicates directly with the kernel, I'm reminded of how elegantly Linux brings together
-                this complexity under one unified interface.
+                <mark>software layers</mark>
+                . The kernel's <strong>resource management capabilities</strong> provide a robust foundation for system
+                operations, while <strong>system calls</strong> enable efficient hardware access. This architecture
+                demonstrates the <strong>elegant abstraction</strong> of complex hardware interactions through a
+                <mark>unified programming interface</mark>
+                .
             </p>
             <img src="photos/linux.png" alt="linux" class="note-image">
         </div>
         <div class="note-content">
-            <p>Simultaneously, I've begun exploring
-                <mark>FreeBSD</mark>
-                , another powerful operating system. FreeBSD is renowned for its exceptional stability and high
-                performance, finding widespread use in server and embedded system domains. The design philosophy of
-                FreeBSD emphasizes system consistency and predictability, which makes it excel in handling high-load
-                tasks.
-                FreeBSD's <strong>ports system</strong> and <strong>package management tools</strong> make software
-                installation and updates remarkably simple. Its
-                <mark>ZFS file system</mark>
-                offers robust data management capabilities, including snapshots and data integrity checks. Through
-                studying FreeBSD, I've gained a deeper understanding of how <strong>operating system kernels</strong>,
-                <strong>driver development</strong>, and <strong>network protocol stacks</strong> function.
+            <p>
+                <mark>FreeBSD's architecture</mark>
+                emphasizes <strong>stability</strong> and <strong>performance optimization</strong>, particularly
+                evident in
+                <mark>server</mark>
+                and
+                <mark>embedded system</mark>
+                deployments. Its coherent design philosophy manifests in the <strong>ports system</strong> and <strong>package
+                management infrastructure</strong>. The implementation of
+                <mark>ZFS</mark>
+                provides <strong>advanced data management capabilities</strong>, while the kernel architecture
+                facilitates <strong>efficient system resource utilization</strong>.
             </p>
             <img src="photos/FreeBSD.png" alt="FreeBSD" class="note-image">
         </div>
         <div class="note-content">
-            <p>One of the tools I've come to rely on is
+            <p>
                 <mark>Vim</mark>
-                . It's more than just a text editor—it's like a window into the world of <strong>system
-                    programming</strong>. With its <strong>efficiency</strong>, <strong>handy shortcuts</strong>,
-                and
-                <strong>customization options</strong>, Vim lets
-                me navigate and edit code at lightning speed without ever leaving the terminal. In a world where
-                every
-                keystroke counts, especially when dealing with systems-level code, Vim feels like an
-                <mark>extension of
-                    the OS
-                </mark>
-                itself, helping me maintain a workflow that feels natural and intuitive. Whether I'm
-                <strong>debugging
-                    kernel modules</strong>, <strong>writing shell scripts</strong>, or <strong>configuring server
-                    settings</strong>, Vim has become an invaluable tool
-                that bridges the gap between the precision of hardware control and the flexibility of software
-                development.
+                serves as an efficient interface for <strong>system-level development</strong>, offering <strong>precise
+                text manipulation capabilities</strong> and <strong>extensive customization options</strong>. Its
+                <mark>modal editing paradigm</mark>
+                enables <strong>rapid code navigation</strong> and <strong>modification</strong>, particularly valuable
+                in system programming contexts where efficiency is paramount.
             </p>
             <img src="photos/vim.png" alt="Vim Editor" class="note-image">
         </div>
         <div class="note-content">
-            <p>Using the
-                <mark>Command Line Interface (CLI)</mark>
-                has been a game-changer for me. The terminal offers a <strong>direct and efficient way</strong> to
-                interact with the
-                operating system, allowing me to <strong>execute commands</strong>, <strong>manipulate
-                    files</strong>,
-                and <strong>control processes</strong> with
-                impressive speed. It opens up powerful <strong>scripting</strong> capabilities, automating
-                repetitive tasks and boosting productivity. Whether I'm <strong>navigating directories</strong>,
-                <strong>managing system resources</strong>, or
-                <strong>compiling code</strong>, the CLI gives me
-                <mark>granular control</mark>
-                over the system. Typing commands and getting
-                instant feedback creates a dynamic environment that encourages experimentation and learning. Plus,
-                with
-                tools like <strong>grep</strong>, <strong>awk</strong>, and <strong>sed</strong>, I can effortlessly
-                handle
-                <mark>complex text processing</mark>
-                and
-                <mark>data manipulation</mark>
-                . Embracing the CLI has truly deepened my understanding
-                of Linux and how operating systems function.
+            <p>
+                The
+                <mark>Command Line Interface</mark>
+                provides <strong>direct system interaction capabilities</strong>, enabling <strong>efficient resource
+                management</strong> and <strong>process control</strong>. Its
+                <mark>scripting capabilities</mark>
+                facilitate <strong>task automation</strong> and <strong>system administration</strong>. Advanced text
+                processing tools enhance <strong>data manipulation capabilities</strong>, while the immediate feedback
+                loop accelerates the development cycle.
             </p>
             <img src="photos/Terminalicon2.png" alt="Terminal" class="note-image">
         </div>
         <div class="note-content">
-            <p>On a broader level, Linux and FreeBSD as
-                <mark>open-source</mark>
-                operating systems, showcases the harmony between hardware and software. Being able to <strong>explore
-                    and
-                    modify</strong> the <strong>source code</strong> empowers me to tailor the system to meet
-                specific
-                needs or explore
-                new possibilities. This hands-on interaction with the lower levels of computing, from <strong>memory
-                    management</strong> to <strong>process scheduling</strong>, has given me a deeper appreciation
-                for how these systems are designed to be both
-                <mark>robust and efficient</mark>
-                . It's in this interaction—where the
-                <strong>abstract world of software</strong> meets the <strong>tangible reality of
-                    hardware</strong>—that
-                the magic of operating
-                systems truly comes to life.
+            <p>
+                The
+                <mark>open-source nature</mark>
+                of these systems enables <strong>comprehensive analysis</strong> and <strong>modification</strong> of
+                system components. This transparency facilitates <strong>deep understanding</strong> of system
+                architecture and enables <strong>customization</strong> for specific use cases. The interaction between
+                <mark>software abstractions</mark>
+                and
+                <mark>hardware implementations</mark>
+                demonstrates the sophisticated design principles underlying modern operating systems.
             </p>
             <img src="photos/open-source.png" alt="Ubuntu" class="note-image">
         </div>
@@ -444,102 +398,77 @@
     </div>
 
     <div class="note-item">
-        <h3>Securing the Network</h3>
+        <h3>Network Security: From Infrastructure to Implementation</h3>
         <div class="note-content">
-            <p><strong>Networking is the lifeblood of modern computing, and Linux</strong>, with its wide range of
-                tools, offers amazing control over
+            <p>
+                <mark>Linux's network infrastructure</mark>
+                provides comprehensive control over
                 <mark>network interfaces</mark>
                 ,
                 <mark>connections</mark>
                 , and
-                <mark>security</mark>
-                . Recently, as I've
-                explored
-                <mark>Linux network programming</mark>
-                , I've focused on how Linux manages not just local resources but also its interactions with other
-                systems on a network. The ability to <strong>fine-tune network parameters</strong>, <strong>monitor
-                    traffic</strong>, and <strong>secure
-                    communications</strong> with robust built-in tools makes Linux a top choice for many IT
-                professionals.
-                With powerful utilities like
+                <mark>security protocols</mark>
+                . The platform's <strong>extensive toolkit</strong> facilitates network management through <strong>sophisticated
+                utilities</strong> including
                 <mark>ifconfig</mark>
                 ,
                 <mark>iptables</mark>
                 , and
                 <mark>Wireshark</mark>
-                , Linux provides an <strong>extensive toolkit</strong> for
-                managing and troubleshooting networks.
+                . These tools enable <strong>precise monitoring</strong>, <strong>analysis</strong>, and <strong>security
+                implementation</strong> across network layers.
             </p>
             <img src="photos/network.png" alt="Linux Networking" class="note-image">
         </div>
         <div class="note-content">
-            <p><strong>Kali Linux Networking Tools</strong><br>
-                <mark>Kali Linux</mark>
-                , known for its <strong>penetration testing capabilities</strong>, comes with a suite of powerful
-                networking tools. One tool that really stands out is
+            <p>
+                <mark>Kali Linux's security framework</mark>
+                incorporates <strong>advanced network analysis tools</strong>.
                 <mark>Netdiscover</mark>
-                , which helps me effortlessly <strong>scan and discover devices</strong> on the local network. Tools
-                like
+                facilitates <strong>network topology mapping</strong> and <strong>device enumeration</strong>, while
                 <mark>nmap</mark>
-                allow for <strong>comprehensive network scanning</strong>, helping me analyze <strong>open
-                    ports</strong>, the <strong>services running on
-                    them</strong>, and <strong>potential vulnerabilities</strong> in the network. The integration of
-                these tools in Kali Linux makes it
-                an essential platform for anyone serious about
-                <mark>network security</mark>
-                .
+                enables <strong>comprehensive port scanning</strong> and <strong>service detection</strong>. These
+                capabilities form an essential foundation for <strong>security assessment</strong> and <strong>vulnerability
+                analysis</strong> in network environments.
             </p>
             <img src="photos/kali.png" alt="Kali Linux Networking Tools" class="note-image">
         </div>
         <div class="note-content">
-            <p><strong>The Power of iptables and Firewalls</strong><br>
-                Recently, I've spent a lot of time with
-                <mark>iptables</mark>
-                . This <strong>firewall and packet filtering framework</strong> lets me set <strong>custom
-                    rules</strong> for managing incoming and
-                outgoing traffic. Learning to create and apply these rules has given me a deeper understanding of
-                how Linux
-                <mark>secures communication</mark>
-                with other systems. The elegance of Linux's ability to provide such
-                <strong>granular control</strong> over data packets is truly impressive.
+            <p>
+                The
+                <mark>iptables framework</mark>
+                provides <strong>granular control</strong> over network traffic through its <strong>robust packet
+                filtering mechanism</strong>. This system enables <strong>precise implementation</strong> of security
+                policies through
+                <mark>custom rule sets</mark>
+                , facilitating <strong>comprehensive network access control</strong> and <strong>traffic
+                management</strong> at the kernel level.
             </p>
             <img src="photos/iptables.png" alt="Iptables Firewall" class="note-image">
         </div>
         <div class="note-content">
-            <p><strong>Bettercap and Network Security Auditing</strong><br>
-                As I continue my exploration of Linux, I've been diving into network security with tools like
+            <p>
+                Network security auditing tools like
                 <mark>Bettercap</mark>
-                . It's a versatile tool designed for <strong>network monitoring</strong>, <strong>attacks</strong>,
+                enable <strong>sophisticated network analysis</strong> and <strong>vulnerability assessment</strong>.
+                The platform's <strong>packet capture</strong> and <strong>analysis capabilities</strong> facilitate
+                thorough security evaluations, emphasizing the critical importance of
+                <mark>encryption protocols</mark>
                 and
-                <strong>testing</strong>, allowing me to <strong>audit
-                    my network</strong> for potential vulnerabilities. By <strong>capturing network packets</strong>
-                and
-                <strong>examining the data</strong>, I'm
-                starting to understand how easily sensitive information can be exposed on an unsecured network. This
-                has
-                really made me appreciate the importance of
-                <mark>encryption</mark>
-                and <strong>secure communication protocols</strong> like
-                <mark>SSL/TLS</mark>
-                .
+                <mark>secure communication channels</mark>
+                in modern network architectures.
             </p>
             <img src="photos/bettercap.png" alt="Bettercap" class="note-image">
         </div>
         <div class="note-content">
-            <p><strong>Securing SSH Connections</strong><br>
-                You can't talk about Linux security without mentioning
-                <mark>Secure Shell (SSH)</mark>
-                . SSH has become a crucial tool for <strong>remote system administration</strong>. Whether I'm
-                <strong>managing
-                    a remote
-                    server</strong> or <strong>accessing a personal machine</strong> over a secure connection, SSH
-                keeps
-                my data safe from prying eyes.
-                Recently, I've been experimenting with
+            <p>
+                <mark>SSH protocol</mark>
+                implementation provides <strong>secure remote system administration</strong> capabilities. The
+                transition to
                 <mark>key-based authentication</mark>
-                , which uses <strong>cryptographic key pairs</strong>
-                instead of passwords. This not only <strong>boosts security</strong> but also <strong>simplifies the
-                    login process</strong>.
+                mechanisms enhances security through <strong>cryptographic verification</strong>, while maintaining
+                <strong>operational efficiency</strong>. This approach exemplifies the balance between <strong>security
+                requirements</strong> and <strong>administrative functionality</strong> in network operations.
             </p>
             <img src="photos/ssh.png" alt="SSH Secure Shell" class="note-image">
         </div>
@@ -549,63 +478,46 @@
     </div>
 
     <div class="note-item">
-        <h3>Navigating Database Paradigms</h3>
+        <h3>Modern Database Systems: SQL, NoSQL and Beyond</h3>
         <div class="note-content">
-            <p>Recently, I've been exploring into the world of databases, discovering the differences between
-                <mark>SQL and NoSQL</mark>
-                systems. <strong>SQL databases</strong>, with their <strong>structured approach</strong> and
-                <strong>ACID
-                    <mark>(Atomicity
-                        Consistency
-                        Isolation
-                        Durability)
-                    </mark>
-                    properties</strong>, have long been the backbone
-                of data management. They excel in <strong>handling complex queries</strong> and <strong>maintaining
-                    data
-                    integrity</strong>, which is
-                crucial for many business applications. On the other hand, <strong>NoSQL databases</strong> offer
-                <mark>flexibility and scalability</mark>
-                that's particularly valuable in handling <strong>large volumes of unstructured data</strong>,
-                making them ideal for certain <strong>big data</strong> and <strong>real-time web
-                    applications</strong>.
+            <p>
+                The architectural distinctions between
+                <mark>SQL</mark>
+                and
+                <mark>NoSQL</mark>
+                database systems present fundamental trade-offs in data management strategies. SQL databases implement
+                <strong>ACID properties</strong>, facilitating <strong>complex query operations</strong> and maintaining
+                <strong>strict data integrity</strong>. NoSQL systems prioritize
+                <mark>scalability</mark>
+                and
+                <mark>flexibility</mark>
+                , particularly advantageous in <strong>distributed computing environments</strong> and <strong>unstructured
+                data management</strong>.
             </p>
             <img src="photos/sqlVSnosql.png" alt="SQL vs NoSQL" class="note-image">
         </div>
         <div class="note-content">
-            <p>Another fascinating aspect of database systems is the distinction between
-                <mark>OLAP (Online Analytical Processing)</mark>
+            <p>
+                <mark>OLAP</mark>
                 and
-                <mark>OLTP (Online Transaction Processing)</mark>
-                . <strong>OLTP systems</strong> are designed for managing <strong>day-to-day transactions</strong>
-                and
-                focus on <strong>fast query processing</strong> and
-                <strong>maintaining data integrity</strong>. They're the workhorses of many business operations,
-                handling everything from
-                <strong>inventory updates</strong> to <strong>customer orders</strong>. In contrast, <strong>OLAP
-                    systems</strong> are optimized for
-                <strong>complex queries</strong> and <strong>data analysis</strong>, often working with
-                <strong>historical
-                    data</strong> to provide insights and support
-                <strong>decision-making processes</strong>.
+                <mark>OLTP</mark>
+                systems serve distinct operational requirements in database architecture. OLTP systems <strong>optimize
+                transaction processing</strong> for operational databases, emphasizing <strong>rapid query
+                execution</strong> and <strong>concurrent access patterns</strong>. OLAP implementations focus on
+                <strong>analytical processing</strong>, facilitating <strong>complex data analysis</strong> and <strong>decision
+                support</strong> through optimized query structures.
             </p>
             <img src="photos/oltpVSolap.png" alt="OLAP vs OLTP" class="note-image">
         </div>
         <div class="note-content">
-            <p>Understanding these different database paradigms has been eye-opening. It's not just about choosing
-                between SQL or NoSQL, or OLAP vs OLTP. The real skill lies in knowing how to <strong>leverage the
-                    strengths</strong> of
-                each system for different use cases. For instance, a
-                <mark>hybrid approach</mark>
-                might use an <strong>OLTP system</strong> for <strong>real-time transactions</strong> and an
-                <strong>OLAP
-                    system</strong> for <strong>business intelligence</strong>. Similarly, some applications might
-                benefit from using <strong>both SQL and NoSQL databases</strong> to handle different types of data
-                and
-                queries
-                efficiently. This knowledge has significantly expanded my toolkit for <strong>designing robust and
-                    efficient
-                    data management solutions</strong>.
+            <p>
+                Modern database architectures often implement
+                <mark>hybrid solutions</mark>
+                , leveraging the <strong>respective advantages</strong> of different database paradigms. This approach
+                enables <strong>optimal performance</strong> across varied use cases, combining
+                <mark>transactional efficiency</mark>
+                with <strong>analytical capabilities</strong> through carefully designed <strong>system
+                integration</strong>.
             </p>
             <img src="photos/database.png" alt="Database Paradigms" class="note-image">
         </div>
@@ -615,59 +527,58 @@
     </div>
 
     <div class="note-item">
-        <h3>CPU and GPU Roles in Modern Computing</h3>
+        <h3>High Performance Computing: CPU-GPU Synergy</h3>
         <div class="note-content">
-            <p>As I delve deeper into learning
-                <mark>CUDA</mark>
-                , I've found myself contemplating the <strong>distinct roles of the CPU and GPU in modern
-                    computing</strong>. Working with
-                <mark>parallel programming</mark>
-                using CUDA has given me a clearer understanding of how <strong>GPUs excel in handling tasks that require
-                    massive data processing</strong>, leveraging
-                <mark>thousands of cores to perform operations simultaneously</mark>
-                . In contrast, <strong>CPUs are optimized for sequential tasks</strong>, with a few powerful cores
-                designed for
-                <mark>general-purpose processing and control tasks</mark>
-                .
+            <p>
+                <mark>CUDA implementation</mark>
+                enables efficient parallel computation through
+                <mark>GPU architecture utilization</mark>
+                . The fundamental distinction between
+                <mark>CPU</mark>
+                and
+                <mark>GPU</mark>
+                architectures manifests in their respective <strong>optimization strategies</strong> - GPUs excel in
+                <strong>parallel data processing</strong> through multiple processing units, while CPUs optimize
+                <strong>sequential execution</strong> through sophisticated control units.
             </p>
             <img src="photos/Cpu_Gpu_arch.png" alt="CPU and GPU Architecture Comparison" class="note-image">
         </div>
         <div class="note-content">
-            <p>When it comes to
-                <mark>parallelism</mark>
-                , the GPU is a powerhouse, <strong>ideal for applications like machine learning, graphics rendering, and
-                    scientific computing</strong>. CUDA exposes this parallelism, allowing developers to <strong>write
-                    code that efficiently distributes workloads across GPU threads</strong>, resulting in
-                <mark>significant performance boosts for specific types of algorithms</mark>
-                . However, this power comes with challenges—like <strong>managing thread divergence, memory access
-                    patterns, and the need to carefully optimize kernels to minimize latency</strong>.
+            <p>
+                GPU
+                <mark>parallel processing capabilities</mark>
+                particularly benefit <strong>computationally intensive applications</strong> in <strong>machine
+                learning</strong>, <strong>graphics processing</strong>, and <strong>scientific computing</strong>. CUDA
+                framework implementation facilitates <strong>efficient workload distribution</strong> across GPU
+                threads, while requiring careful optimization of
+                <mark>memory access patterns</mark>
+                and
+                <mark>kernel execution parameters</mark>
+                .
             </p>
             <img src="photos/CUDA.png" alt="GPU Parallel Computing" class="note-image">
         </div>
         <div class="note-content">
-            <p>The CPU, on the other hand, plays a <strong>crucial role as the orchestrator</strong>. While the GPU
-                performs the heavy lifting in terms of computation, the
-                <mark>CPU is responsible for managing the overall system</mark>
-                , <strong>handling I/O operations, and executing sequential code that doesn't benefit as much from
-                    parallel execution</strong>. The tight collaboration between the CPU and GPU allows for
-                high-performance computing,
-                <mark>especially in domains where both sequential and parallel tasks coexist</mark>
-                .
+            <p>
+                The
+                <mark>CPU architecture</mark>
+                maintains primary control through its <strong>sophisticated instruction pipeline</strong> and <strong>branch
+                prediction capabilities</strong>. Its design optimizes
+                <mark>sequential processing</mark>
+                and <strong>complex decision-making tasks</strong>, while providing <strong>efficient interrupt
+                handling</strong> and <strong>system resource management</strong>.
             </p>
             <img src="photos/CGC.png" alt="CPU and GPU Collaboration" class="note-image">
         </div>
         <div class="note-content">
-            <p>Ultimately, learning CUDA has <strong>broadened my perspective on the strengths of both
-                architectures</strong>. For
-                <mark>workloads that are inherently parallel</mark>
-                , such as matrix operations or pixel manipulation, the <strong>GPU is a clear winner</strong>. But for
-                <mark>more complex decision-making algorithms or control flows</mark>
-                , the <strong>CPU's instruction-level efficiency shines</strong>. By recognizing their complementary
-                roles, I can <strong>better design programs that maximize performance</strong>, whether it's by
-                exploiting the parallel processing power of the GPU or the versatility of the CPU. This has reinforced
-                my belief that a
-                <mark>deep understanding of both hardware architectures leads to better optimization strategies</mark>
-                and a more profound appreciation for the intricacies of modern computing.
+            <p>
+                Optimal
+                <mark>heterogeneous computing</mark>
+                requires understanding of both architectures' <strong>performance characteristics</strong>. This
+                knowledge enables <strong>effective workload distribution</strong> between CPU and GPU, maximizing
+                <mark>system efficiency</mark>
+                through <strong>parallel execution</strong> of suitable tasks while maintaining <strong>sequential
+                processing</strong> for control-intensive operations.
             </p>
             <img src="photos/performance.png" alt="Optimizing CPU and GPU Performance" class="note-image">
         </div>
@@ -677,44 +588,41 @@
     </div>
 
     <div class="note-item">
-        <h3>Tomcat and Nginx in Web Development</h3>
+        <h3>Web Servers: Tomcat and Nginx Ecosystem</h3>
         <div class="note-content">
-            <p>As I dive into web servers, I've noticed how <strong>Tomcat and Nginx serve different purposes</strong>.
-                Tomcat is a Java Servlet container that
-                <mark>handles dynamic content well</mark>
-                , managing
-                <mark>Java Servlets and JSP</mark>
-                effectively. It's the go-to choice for Java-based web applications that require server-side logic,
-                allowing for easy execution of backend code.
+            <p>
+                <mark>Tomcat's architecture</mark>
+                specializes in <strong>Java Servlet container implementation</strong>, providing robust support for
+                <strong>dynamic content generation</strong> through
+                <mark>Java Servlet</mark>
+                and
+                <mark>JSP processing</mark>
+                . This architecture enables <strong>efficient server-side application logic execution</strong> within
+                the Java ecosystem.
             </p>
             <img src="photos/tomcat.png" alt="Overview of Tomcat" class="note-image">
         </div>
         <div class="note-content">
-            <p>On the flip side, Nginx
-                <mark>shines when it comes to serving static files and handling high traffic</mark>
-                . Its <strong>event-driven architecture</strong> enables it to manage numerous concurrent connections
-                with low resource usage, making it ideal for <strong>high-traffic websites</strong> and content
-                delivery. Nginx can also act as a reverse proxy, improving overall application performance.
+            <p>
+                <mark>Nginx's event-driven architecture</mark>
+                optimizes <strong>static content delivery</strong> and <strong>connection management</strong>. Its
+                implementation efficiently handles <strong>high-concurrency scenarios</strong> while minimizing resource
+                utilization, particularly effective in
+                <mark>reverse proxy configurations</mark>
+                and
+                <mark>content delivery optimization</mark>
+                .
             </p>
             <img src="photos/nginx.png" alt="Overview of Nginx" class="note-image">
         </div>
         <div class="note-content">
-            <p>By <strong>combining both servers</strong>, I can create more efficient web architectures. For instance,
-                using Tomcat for dynamic content and Nginx for static resources can lead to significant improvements in
-                <mark>loading times and responsiveness</mark>
-                .
+            <p>
+                Integration of both server architectures enables <strong>optimal resource utilization</strong> through
+                <mark>specialized task distribution</mark>
+                . This approach maximizes <strong>system performance</strong> by leveraging each server's <strong>specific
+                optimization characteristics</strong>.
             </p>
             <img src="photos/web-server.png" alt="Integration of Tomcat and Nginx" class="note-image">
-        </div>
-        <div class="note-content">
-            <p>Ultimately, understanding the strengths of both <strong>Tomcat and Nginx has given me a clearer view of
-                modern web development</strong>. This dual approach not only enhances
-                <mark>scalability</mark>
-                but also highlights the importance of <strong>mastering different server technologies for optimizing
-                    application performance</strong>.
-            </p>
-            <img src="photos/scale.png" alt="Optimizing Performance with Tomcat and Nginx"
-                 class="note-image">
         </div>
         <div class="note-time">
             <span class="timestamp">Fri Oct 25 00:26:33 KST 2024</span>
@@ -722,17 +630,36 @@
     </div>
 
     <div class="note-item">
-        <h3>Got a HHKB!</h3>
+        <h3>Hardware Spotlight: HHKB Professional</h3>
         <div class="note-content">
-            <img src="photos/hhkb.png" alt=""
-                 class="note-image">
+            <p>
+                Received the
+                <mark>HHKB Professional HYBRID Type-S</mark>
+                as a birthday gift, marking a significant upgrade in my typing experience. The keyboard's
+                <mark>Topre switches</mark>
+                provide <strong>exceptional tactile feedback</strong> and <strong>reduced actuation force</strong>,
+                offering substantial relief from the finger fatigue and hand strain commonly associated with traditional
+                mechanical keyboards. This ergonomic improvement is particularly valuable for <strong>intensive coding
+                sessions</strong> and <strong>extended typing periods</strong>.
+            </p>
+            <img src="photos/hhkb.png" alt="HHKB Professional" class="note-image">
+        </div>
+        <div class="note-content">
+            <p>
+                The
+                <mark>electrostatic capacitive switches</mark>
+                demonstrate their superiority through <strong>smoother keystrokes</strong> and <strong>reduced typing
+                fatigue</strong>. For
+                <mark>professional developers</mark>
+                and <strong>content creators</strong> who engage in extensive daily typing, the HHKB's thoughtful design
+                and premium switch technology represent a significant advancement in both <strong>comfort</strong> and
+                <strong>typing efficiency</strong>.
+            </p>
         </div>
         <div class="note-time">
             <span class="timestamp">Wed Nov 6 19:03:21 KST 2024</span>
         </div>
-
     </div>
-
 
 </div>
 
@@ -754,7 +681,6 @@
         <li><a href="mailto:pp3ng@outlook.com"><i class="fa-solid fa-envelope custom-icon-size"></i></a></li>
     </ul>
 </div>
-
 
 <footer>
     &copy; 2024 LUOPENG ZHOU. All rights reserved.😊
