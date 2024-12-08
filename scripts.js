@@ -347,6 +347,15 @@ $(document).ready(function () {
         easing: 'ease-in-sine',
         once: true,
     });
+
+    // Scroll progress bar
+    const progressBar = $('<div class="scroll-progress"></div>').appendTo('body');
+
+    $(window).scroll(function() {
+        const windowHeight = $(document).height() - $(window).height();
+        const scrolled = $(window).scrollTop() / windowHeight;
+        progressBar.css('transform', `scaleX(${scrolled})`);
+    });
 });
 
 lightbox.option({
