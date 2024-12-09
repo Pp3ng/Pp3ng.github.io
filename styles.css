@@ -446,6 +446,7 @@ p {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    border-left: 4px solid #3498db;
 }
 
 .note-item:hover {
@@ -467,6 +468,29 @@ p {
     align-items: flex-start;
     margin-bottom: 20px;
     gap: 30px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.note-content::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        #3498db,
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.note-item:hover .note-content::before {
+    opacity: 1;
 }
 
 .note-content img {
@@ -474,7 +498,11 @@ p {
     max-width: 300px;
     height: auto;
     border-radius: 15px;
-    transition: all 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.note-content:hover img {
+    transform: scale(1.05) translateY(-5px);
 }
 
 .note-time {
