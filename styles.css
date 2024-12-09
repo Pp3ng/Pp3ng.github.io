@@ -909,11 +909,18 @@ strong {
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 0 !important;
+}
+
+.lb-container {
+    padding: 0 !important;
 }
 
 .lb-image {
     border-radius: 12px !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .lb-nav a.lb-prev,
