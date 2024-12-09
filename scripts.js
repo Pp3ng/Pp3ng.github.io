@@ -477,6 +477,9 @@ Type any command to execute.`,
 
         particlesJS('particles-js', particlesConfig);
     }
+
+    // Initialize gallery
+    populateGallery();
 });
 
 lightbox.option({
@@ -621,3 +624,52 @@ function populateBookshelf() {
 }
 
 populateBookshelf();
+
+
+function populateGallery() {
+    const galleryContainer = $('.gallery-container');
+    const images = [
+        'p1.jpg', 'p12.jpg', 'p3.jpg', 'p4.jpg', 
+        'p5.jpg', 'p6.jpg', 'p7.jpg', 'p8.jpg',
+        'p10.jpg', 'p11.jpg', 'p13.jpg', 'p14.jpg'
+    ];
+    
+    galleryContainer.empty();
+    
+    images.forEach((image, index) => {
+        const imagePath = `photos/gallery/${image}`;
+        const galleryItem = $('<a>')
+            .attr('href', imagePath)
+            .attr('data-lightbox', 'gallery')
+            .append(
+                $('<img>')
+                    .attr('data-src', imagePath)
+                    .attr('alt', `Gallery image ${index + 1}`)
+                    .addClass('gallery-image')
+            );
+        
+        galleryContainer.append(galleryItem);
+    });
+
+    // Initialize lazy loading
+    const lazyLoadImages = () => {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.onload = () => {
+                        img.classList.add('loaded');
+                    };
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('.gallery-image[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    };
+
+    lazyLoadImages();
+}

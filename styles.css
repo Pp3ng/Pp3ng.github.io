@@ -891,3 +891,62 @@ strong {
 .note-item.active::before {
     opacity: 0;
 }
+
+.gallery-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.gallery-image.loaded {
+    opacity: 1;
+}
+
+/* Lightbox customization */
+.lb-outerContainer {
+    border-radius: 15px !important;
+    background: linear-gradient(135deg, rgba(245, 247, 250, 0.8) 0%, rgba(195, 207, 226, 0.8) 100%) !important;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.lb-image {
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.lb-nav a.lb-prev,
+.lb-nav a.lb-next {
+    opacity: 0.8 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.lb-nav a.lb-prev:hover,
+.lb-nav a.lb-next:hover {
+    opacity: 1 !important;
+}
+
+/* Hide the data container (bottom bar) */
+.lb-dataContainer {
+    display: none !important;
+}
+
+.lightbox {
+    background: linear-gradient(135deg, rgba(245, 247, 250, 0.4) 0%, rgba(195, 207, 226, 0.4) 100%) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+}
+
+/* Customize close button */
+.lb-close {
+    position: absolute !important;
+    top: -30px !important;
+    right: -30px !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.lb-close:hover {
+    opacity: 1 !important;
+}
