@@ -290,29 +290,39 @@ p {
     height: 250px;
     object-fit: cover;
     border-radius: 20px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: brightness(1) contrast(1);
+    transform-origin: center;
 }
 
 .gallery-container a {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .gallery-container a::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(
-            to bottom,
-            transparent,
-            rgba(0, 0, 0, 0.5)
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.2) 100%
     );
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.gallery-container a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-container a:hover::before {
@@ -320,7 +330,8 @@ p {
 }
 
 .gallery-container a:hover img {
-    transform: scale(1.05);
+    transform: scale(1.04);
+    filter: brightness(1.02) contrast(1.02);
 }
 
 .lb-closeContainer {
