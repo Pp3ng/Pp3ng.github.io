@@ -414,79 +414,88 @@ Type any command to execute.`,
         const particlesConfig = {
             particles: {
                 number: {
-                    value: 80,
+                    value: 100,
                     density: {
                         enable: true,
-                        value_area: 1500
+                        value_area: 1000
                     }
                 },
                 color: {
                     value: ["#3498db", "#2ecc71", "#2980b9", "#27ae60"]
                 },
                 opacity: {
-                    value: 0.7,
-                    random: false,
+                    value: 0.6,
+                    random: true,
                     anim: {
                         enable: true,
-                        speed: 0.8,
-                        opacity_min: 0.3,
+                        speed: 1,
+                        opacity_min: 0.1,
                         sync: false
                     }
                 },
                 size: {
-                    value: 4,
+                    value: 3,
                     random: true,
                     anim: {
                         enable: true,
-                        speed: 1.2,
-                        size_min: 0.8,
+                        speed: 2,
+                        size_min: 0.3,
                         sync: false
                     }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 180,
+                    distance: 150,
                     color: "#3498db",
-                    opacity: 0.5,
-                    width: 1.2
+                    opacity: 0.4,
+                    width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 1.2,
+                    speed: 2,
                     direction: "none",
-                    random: false,
+                    random: true,
                     straight: false,
-                    out_mode: "out",
-                    bounce: false,
+                    out_mode: "bounce",
+                    bounce: true,
                     attract: {
                         enable: true,
-                        rotateX: 800,
-                        rotateY: 1500
+                        rotateX: 600,
+                        rotateY: 1200
                     }
                 }
             },
             interactivity: {
-                detect_on: "canvas",
+                detect_on: "window",
                 events: {
                     onhover: {
                         enable: true,
-                        mode: "grab"
+                        mode: "bubble"
                     },
                     onclick: {
                         enable: true,
-                        mode: "push"
+                        mode: "repulse"
                     },
                     resize: true
                 },
                 modes: {
-                    grab: {
+                    bubble: {
                         distance: 250,
-                        line_linked: {
-                            opacity: 0.6
-                        }
+                        size: 6,
+                        duration: 2,
+                        opacity: 0.8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 300,
+                        duration: 0.4,
+                        speed: 1
                     },
                     push: {
                         particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
                     }
                 }
             },

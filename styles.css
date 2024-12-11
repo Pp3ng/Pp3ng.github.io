@@ -38,7 +38,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 1rem 2rem;
     position: fixed;
     width: 100%;
@@ -47,8 +47,8 @@ body {
     box-shadow: 
         0 4px 30px rgba(0, 0, 0, 0.1),
         inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
 
@@ -116,9 +116,9 @@ body {
     margin: 0 auto;
     padding: 50px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 
@@ -366,9 +366,9 @@ p {
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
@@ -380,7 +380,9 @@ p {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border-radius: 20px;
     padding: 2rem;
     transition: all 0.3s ease;
@@ -473,9 +475,9 @@ p {
     text-align: left;
     padding: 30px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.4);
     margin: 30px 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -735,9 +737,9 @@ a:hover {
 .book-item {
     position: relative;
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 10px;
     padding: 25px; /* Increased padding */
@@ -750,9 +752,9 @@ a:hover {
     align-items: center;
     height: 100%;
     justify-content: space-between; /* Distribute space evenly */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 
