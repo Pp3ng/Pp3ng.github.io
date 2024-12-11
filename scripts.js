@@ -423,25 +423,18 @@ Type any command to execute.`,
                 color: {
                     value: ["#3498db", "#2ecc71", "#e74c3c", "#f1c40f"]
                 },
-                shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#000000"
-                    }
-                },
                 opacity: {
-                    value: 0.3,
+                    value: 0.6,
                     random: true,
                     anim: {
                         enable: true,
                         speed: 1,
-                        opacity_min: 0.1,
+                        opacity_min: 0.3,
                         sync: false
                     }
                 },
                 size: {
-                    value: 3,
+                    value: 4,
                     random: true,
                     anim: {
                         enable: true,
@@ -454,8 +447,8 @@ Type any command to execute.`,
                     enable: true,
                     distance: 150,
                     color: "#3498db",
-                    opacity: 0.2,
-                    width: 1
+                    opacity: 0.4,
+                    width: 1.2
                 },
                 move: {
                     enable: true,
@@ -520,6 +513,8 @@ Type any command to execute.`,
 
     // Initialize gallery
     populateGallery();
+
+    createParticleBackground();
 });
 
 lightbox.option({
