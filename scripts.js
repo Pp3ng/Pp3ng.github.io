@@ -421,7 +421,7 @@ Type any command to execute.`,
                     }
                 },
                 color: {
-                    value: ["#3498db", "#2ecc71", "#9b59b6"]
+                    value: ["#3498db", "#2ecc71", "#2980b9", "#27ae60"]
                 },
                 opacity: {
                     value: 0.7,
@@ -591,7 +591,7 @@ function populateBookshelf() {
             pdfFilename: "Operating System Three Easy Pieces.pdf"
         },
         {
-            title: "Computer Netwoking-A Top Down Approach",
+            title: "Computer Networking-A Top Down Approach",
             cover: "BookCovers/NW.jpg",
             pdfFilename: "Computer Networking-A Top Down Approach-7th.pdf"
         },

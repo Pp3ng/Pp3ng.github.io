@@ -19,7 +19,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem 2rem;
     position: fixed;
     width: 100%;
@@ -28,7 +28,7 @@ body {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .navbar a {
@@ -95,12 +95,12 @@ body {
     margin: 0 auto;
     padding: 50px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 30px auto;
     padding: 40px;
@@ -169,7 +169,7 @@ p {
 #terminal-window {
     border: none;
     border-radius: 15px;
-    background: rgba(40, 44, 52, 0.95);
+    background: rgba(40, 44, 52, 0.85);
     color: #abb2bf;
     font-family: 'Fira Code', monospace;
     font-weight: 200;
@@ -182,6 +182,9 @@ p {
     white-space: pre-wrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #terminal-window::-webkit-scrollbar {
@@ -347,10 +350,10 @@ p {
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     border-radius: 15px;
@@ -359,11 +362,11 @@ p {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 20px;
     padding: 2rem;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     z-index: 1;
 }
 
@@ -447,10 +450,10 @@ p {
     text-align: left;
     padding: 30px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 30px 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
@@ -709,7 +712,10 @@ a:hover {
 .book-item {
     position: relative;
     z-index: 1;
-    background-color: #f0fff0;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     padding: 25px; /* Increased padding */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -719,9 +725,9 @@ a:hover {
     align-items: center;
     height: 100%;
     justify-content: space-between; /* Distribute space evenly */
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
