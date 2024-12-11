@@ -414,45 +414,45 @@ Type any command to execute.`,
         const particlesConfig = {
             particles: {
                 number: {
-                    value: 50,
+                    value: 80,
                     density: {
                         enable: true,
-                        value_area: 2000
+                        value_area: 1500
                     }
                 },
                 color: {
-                    value: ["#3498db", "#2ecc71"]
+                    value: ["#3498db", "#2ecc71", "#9b59b6"]
                 },
                 opacity: {
-                    value: 0.5,
+                    value: 0.7,
                     random: false,
                     anim: {
                         enable: true,
-                        speed: 0.5,
-                        opacity_min: 0.2,
+                        speed: 0.8,
+                        opacity_min: 0.3,
                         sync: false
                     }
                 },
                 size: {
-                    value: 3,
+                    value: 4,
                     random: true,
                     anim: {
                         enable: true,
-                        speed: 1,
-                        size_min: 0.5,
+                        speed: 1.2,
+                        size_min: 0.8,
                         sync: false
                     }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 200,
+                    distance: 180,
                     color: "#3498db",
-                    opacity: 0.3,
-                    width: 1
+                    opacity: 0.5,
+                    width: 1.2
                 },
                 move: {
                     enable: true,
-                    speed: 0.8,
+                    speed: 1.2,
                     direction: "none",
                     random: false,
                     straight: false,
@@ -460,8 +460,8 @@ Type any command to execute.`,
                     bounce: false,
                     attract: {
                         enable: true,
-                        rotateX: 600,
-                        rotateY: 1200
+                        rotateX: 800,
+                        rotateY: 1500
                     }
                 }
             },
@@ -480,13 +480,13 @@ Type any command to execute.`,
                 },
                 modes: {
                     grab: {
-                        distance: 200,
+                        distance: 250,
                         line_linked: {
-                            opacity: 0.4
+                            opacity: 0.6
                         }
                     },
                     push: {
-                        particles_nb: 3
+                        particles_nb: 4
                     }
                 }
             },
