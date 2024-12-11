@@ -414,49 +414,49 @@ Type any command to execute.`,
         const particlesConfig = {
             particles: {
                 number: {
-                    value: 80,
+                    value: 50,
                     density: {
                         enable: true,
-                        value_area: 1500
+                        value_area: 2000
                     }
                 },
                 color: {
-                    value: ["#3498db", "#2ecc71", "#e74c3c", "#f1c40f"]
+                    value: ["#3498db", "#2ecc71"]
                 },
                 opacity: {
-                    value: 0.6,
-                    random: true,
+                    value: 0.5,
+                    random: false,
                     anim: {
                         enable: true,
-                        speed: 1,
-                        opacity_min: 0.3,
+                        speed: 0.5,
+                        opacity_min: 0.2,
                         sync: false
                     }
                 },
                 size: {
-                    value: 4,
+                    value: 3,
                     random: true,
                     anim: {
                         enable: true,
-                        speed: 2,
-                        size_min: 0.1,
+                        speed: 1,
+                        size_min: 0.5,
                         sync: false
                     }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 150,
+                    distance: 200,
                     color: "#3498db",
-                    opacity: 0.4,
-                    width: 1.2
+                    opacity: 0.3,
+                    width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 1,
+                    speed: 0.8,
                     direction: "none",
-                    random: true,
+                    random: false,
                     straight: false,
-                    out_mode: "bounce",
+                    out_mode: "out",
                     bounce: false,
                     attract: {
                         enable: true,
@@ -470,7 +470,7 @@ Type any command to execute.`,
                 events: {
                     onhover: {
                         enable: true,
-                        mode: "bubble"
+                        mode: "grab"
                     },
                     onclick: {
                         enable: true,
@@ -480,27 +480,13 @@ Type any command to execute.`,
                 },
                 modes: {
                     grab: {
-                        distance: 400,
+                        distance: 200,
                         line_linked: {
-                            opacity: 1
+                            opacity: 0.4
                         }
                     },
-                    bubble: {
-                        distance: 200,
-                        size: 6,
-                        duration: 2,
-                        opacity: 0.8,
-                        speed: 3
-                    },
-                    repulse: {
-                        distance: 200,
-                        duration: 0.4
-                    },
                     push: {
-                        particles_nb: 4
-                    },
-                    remove: {
-                        particles_nb: 2
+                        particles_nb: 3
                     }
                 }
             },
