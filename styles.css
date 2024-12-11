@@ -3,6 +3,25 @@ html {
     scroll-padding-top: 80px;
 }
 
+@keyframes glowPulse {
+    0% {
+        box-shadow: 
+            0 8px 32px rgba(31, 38, 135, 0.15),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 8px 32px rgba(31, 38, 135, 0.25),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+            0 0 20px rgba(52, 152, 219, 0.3);
+    }
+    100% {
+        box-shadow: 
+            0 8px 32px rgba(31, 38, 135, 0.15),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+}
+
 body {
     margin: 0;
     padding-top: 60px;
@@ -115,11 +134,7 @@ body {
 
 .container:hover {
     transform: translateY(-5px);
-    box-shadow: 
-        0 8px 32px rgba(31, 38, 135, 0.2),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-        0 0 20px rgba(52, 152, 219, 0.2),
-        inset 0 0 8px rgba(52, 152, 219, 0.1);
+    animation: glowPulse 2s ease-in-out infinite;
 }
 
 .container h2 {
@@ -398,11 +413,7 @@ p {
 
 .project-item:hover {
     transform: translateY(-8px);
-    box-shadow: 
-        0 8px 32px rgba(31, 38, 135, 0.2),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-        0 0 20px rgba(52, 152, 219, 0.2),
-        inset 0 0 8px rgba(52, 152, 219, 0.1);
+    animation: glowPulse 2s ease-in-out infinite;
 }
 
 .project-item h3 {
@@ -475,8 +486,8 @@ p {
 }
 
 .note-item:hover {
-    transform: none;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    transform: translateY(-5px);
+    animation: glowPulse 2s ease-in-out infinite;
 }
 
 .note-item h3 {
@@ -753,7 +764,7 @@ a:hover {
 
 .book-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    animation: glowPulse 2s ease-in-out infinite;
 }
 
 .book-cover {
