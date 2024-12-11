@@ -898,10 +898,11 @@ strong {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    will-change: transform;
 }
 
 .container:not(#about):hover, .project-item:hover, .note-item:hover, .book-item:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -1063,28 +1064,23 @@ strong {
     scrollbar-color: #3498db rgba(195, 207, 226, 0.3);
 }
 
-/* Add theme glow animation */
-@keyframes glowPulse {
-    0% {
-        box-shadow: 
-            0 8px 32px rgba(31, 38, 135, 0.15),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-            0 0 0 rgba(52, 152, 219, 0);
-    }
-    50% {
-        box-shadow: 
-            0 8px 32px rgba(31, 38, 135, 0.2),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-            0 0 20px rgba(52, 152, 219, 0.3);
-    }
-    100% {
-        box-shadow: 
-            0 8px 32px rgba(31, 38, 135, 0.15),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-            0 0 0 rgba(52, 152, 219, 0);
-    }
+/* Ensure text content remains clear */
+.container h2,
+.container p,
+.project-item h3,
+.project-item p,
+.note-item h3,
+.note-item p,
+.book-item .book-title,
+.book-item .book-author {
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
+/* Remove glowPulse animation */
 .container:hover, .project-item:hover, .note-item:hover, .book-item:hover {
-    animation: glowPulse 2s infinite;
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(52, 152, 219, 0.2);
 }
