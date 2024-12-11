@@ -922,7 +922,14 @@ strong {
     left: 0;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    #particles-js {
+        opacity: 0.3;
+    }
 }
 
 /* Ensure active state doesn't show hover effect */
