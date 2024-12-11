@@ -150,14 +150,21 @@ img {
     width: 300px;
     height: 300px;
     object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 15px 40px rgba(31, 38, 135, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(52, 152, 219, 0.2);
 }
 
 h1 {
@@ -279,9 +286,25 @@ p {
 .passion-image {
     width: 200px;
     height: 200px;
-    border-radius: 10px;
+    border-radius: 20px;
     object-fit: cover;
     margin: 0 20px;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.passion-image:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 15px 40px rgba(31, 38, 135, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(52, 152, 219, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -319,7 +342,7 @@ p {
     overflow: hidden;
     border-radius: 20px;
     cursor: pointer;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -341,7 +364,14 @@ p {
 
 .gallery-container a:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 
+        0 15px 40px rgba(31, 38, 135, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(52, 152, 219, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .gallery-container a:hover::before {
@@ -351,6 +381,8 @@ p {
 .gallery-container a:hover img {
     transform: scale(1.04);
     filter: brightness(1.02) contrast(1.02);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
 }
 
 .lb-closeContainer {
