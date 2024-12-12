@@ -336,7 +336,7 @@ Type any command to execute.`,
             if (command === 'cowsay') {
                 return commands[command](args.join(' '));
             }
-            
+
             const result = commands[command](...args);
             if (result instanceof Promise) {
                 return await result;
@@ -404,7 +404,7 @@ Type any command to execute.`,
     // Scroll progress bar
     const progressBar = $('<div class="scroll-progress"></div>').appendTo('body');
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         const windowHeight = $(document).height() - $(window).height();
         const scrolled = $(window).scrollTop() / windowHeight;
         progressBar.css('transform', `scaleX(${scrolled})`);
@@ -659,13 +659,13 @@ populateBookshelf();
 function populateGallery() {
     const galleryContainer = $('.gallery-container');
     const images = [
-        'p1.jpg', 'p12.jpg', 'p3.jpg', 'p4.jpg', 
+        'p1.jpg', 'p12.jpg', 'p3.jpg', 'p4.jpg',
         'p5.jpg', 'p6.jpg', 'p7.jpg', 'p8.jpg',
         'p10.jpg', 'p11.jpg', 'p13.jpg', 'p14.jpg'
     ];
-    
+
     galleryContainer.empty();
-    
+
     images.forEach((image, index) => {
         const imagePath = `photos/gallery/${image}`;
         const galleryItem = $('<a>')
@@ -677,7 +677,7 @@ function populateGallery() {
                     .attr('alt', `Gallery image ${index + 1}`)
                     .addClass('gallery-image')
             );
-        
+
         galleryContainer.append(galleryItem);
     });
 
