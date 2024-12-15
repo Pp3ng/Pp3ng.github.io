@@ -1401,6 +1401,14 @@ div[data-aos="fade-up"].container:hover::before {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.journey-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .journey-dot {

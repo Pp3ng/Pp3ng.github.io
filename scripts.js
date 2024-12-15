@@ -882,3 +882,19 @@ function populateGallery() {
 
     lazyLoadImages();
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const journeyItems = document.querySelectorAll('.journey-item');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    journeyItems.forEach(item => {
+        observer.observe(item);
+    });
+});
