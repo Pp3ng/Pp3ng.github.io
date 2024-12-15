@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="周罗鹏的个人网站 - 探索技术与创意的交汇点。分享系统架构、摄影作品与技术见解，记录持续学习与成长的旅程。">
+    <meta name="author" content="Penn Zhou">
+    <meta property="og:title" content="周罗鹏的个人网站">
+    <meta property="og:image" content="https://Pp3ng.github.io/photos/my_photo.jpg">
+    <meta property="og:url" content="https://Pp3ng.github.io">
+    <meta property="og:type" content="website">
+    <title>PENN ZHOU | Code & Create</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.14.0/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="/photos/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="#about">About</a>
+    <a href="#terminal">Terminal</a>
+    <a href="#journey">Journey</a>
+    <a href="#passions">Passions</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#projects">Projects</a>
+    <a href="#insights">Insights</a>
+    <a href="#bookshelf">Bookshelf</a>
+    <a href="#Social-Accounts">Connect</a>
+</div>
+
+<div class="container" id="about">
+    <img src="photos/my_photo.jpg" alt="My Photo">
+    <h1></h1> <!-- Typewriter effect will be added -->
+    <p>Welcome to my digital space! As an individual fascinated by the intricate interplay between hardware
+        <i class="fas fa-microchip"></i> and software <i class="fas fa-file-code"></i>, I explore the full spectrum
+        of technology. Beyond coding, I'm an avid photographer capturing life's moments <i class="fas fa-camera"></i>
+        and a billiards enthusiast seeking the perfect shot <i class="fas fa-circle"></i>. Here, I share my journey
+        through system architecture, creative pursuits, and continuous learning <i class="fas fa-book"></i>.</p>
+</div>
+
+<div class="container" data-aos="fade-up">
+    <h2>Terminal</h2>
+    <div id="terminal">
+        <div id="terminal-window">
+            <div id="terminal-output"></div>
+            <div id="terminal-input-line">
+                <span id="terminal-prompt">>_</span>
+                <label for="terminal-input"></label><input type="text" id="terminal-input">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="journey" data-aos="fade-up">
+    <h2>Life Journey</h2>
+    <div class="journey-wrapper">
+        <div class="journey-item">
+            <div class="journey-dot"></div>
+            <div class="journey-date">Spring 2022</div>
+            <div class="journey-content">
+                <h3>First Encounter with Linux</h3>
+                <p>Discovered Linux operating system and was captivated by its design philosophy. This marked the
+                    beginning of my passion for system programming and helped me find my true technical interest.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <div class="journey-dot"></div>
+            <div class="journey-date">Spring 2021</div>
+            <div class="journey-content">
+                <h3>Beginning Computer Science Journey</h3>
+                <p>Formally began studying Computer Science and Engineering at university. This marked the start of my
+                    systematic exploration of computer science, laying a solid foundation for my future technical
+                    pursuits.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <div class="journey-dot"></div>
+            <div class="journey-date">Spring 2021</div>
+            <div class="journey-content">
+                <h3>First Study Abroad Experience</h3>
+                <p>Embarked on my first international journey as an exchange student. This experience not only broadened
+                    my academic horizons but also helped me develop independence and cross-cultural understanding while
+                    adapting to a new environment.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <div class="journey-dot"></div>
+            <div class="journey-date">Winter 2019</div>
+            <div class="journey-content">
+                <h3>Beginning Independent Living</h3>
+                <p>Moved into a new place and started living independently. Learned to manage various aspects of life on
+                    my own, enjoying solitude while also gaining a deeper appreciation for time spent with family and
+                    friends.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <div class="journey-dot"></div>
+            <div class="journey-date">Winter 2018</div>
+            <div class="journey-content">
+                <h3>Billiards: From Beginner to Enthusiast</h3>
+                <p>First encountered billiards and was deeply drawn to its precision and strategy. Regular practice
+                    became a weekly routine, continuously improving techniques. Through this journey, I learned the
+                    importance of patience and focus.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="passions" data-aos="fade-up">
+    <h2>My Passions</h2>
+
+    <div class="container passion-item">
+        <img src="photos/programming.JPG" alt="Programming" class="passion-image">
+        <div class="passion-description">
+            <h3>Programming</h3>
+            <p>I'm passionate about software development and system programming. I enjoy exploring different programming
+                paradigms
+                and technologies to create efficient solutions. Whether it's building high-performance systems,
+                developing web applications,
+                or working on data processing tools, I find great satisfaction in turning complex problems into elegant
+                code.</p>
+        </div>
+        <img src="photos/coding.JPG" alt="Coding" class="passion-image">
+    </div>
+
+    <div class="container passion-item">
+        <img src="photos/photography.jpg" alt="Photography" class="passion-image">
+        <div class="passion-description">
+            <h3>Photography</h3>
+            <p>Through the lens of my camera, I seek to capture the extraordinary in the ordinary. Photography allows me
+                to
+                explore the interplay of light and shadow, while documenting the subtle beauty that surrounds us. Each
+                frame
+                tells its own story, whether it's the grandeur of architecture or the quiet moments in nature.</p>
+        </div>
+        <img src="photos/photography2.jpg" alt="Travel" class="passion-image">
+    </div>
+
+    <div class="container passion-item">
+        <img src="photos/billiards.jpg" alt="Billiards" class="passion-image">
+        <div class="passion-description">
+            <h3>Billiards</h3>
+            <p>Billiards represents the perfect blend of precision, strategy, and artistry. Each shot is a puzzle to be
+                solved,
+                requiring careful consideration of angles, force, and position. Beyond the technical aspects, it's a
+                meditative
+                practice that teaches patience and continuous improvement.</p>
+        </div>
+        <img src="photos/billiards2.jpg" alt="Billiards" class="passion-image">
+    </div>
+</div>
+
+<div class="container" id="gallery" data-aos="fade-up">
+    <h2>My Gallery</h2>
+    <div class="gallery-container">
+        <!-- Images will be dynamically added here -->
+    </div>
+</div>
+
+<div class="container" id="projects" data-aos="fade-up">
+    <h2>My Projects</h2>
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/PGS" target="_blank">PGS</a></h3>
+            <p>A high-performance static HTTP server meticulously crafted in C++. Engineered with a focus on efficiency,
+                it harnesses epoll-based event handling and a sophisticated thread pool architecture to achieve optimal
+                throughput
+                while maintaining robust resource management.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">Network Programming</span>
+            <span class="technology-tag">Concurrent Computing</span>
+            <span class="technology-tag">System Architecture</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/webCpp" target="_blank">webCpp</a></h3>
+            <p>An intuitive web-based development environment for C/C++ programming. Features real-time compilation,
+                code execution, and integrated analysis tools. Designed to help developers write better code through
+                immediate feedback on style and memory management.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">Web Development</span>
+            <span class="technology-tag">Backend Systems</span>
+            <span class="technology-tag">Developer Tools</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/blitz_logger" target="_blank">Blitz_Logger</a></h3>
+            <p>A high-performance, thread-safe logging library built for modern C++ applications. Implements lock-free
+                architecture and zero-allocation design to minimize overhead while providing comprehensive logging
+                capabilities
+                without external dependencies.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">System Programming</span>
+            <span class="technology-tag">Concurrent Computing</span>
+            <span class="technology-tag">Performance Optimization</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/Mandelbrot-Set" target="_blank">Mandelbrot-Set</a></h3>
+            <p>A comparative study of fractal generation implementing both CPU and GPU approaches. Leverages CUDA
+                parallel
+                processing to demonstrate significant performance improvements over traditional sequential computation
+                while
+                maintaining high precision in mathematical calculations.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">Parallel Computing</span>
+            <span class="technology-tag">GPU Programming</span>
+            <span class="technology-tag">Scientific Computing</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/Pshell" target="_blank">PShell</a></h3>
+            <p>A lightweight shell implementation focusing on essential command-line functionality. Features built-in
+                commands,
+                process management, and pipeline support while maintaining a clean, efficient interface for system
+                interaction
+                and task automation.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">System Programming</span>
+            <span class="technology-tag">Process Management</span>
+            <span class="technology-tag">Shell Development</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/TinyPacker" target="_blank">Tiny_Packer</a></h3>
+            <p>An efficient compression utility optimized for small file operations. Implements a sliding window
+                algorithm
+                to achieve effective compression ratios while maintaining quick processing times, particularly suited
+                for
+                configuration files and small text documents.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">Algorithm Design</span>
+            <span class="technology-tag">Data Compression</span>
+            <span class="technology-tag">Memory Management</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/Directory-Analyzer" target="_blank">Directory_Analyzer</a></h3>
+            <p>A comprehensive file system analysis tool providing detailed insights into directory structures.
+                Generates
+                statistical reports on file distributions, sizes, and types while offering an efficient interface for
+                understanding complex file system hierarchies.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">System Programming</span>
+            <span class="technology-tag">File Systems</span>
+            <span class="technology-tag">Command Line Tools</span>
+        </div>
+    </div>
+
+    <div class="project-item">
+        <div class="project-description">
+            <h3><a href="https://github.com/Pp3ng/pdd" target="_blank">pdd</a></h3>
+            <p>A high-performance data duplication and transfer utility built as a modern alternative to Unix dd.
+                Features real-time progress monitoring, direct I/O operations, and optimized buffer management.
+                Implements advanced error handling and verification mechanisms while maintaining compatibility with
+                traditional dd syntax.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="technology-tag">System Programming</span>
+            <span class="technology-tag">I/O Operations</span>
+            <span class="technology-tag">Performance Optimization</span>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="insights" data-aos="fade-up">
+    <h2>Technical Insights</h2>
+
+    <div class="insight-item">
+        <h3>Language Abstraction Levels: Performance vs Productivity</h3>
+        <div class="insight-content">
+            <p>
+                The distinction between
+                <mark>low-level languages</mark>
+                like C/C++ and
+                <mark>higher-level alternatives</mark>
+                presents a fundamental trade-off in software development. Low-level languages provide <strong>direct
+                hardware access</strong> and <strong>memory management capabilities</strong>, enabling <strong>precise
+                system control</strong> and <strong>optimal performance</strong>. This proximity to
+                <mark>machine code</mark>
+                allows for highly efficient execution when properly implemented.
+            </p>
+            <img src="photos/hardwares.png" alt="hardware" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Higher-level languages <strong>abstract implementation details</strong> through features like
+                <mark>automatic memory management</mark>
+                and
+                <mark>intuitive syntax constructs</mark>
+                . While this abstraction can impact performance, it significantly <strong>accelerates development
+                cycles</strong> and <strong>reduces potential errors</strong>. The choice between abstraction levels
+                typically depends on <strong>specific project requirements</strong> -
+                <mark>system programming</mark>
+                and
+                <mark>performance-critical applications</mark>
+                benefit from low-level control, while <strong>rapid development</strong> often favors higher-level
+                abstractions.
+            </p>
+            <img src="photos/languages.png" alt="Programming Languages" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Understanding both paradigms provides <strong>comprehensive insight</strong> into the software
+                development spectrum. This knowledge enables <strong>informed decisions</strong> about language
+                selection based on
+                <mark>project requirements</mark>
+                ,
+                <mark>performance constraints</mark>
+                , and
+                <mark>development timelines</mark>
+                . The ability to navigate different abstraction levels proves invaluable when <strong>optimizing
+                critical systems</strong> or <strong>rapidly prototyping solutions</strong>.
+            </p>
+            <img src="photos/programmer.png" alt="Coder" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Mon Mar 20 02:52:22 KST 2023</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>Operating Systems: Linux and FreeBSD Deep Dive</h3>
+        <div class="insight-content">
+            <p>
+                <mark>Linux system programming</mark>
+                reveals the sophisticated interface between
+                <mark>hardware</mark>
+                and
+                <mark>software layers</mark>
+                . The kernel's <strong>resource management capabilities</strong> provide a robust foundation for system
+                operations, while <strong>system calls</strong> enable efficient hardware access. This architecture
+                demonstrates the <strong>elegant abstraction</strong> of complex hardware interactions through a
+                <mark>unified programming interface</mark>
+                .
+            </p>
+            <img src="photos/linux.png" alt="linux" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>FreeBSD's architecture</mark>
+                emphasizes <strong>stability</strong> and <strong>performance optimization</strong>, particularly
+                evident in
+                <mark>server</mark>
+                and
+                <mark>embedded system</mark>
+                deployments. Its coherent design philosophy manifests in the <strong>ports system</strong> and <strong>package
+                management infrastructure</strong>. The implementation of
+                <mark>ZFS</mark>
+                provides <strong>advanced data management capabilities</strong>, while the kernel architecture
+                facilitates <strong>efficient system resource utilization</strong>.
+            </p>
+            <img src="photos/FreeBSD.png" alt="FreeBSD" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>Vim</mark>
+                serves as an efficient interface for <strong>system-level development</strong>, offering <strong>precise
+                text manipulation capabilities</strong> and <strong>extensive customization options</strong>. Its
+                <mark>modal editing paradigm</mark>
+                enables <strong>rapid code navigation</strong> and <strong>modification</strong>, particularly valuable
+                in system programming contexts where efficiency is paramount.
+            </p>
+            <img src="photos/vim.png" alt="Vim Editor" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                The
+                <mark>Command Line Interface</mark>
+                provides <strong>direct system interaction capabilities</strong>, enabling <strong>efficient resource
+                management</strong> and <strong>process control</strong>. Its
+                <mark>scripting capabilities</mark>
+                facilitate <strong>task automation</strong> and <strong>system administration</strong>. Advanced text
+                processing tools enhance <strong>data manipulation capabilities</strong>, while the immediate feedback
+                loop accelerates the development cycle.
+            </p>
+            <img src="photos/Terminalicon2.png" alt="Terminal" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                The
+                <mark>open-source nature</mark>
+                of these systems enables <strong>comprehensive analysis</strong> and <strong>modification</strong> of
+                system components. This transparency facilitates <strong>deep understanding</strong> of system
+                architecture and enables <strong>customization</strong> for specific use cases. The interaction between
+                <mark>software abstractions</mark>
+                and
+                <mark>hardware implementations</mark>
+                demonstrates the sophisticated design principles underlying modern operating systems.
+            </p>
+            <img src="photos/open-source.png" alt="Ubuntu" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Wed Aug 23 23:08:31 KST 2023</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>Network Security: From Infrastructure to Implementation</h3>
+        <div class="insight-content">
+            <p>
+                <mark>Linux's network infrastructure</mark>
+                provides comprehensive control over
+                <mark>network interfaces</mark>
+                ,
+                <mark>connections</mark>
+                , and
+                <mark>security protocols</mark>
+                . The platform's <strong>extensive toolkit</strong> facilitates network management through <strong>sophisticated
+                utilities</strong> including
+                <mark>ifconfig</mark>
+                ,
+                <mark>iptables</mark>
+                , and
+                <mark>Wireshark</mark>
+                . These tools enable <strong>precise monitoring</strong>, <strong>analysis</strong>, and <strong>security
+                implementation</strong> across network layers.
+            </p>
+            <img src="photos/network.png" alt="Linux Networking" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>Kali Linux's security framework</mark>
+                incorporates <strong>advanced network analysis tools</strong>.
+                <mark>Netdiscover</mark>
+                facilitates <strong>network topology mapping</strong> and <strong>device enumeration</strong>, while
+                <mark>nmap</mark>
+                enables <strong>comprehensive port scanning</strong> and <strong>service detection</strong>. These
+                capabilities form an essential foundation for <strong>security assessment</strong> and <strong>vulnerability
+                analysis</strong> in network environments.
+            </p>
+            <img src="photos/kali.png" alt="Kali Linux Networking Tools" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                The
+                <mark>iptables framework</mark>
+                provides <strong>granular control</strong> over network traffic through its <strong>robust packet
+                filtering mechanism</strong>. This system enables <strong>precise implementation</strong> of security
+                policies through
+                <mark>custom rule sets</mark>
+                , facilitating <strong>comprehensive network access control</strong> and <strong>traffic
+                management</strong> at the kernel level.
+            </p>
+            <img src="photos/iptables.png" alt="Iptables Firewall" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Network security auditing tools like
+                <mark>Bettercap</mark>
+                enable <strong>sophisticated network analysis</strong> and <strong>vulnerability assessment</strong>.
+                The platform's <strong>packet capture</strong> and <strong>analysis capabilities</strong> facilitate
+                thorough security evaluations, emphasizing the critical importance of
+                <mark>encryption protocols</mark>
+                and
+                <mark>secure communication channels</mark>
+                in modern network architectures.
+            </p>
+            <img src="photos/bettercap.png" alt="Bettercap" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>SSH protocol</mark>
+                implementation provides <strong>secure remote system administration</strong> capabilities. The
+                transition to
+                <mark>key-based authentication</mark>
+                mechanisms enhances security through <strong>cryptographic verification</strong>, while maintaining
+                <strong>operational efficiency</strong>. This approach exemplifies the balance between <strong>security
+                requirements</strong> and <strong>administrative functionality</strong> in network operations.
+            </p>
+            <img src="photos/ssh.png" alt="SSH Secure Shell" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Fri Sep 15 16:43:00 KST 2023</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>Modern Database Systems: SQL, NoSQL and Beyond</h3>
+        <div class="insight-content">
+            <p>
+                The architectural distinctions between
+                <mark>SQL</mark>
+                and
+                <mark>NoSQL</mark>
+                database systems present fundamental trade-offs in data management strategies. SQL databases implement
+                <strong>ACID properties</strong>, facilitating <strong>complex query operations</strong> and maintaining
+                <strong>strict data integrity</strong>. NoSQL systems prioritize
+                <mark>scalability</mark>
+                and
+                <mark>flexibility</mark>
+                , particularly advantageous in <strong>distributed computing environments</strong> and <strong>unstructured
+                data management</strong>.
+            </p>
+            <img src="photos/sqlVSnosql.png" alt="SQL vs NoSQL" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>OLAP</mark>
+                and
+                <mark>OLTP</mark>
+                systems serve distinct operational requirements in database architecture. OLTP systems <strong>optimize
+                transaction processing</strong> for operational databases, emphasizing <strong>rapid query
+                execution</strong> and <strong>concurrent access patterns</strong>. OLAP implementations focus on
+                <strong>analytical processing</strong>, facilitating <strong>complex data analysis</strong> and <strong>decision
+                support</strong> through optimized query structures.
+            </p>
+            <img src="photos/oltpVSolap.png" alt="OLAP vs OLTP" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Modern database architectures often implement
+                <mark>hybrid solutions</mark>
+                , leveraging the <strong>respective advantages</strong> of different database paradigms. This approach
+                enables <strong>optimal performance</strong> across varied use cases, combining
+                <mark>transactional efficiency</mark>
+                with <strong>analytical capabilities</strong> through carefully designed <strong>system
+                integration</strong>.
+            </p>
+            <img src="photos/database.png" alt="Database Paradigms" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Wed Jan 03 05:39:34 KST 2024</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>High Performance Computing: CPU-GPU Synergy</h3>
+        <div class="insight-content">
+            <p>
+                <mark>CUDA implementation</mark>
+                enables efficient parallel computation through
+                <mark>GPU architecture utilization</mark>
+                . The fundamental distinction between
+                <mark>CPU</mark>
+                and
+                <mark>GPU</mark>
+                architectures manifests in their respective <strong>optimization strategies</strong> - GPUs excel in
+                <strong>parallel data processing</strong> through multiple processing units, while CPUs optimize
+                <strong>sequential execution</strong> through sophisticated control units.
+            </p>
+            <img src="photos/Cpu_Gpu_arch.png" alt="CPU and GPU Architecture Comparison" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                GPU
+                <mark>parallel processing capabilities</mark>
+                particularly benefit <strong>computationally intensive applications</strong> in <strong>machine
+                learning</strong>, <strong>graphics processing</strong>, and <strong>scientific computing</strong>. CUDA
+                framework implementation facilitates <strong>efficient workload distribution</strong> across GPU
+                threads, while requiring careful optimization of
+                <mark>memory access patterns</mark>
+                and
+                <mark>kernel execution parameters</mark>
+                .
+            </p>
+            <img src="photos/CUDA.png" alt="GPU Parallel Computing" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                The
+                <mark>CPU architecture</mark>
+                maintains primary control through its <strong>sophisticated instruction pipeline</strong> and <strong>branch
+                prediction capabilities</strong>. Its design optimizes
+                <mark>sequential processing</mark>
+                and <strong>complex decision-making tasks</strong>, while providing <strong>efficient interrupt
+                handling</strong> and <strong>system resource management</strong>.
+            </p>
+            <img src="photos/CGC.png" alt="CPU and GPU Collaboration" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Optimal
+                <mark>heterogeneous computing</mark>
+                requires understanding of both architectures' <strong>performance characteristics</strong>. This
+                knowledge enables <strong>effective workload distribution</strong> between CPU and GPU, maximizing
+                <mark>system efficiency</mark>
+                through <strong>parallel execution</strong> of suitable tasks while maintaining <strong>sequential
+                processing</strong> for control-intensive operations.
+            </p>
+            <img src="photos/performance.png" alt="Optimizing CPU and GPU Performance" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Wed Oct 16 19:58:26 CST 2024</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>Web Servers: Tomcat and Nginx Ecosystem</h3>
+        <div class="insight-content">
+            <p>
+                <mark>Tomcat's architecture</mark>
+                specializes in <strong>Java Servlet container implementation</strong>, providing robust support for
+                <strong>dynamic content generation</strong> through
+                <mark>Java Servlet</mark>
+                and
+                <mark>JSP processing</mark>
+                . This architecture enables <strong>efficient server-side application logic execution</strong> within
+                the Java ecosystem.
+            </p>
+            <img src="photos/tomcat.png" alt="Overview of Tomcat" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                <mark>Nginx's event-driven architecture</mark>
+                optimizes <strong>static content delivery</strong> and <strong>connection management</strong>. Its
+                implementation efficiently handles <strong>high-concurrency scenarios</strong> while minimizing resource
+                utilization, particularly effective in
+                <mark>reverse proxy configurations</mark>
+                and
+                <mark>content delivery optimization</mark>
+                .
+            </p>
+            <img src="photos/nginx.png" alt="Overview of Nginx" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                Integration of both server architectures enables <strong>optimal resource utilization</strong> through
+                <mark>specialized task distribution</mark>
+                . This approach maximizes <strong>system performance</strong> by leveraging each server's <strong>specific
+                optimization characteristics</strong>.
+            </p>
+            <img src="photos/web-server.png" alt="Integration of Tomcat and Nginx" class="insight-image">
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Fri Oct 25 00:26:33 KST 2024</span>
+        </div>
+    </div>
+
+    <div class="insight-item">
+        <h3>Hardware Spotlight: HHKB Professional</h3>
+        <div class="insight-content">
+            <p>
+                Received the
+                <mark>HHKB Professional HYBRID Type-S</mark>
+                as a birthday gift, marking a significant upgrade in my typing experience. The keyboard's
+                <mark>Topre switches</mark>
+                provide <strong>exceptional tactile feedback</strong> and <strong>reduced actuation force</strong>,
+                offering substantial relief from the finger fatigue and hand strain commonly associated with traditional
+                mechanical keyboards. This ergonomic improvement is particularly valuable for <strong>intensive coding
+                sessions</strong> and <strong>extended typing periods</strong>.
+            </p>
+            <img src="photos/hhkb.png" alt="HHKB Professional" class="insight-image">
+        </div>
+        <div class="insight-content">
+            <p>
+                The
+                <mark>electrostatic capacitive switches</mark>
+                demonstrate their superiority through <strong>smoother keystrokes</strong> and <strong>reduced typing
+                fatigue</strong>. For
+                <mark>professional developers</mark>
+                and <strong>content creators</strong> who engage in extensive daily typing, the HHKB's thoughtful design
+                and premium switch technology represent a significant advancement in both <strong>comfort</strong> and
+                <strong>typing efficiency</strong>.
+            </p>
+        </div>
+        <div class="insight-time">
+            <span class="timestamp">Wed Nov 6 19:03:21 KST 2024</span>
+        </div>
+    </div>
+
+</div>
+
+<section id="bookshelf" class="container">
+    <h2>My Bookshelf</h2>
+    <div class="bookshelf-container">
+        <!-- Books will be dynamically added here -->
+    </div>
+</section>
+
+<div class="container" id="Social-Accounts" data-aos="fade-up">
+    <h2>Let's Connect</h2>
+    <ul class="social-links">
+        <li class="social-link-item">
+            <div class="social-link-wrapper">
+                <a href="https://www.instagram.com/pp3ng___" target="_blank" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <span class="social-tooltip">Follow on Instagram</span>
+            </div>
+        </li>
+        <li class="social-link-item">
+            <div class="social-link-wrapper">
+                <a href="https://x.com/Pp3ng_" target="_blank" aria-label="Twitter">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <span class="social-tooltip">Follow on X</span>
+            </div>
+        </li>
+        <li class="social-link-item">
+            <div class="social-link-wrapper">
+                <a href="https://github.com/Pp3ng" target="_blank" aria-label="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <span class="social-tooltip">Visit my GitHub</span>
+            </div>
+        </li>
+        <li class="social-link-item">
+            <div class="social-link-wrapper">
+                <a href="mailto:pp3ng@outlook.com" aria-label="Email">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+                <span class="social-tooltip">Send me an email</span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<footer>
+    <p>&copy; 2024 PENN ZHOU | Built with <i class="fas fa-coffee"></i> & <i class="fas fa-keyboard"></i></p>
+</footer>
+<script src="scripts.js"></script>
+<div id="particles-js"></div>
+</body>
+
+</html>
