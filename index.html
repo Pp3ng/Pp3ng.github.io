@@ -35,14 +35,14 @@
     <a href="#gallery">Gallery</a>
     <a href="#projects">Projects</a>
     <a href="#insights">Insights</a>
-    <a href="#bookshelf">Bookshelf</a>
+    <a href="#bookshelf">Books</a>
     <a href="#Social-Accounts">Connect</a>
 </div>
 
 <div class="container" id="about">
-    <img src="photos/my_photo.jpg" alt="My Photo">
+    <img src="photos/my_photo.jpg" alt="My Photo" class="profile-photo">
     <h1></h1> <!-- Typewriter effect will be added -->
-    <p>Welcome to my digital space! As an individual fascinated by the intricate interplay between hardware
+    <p class="bio-text">Welcome to my digital space! As an individual fascinated by the intricate interplay between hardware
         <i class="fas fa-microchip"></i> and software <i class="fas fa-file-code"></i>, I explore the full spectrum
         of technology. Beyond coding, I'm an avid photographer capturing life's moments <i class="fas fa-camera"></i>
         and a billiards enthusiast seeking the perfect shot <i class="fas fa-circle"></i>. Here, I share my journey
@@ -51,7 +51,7 @@
 
 <div class="container" data-aos="fade-up">
     <h2>Terminal</h2>
-    <div id="terminal">
+    <div id="terminal" class="terminal-section">
         <div id="terminal-window">
             <div id="terminal-output"></div>
             <div id="terminal-input-line">
@@ -72,6 +72,9 @@
                 <h3>First Encounter with Linux</h3>
                 <p>Discovered Linux operating system and was captivated by its design philosophy. This marked the
                     beginning of my passion for system programming and helped me find my true technical interest.</p>
+                <div class="journey-icon">
+                    <i class="fab fa-linux"></i>
+                </div>
             </div>
         </div>
 
@@ -83,6 +86,9 @@
                 <p>Formally began studying Computer Science and Engineering at university. This marked the start of my
                     systematic exploration of computer science, laying a solid foundation for my future technical
                     pursuits.</p>
+                <div class="journey-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
             </div>
         </div>
 
@@ -94,6 +100,9 @@
                 <p>Embarked on my first international journey as an international student. This experience not only broadened
                     my academic horizons but also helped me develop independence and cross-cultural understanding while
                     adapting to a new environment.</p>
+                <div class="journey-icon">
+                    <i class="fas fa-globe-asia"></i>
+                </div>
             </div>
         </div>
 
@@ -105,6 +114,9 @@
                 <p>Moved into a new place and started living independently. Learned to manage various aspects of life on
                     my own, enjoying solitude while also gaining a deeper appreciation for time spent with family and
                     friends.</p>
+                <div class="journey-icon">
+                    <i class="fas fa-home"></i>
+                </div>
             </div>
         </div>
 
@@ -116,6 +128,9 @@
                 <p>First encountered billiards and was deeply drawn to its precision and strategy. Regular practice
                     became a weekly routine, continuously improving techniques. Through this journey, I learned the
                     importance of patience and focus.</p>
+                <div class="journey-icon">
+                    <i class="fas fa-circle"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -125,21 +140,24 @@
     <h2>My Passions</h2>
 
     <div class="container passion-item">
-        <img src="photos/programming.JPG" alt="Programming" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/programming.JPG" alt="Programming" class="passion-image">
+        </div>
         <div class="passion-description">
             <h3>Programming</h3>
             <p>I'm passionate about software development and system programming. I enjoy exploring different programming
-                paradigms
-                and technologies to create efficient solutions. Whether it's building high-performance systems,
-                developing web applications,
-                or working on data processing tools, I find great satisfaction in turning complex problems into elegant
-                code.</p>
+                paradigms and technologies to create efficient solutions. Whether it's building high-performance systems,
+                developing web applications, or working on data processing tools, I find great satisfaction in turning complex problems into elegant code.</p>
         </div>
-        <img src="photos/coding.JPG" alt="Coding" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/coding.JPG" alt="Coding" class="passion-image">
+        </div>
     </div>
 
     <div class="container passion-item">
-        <img src="photos/photography.jpg" alt="Photography" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/photography.jpg" alt="Photography" class="passion-image">
+        </div>
         <div class="passion-description">
             <h3>Photography</h3>
             <p>Through the lens of my camera, I seek to capture the extraordinary in the ordinary. Photography allows me
@@ -148,11 +166,15 @@
                 frame
                 tells its own story, whether it's the grandeur of architecture or the quiet moments in nature.</p>
         </div>
-        <img src="photos/photography2.jpg" alt="Travel" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/photography2.jpg" alt="Travel" class="passion-image">
+        </div>
     </div>
 
     <div class="container passion-item">
-        <img src="photos/billiards.jpg" alt="Billiards" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/billiards.jpg" alt="Billiards" class="passion-image">
+        </div>
         <div class="passion-description">
             <h3>Billiards</h3>
             <p>Billiards represents the perfect blend of precision, strategy, and artistry. Each shot is a puzzle to be
@@ -161,7 +183,9 @@
                 meditative
                 practice that teaches patience and continuous improvement.</p>
         </div>
-        <img src="photos/billiards2.jpg" alt="Billiards" class="passion-image">
+        <div class="passion-images">
+            <img src="photos/billiards2.jpg" alt="Billiards" class="passion-image">
+        </div>
     </div>
 </div>
 
@@ -174,125 +198,126 @@
 
 <div class="container" id="projects" data-aos="fade-up">
     <h2>My Projects</h2>
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/PGS" target="_blank">PGS</a></h3>
-            <p>A high-performance static HTTP server meticulously crafted in C++. Engineered with a focus on efficiency,
-                it harnesses epoll-based event handling and a sophisticated thread pool architecture to achieve optimal
-                throughput
-                while maintaining robust resource management.</p>
+    <div class="projects-grid">
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/PGS" target="_blank">PGS</a></h3>
+                <p>A high-performance static HTTP server meticulously crafted in C++. Engineered with a focus on efficiency,
+                    it harnesses epoll-based event handling and a sophisticated thread pool architecture to achieve optimal
+                    throughput while maintaining robust resource management.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">Network Programming</span>
+                <span class="technology-tag">Concurrent Computing</span>
+                <span class="technology-tag">System Architecture</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">Network Programming</span>
-            <span class="technology-tag">Concurrent Computing</span>
-            <span class="technology-tag">System Architecture</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/webCpp" target="_blank">webCpp</a></h3>
-            <p>An intuitive web-based development environment for C/C++ programming. Features real-time compilation,
-                code execution, and integrated analysis tools. Designed to help developers write better code through
-                immediate feedback on style and memory management.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/webCpp" target="_blank">webCpp</a></h3>
+                <p>An intuitive web-based development environment for C/C++ programming. Features real-time compilation,
+                    code execution, and integrated analysis tools. Designed to help developers write better code through
+                    immediate feedback on style and memory management.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">Web Development</span>
+                <span class="technology-tag">Backend Systems</span>
+                <span class="technology-tag">Developer Tools</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">Web Development</span>
-            <span class="technology-tag">Backend Systems</span>
-            <span class="technology-tag">Developer Tools</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/blitz_logger" target="_blank">Blitz_Logger</a></h3>
-            <p>A high-performance, thread-safe logging library built for modern C++ applications. Implements lock-free
-                architecture and zero-allocation design to minimize overhead while providing comprehensive logging
-                capabilities
-                without external dependencies.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/blitz_logger" target="_blank">Blitz_Logger</a></h3>
+                <p>A high-performance, thread-safe logging library built for modern C++ applications. Implements lock-free
+                    architecture and zero-allocation design to minimize overhead while providing comprehensive logging
+                    capabilities
+                    without external dependencies.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">System Programming</span>
+                <span class="technology-tag">Concurrent Computing</span>
+                <span class="technology-tag">Performance Optimization</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">System Programming</span>
-            <span class="technology-tag">Concurrent Computing</span>
-            <span class="technology-tag">Performance Optimization</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/Mandelbrot-Set" target="_blank">Mandelbrot-Set</a></h3>
-            <p>A comparative study of fractal generation implementing both CPU and GPU approaches. Leverages CUDA
-                parallel
-                processing to demonstrate significant performance improvements over traditional sequential computation
-                while
-                maintaining high precision in mathematical calculations.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/Mandelbrot-Set" target="_blank">Mandelbrot-Set</a></h3>
+                <p>A comparative study of fractal generation implementing both CPU and GPU approaches. Leverages CUDA
+                    parallel
+                    processing to demonstrate significant performance improvements over traditional sequential computation
+                    while
+                    maintaining high precision in mathematical calculations.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">Parallel Computing</span>
+                <span class="technology-tag">GPU Programming</span>
+                <span class="technology-tag">Scientific Computing</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">Parallel Computing</span>
-            <span class="technology-tag">GPU Programming</span>
-            <span class="technology-tag">Scientific Computing</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/Pshell" target="_blank">PShell</a></h3>
-            <p>A lightweight shell implementation focusing on essential command-line functionality. Features built-in
-                commands,
-                process management, and pipeline support while maintaining a clean, efficient interface for system
-                interaction
-                and task automation.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/Pshell" target="_blank">PShell</a></h3>
+                <p>A lightweight shell implementation focusing on essential command-line functionality. Features built-in
+                    commands,
+                    process management, and pipeline support while maintaining a clean, efficient interface for system
+                    interaction
+                    and task automation.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">System Programming</span>
+                <span class="technology-tag">Process Management</span>
+                <span class="technology-tag">Shell Development</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">System Programming</span>
-            <span class="technology-tag">Process Management</span>
-            <span class="technology-tag">Shell Development</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/TinyPacker" target="_blank">Tiny_Packer</a></h3>
-            <p>An efficient compression utility optimized for small file operations. Implements a sliding window
-                algorithm
-                to achieve effective compression ratios while maintaining quick processing times, particularly suited
-                for
-                configuration files and small text documents.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/TinyPacker" target="_blank">Tiny_Packer</a></h3>
+                <p>An efficient compression utility optimized for small file operations. Implements a sliding window
+                    algorithm
+                    to achieve effective compression ratios while maintaining quick processing times, particularly suited
+                    for
+                    configuration files and small text documents.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">Algorithm Design</span>
+                <span class="technology-tag">Data Compression</span>
+                <span class="technology-tag">Memory Management</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">Algorithm Design</span>
-            <span class="technology-tag">Data Compression</span>
-            <span class="technology-tag">Memory Management</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/Directory-Analyzer" target="_blank">Directory_Analyzer</a></h3>
-            <p>A comprehensive file system analysis tool providing detailed insights into directory structures.
-                Generates
-                statistical reports on file distributions, sizes, and types while offering an efficient interface for
-                understanding complex file system hierarchies.</p>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/Directory-Analyzer" target="_blank">Directory_Analyzer</a></h3>
+                <p>A comprehensive file system analysis tool providing detailed insights into directory structures.
+                    Generates
+                    statistical reports on file distributions, sizes, and types while offering an efficient interface for
+                    understanding complex file system hierarchies.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">System Programming</span>
+                <span class="technology-tag">File Systems</span>
+                <span class="technology-tag">Command Line Tools</span>
+            </div>
         </div>
-        <div class="project-technologies">
-            <span class="technology-tag">System Programming</span>
-            <span class="technology-tag">File Systems</span>
-            <span class="technology-tag">Command Line Tools</span>
-        </div>
-    </div>
 
-    <div class="project-item">
-        <div class="project-description">
-            <h3><a href="https://github.com/Pp3ng/pdd" target="_blank">pdd</a></h3>
-            <p>A high-performance data duplication and transfer utility built as a modern alternative to Unix dd.
-                Features real-time progress monitoring, direct I/O operations, and optimized buffer management.
-                Implements advanced error handling and verification mechanisms while maintaining compatibility with
-                traditional dd syntax.</p>
-        </div>
-        <div class="project-technologies">
-            <span class="technology-tag">System Programming</span>
-            <span class="technology-tag">I/O Operations</span>
-            <span class="technology-tag">Performance Optimization</span>
+        <div class="project-item">
+            <div class="project-description">
+                <h3><a href="https://github.com/Pp3ng/pdd" target="_blank">pdd</a></h3>
+                <p>A high-performance data duplication and transfer utility built as a modern alternative to Unix dd.
+                    Features real-time progress monitoring, direct I/O operations, and optimized buffer management.
+                    Implements advanced error handling and verification mechanisms while maintaining compatibility with
+                    traditional dd syntax.</p>
+            </div>
+            <div class="project-technologies">
+                <span class="technology-tag">System Programming</span>
+                <span class="technology-tag">I/O Operations</span>
+                <span class="technology-tag">Performance Optimization</span>
+            </div>
         </div>
     </div>
 </div>
@@ -302,19 +327,19 @@
 
     <div class="insight-item">
         <h3>Language Abstraction Levels: Performance vs Productivity</h3>
-        <div class="insight-content">
-            <p>
-                The distinction between
-                <mark>low-level languages</mark>
-                like C/C++ and
-                <mark>higher-level alternatives</mark>
-                presents a fundamental trade-off in software development. Low-level languages provide <strong>direct
-                hardware access</strong> and <strong>memory management capabilities</strong>, enabling <strong>precise
-                system control</strong> and <strong>optimal performance</strong>. This proximity to
-                <mark>machine code</mark>
-                allows for highly efficient execution when properly implemented.
-            </p>
-            <img src="photos/hardwares.png" alt="hardware" class="insight-image">
+        <div class="insight-content-wrapper">
+            <div class="insight-content">
+                <p>
+                    The distinction between
+                    <mark>low-level languages</mark>
+                    like C/C++ and
+                    <mark>higher-level alternatives</mark>
+                    presents a fundamental trade-off in software development. Low-level languages provide <strong>direct
+                    hardware access</strong> and <strong>memory management capabilities</strong>, enabling <strong>precise
+                    system control</strong> and <strong>optimal performance</strong>.
+                </p>
+                <img src="photos/hardwares.png" alt="hardware" class="insight-image">
+            </div>
         </div>
         <div class="insight-content">
             <p>
@@ -695,7 +720,7 @@
 
 </div>
 
-<section id="bookshelf" class="container">
+<section id="bookshelf" class="container" data-aos="fade-up">
     <h2>My Bookshelf</h2>
     <div class="bookshelf-container">
         <!-- Books will be dynamically added here -->
@@ -740,7 +765,7 @@
     </ul>
 </div>
 
-<footer>
+<footer class="site-footer">
     <p>&copy; 2024 PENN ZHOU | Built with <i class="fas fa-coffee"></i> & <i class="fas fa-keyboard"></i></p>
 </footer>
 <script src="scripts.js"></script>

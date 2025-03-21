@@ -79,9 +79,9 @@ strong {
 
 /* Layout */
 .container {
-    max-width: 1080px;
-    margin: 27px auto;
-    padding: 36px;
+    max-width: 1024px;
+    margin: 30px auto;
+    padding: 32px;
     text-align: center;
     background: var(--glass-background);
     backdrop-filter: blur(8px) saturate(180%);
@@ -140,10 +140,10 @@ strong {
 .navbar a {
     color: var(--text-color);
     text-decoration: none;
-    padding: 0.45rem 0.81rem;
-    margin: 0 2.7px;
-    border-radius: 22.5px;
-    font-size: 0.83em;
+    padding: 0.4rem 0.75rem;
+    margin: 0 3px;
+    border-radius: 20px;
+    font-size: 0.85em;
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
@@ -221,10 +221,10 @@ strong {
 
 /* Images */
 img {
-    border-radius: 18px;
-    width: 270px;
-    height: 270px;
+    width: 240px;
+    height: 240px;
     object-fit: cover;
+    border-radius: 15px;
     box-shadow: var(--box-shadow);
     cursor: pointer;
     transition: var(--transition);
@@ -358,11 +358,11 @@ img:hover {
 }
 
 .passion-image {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     border-radius: 18px;
     object-fit: cover;
-    margin: 0 18px;
+    margin: 0 15px;
     backdrop-filter: blur(8px) saturate(180%);
     -webkit-backdrop-filter: blur(8px) saturate(180%);
     background: var(--glass-background);
@@ -403,9 +403,7 @@ img:hover {
     height: 225px;
     object-fit: cover;
     border-radius: 18px;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    filter: brightness(1) contrast(1);
-    transform-origin: center;
+    transition: transform 0.3s ease;
 }
 
 .gallery-container a {
@@ -414,52 +412,37 @@ img:hover {
     border-radius: 18px;
     cursor: pointer;
     box-shadow: 0 3.6px 13.5px rgba(0, 0, 0, 0.1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.gallery-container a::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 0) 40%,
-            rgba(0, 0, 0, 0.2) 100%
-    );
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 1;
-    border-radius: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gallery-container a:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(31, 38, 135, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-    0 0 20px rgba(52, 152, 219, 0.2);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
-    background: var(--glass-background);
-    border: var(--glass-border);
-}
-
-.gallery-container a:hover::before {
-    opacity: 1;
+    box-shadow: 0 12px 24px rgba(31, 38, 135, 0.2);
 }
 
 .gallery-container a:hover img {
     transform: scale(1.04);
-    filter: brightness(1.02) contrast(1.02);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+}
+
+/* Remove these complex effects */
+.gallery-container a::before {
+    display: none;
+}
+
+.gallery-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.gallery-image.loaded {
+    opacity: 1;
 }
 
 /* Projects Section */
 .project-item {
-    margin: 18px 0;
-    padding: 22.5px;
-    border-radius: 13.5px;
+    margin: 16px 0;
+    padding: 20px;
+    border-radius: 12px;
     background: var(--glass-background);
     backdrop-filter: blur(8px) saturate(180%);
     -webkit-backdrop-filter: blur(8px) saturate(180%);
@@ -568,9 +551,9 @@ img:hover {
 }
 
 .insight-item {
-    margin: 27px 0;
+    margin: 24px 0;
     text-align: left;
-    padding: 27px;
+    padding: 24px;
     border-radius: 18px;
     background: var(--glass-background);
     backdrop-filter: blur(8px) saturate(180%);
@@ -605,7 +588,7 @@ img:hover {
     display: flex;
     align-items: flex-start;
     margin-bottom: 18px;
-    gap: 27px;
+    gap: 24px;
     position: relative;
     padding-left: 18px;
 }
@@ -701,8 +684,8 @@ img:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 72px;
-    height: 72px;
+    width: 65px;
+    height: 65px;
     background: var(--glass-background);
     border-radius: 50%;
     border: var(--glass-border);
@@ -735,7 +718,7 @@ img:hover {
 }
 
 .social-links i {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: var(--text-color);
     transition: all 0.3s ease;
     z-index: 1;
@@ -1252,15 +1235,6 @@ div[data-aos="fade-up"].container:hover::before {
     opacity: 0;
 }
 
-.gallery-image {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.gallery-image.loaded {
-    opacity: 1;
-}
-
 /* Lightbox customization */
 .lb-outerContainer {
     border-radius: 13.5px !important;
@@ -1414,8 +1388,8 @@ div[data-aos="fade-up"].container:hover::before {
 .journey-dot {
     position: absolute;
     left: 50%;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: 50%;
     transform: translateX(-50%);
