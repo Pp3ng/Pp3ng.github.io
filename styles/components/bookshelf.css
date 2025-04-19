@@ -1,0 +1,214 @@
+.bookshelf-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px 20px;
+  padding: 20px;
+}
+
+@media (max-width: 1200px) {
+  .bookshelf-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .bookshelf-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bookshelf-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .bookshelf-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.book-item {
+  position: relative;
+  z-index: 1;
+  background: var(--glass-background);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border: var(--glass-border);
+  border-radius: 15px;
+  padding: 12px 10px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: var(--hover-transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+  overflow: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  outline-offset: -3px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.book-item:hover {
+  transform: var(--hover-transform);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.book-cover {
+  width: 100%;
+  height: auto;
+  max-width: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-item:hover .book-cover {
+  transform: perspective(800px) rotateY(10deg) translateZ(20px);
+}
+
+.book-title {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  color: #006400;
+  text-align: center;
+  line-height: 1.2;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, var(--primary-color) 0%, #2980b9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.book-author {
+  font-size: 0.9em;
+  color: #008000;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.book-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 25px;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.15);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  min-width: 100px;
+  max-width: 140px;
+  margin-top: 3px;
+}
+
+.book-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.2)
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.book-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.25);
+  color: white;
+  text-decoration: none;
+}
+
+.book-link:hover::before {
+  transform: translateX(0);
+}
+
+.book-link:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+}
+
+.book-link::after {
+  content: "\f019";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-left: 6px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 0.8rem;
+}
+
+.book-link:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.book-link span {
+  position: relative;
+  z-index: 2;
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+}
+
+.book-item {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 20px rgba(52, 152, 219, 0.2),
+    inset 0 0 8px rgba(52, 152, 219, 0.1);
+}
+
+.book-item::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    45deg,
+    rgba(74, 144, 226, 0.2),
+    rgba(66, 185, 131, 0.2),
+    rgba(74, 144, 226, 0.2)
+  );
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.book-item:hover::before {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}

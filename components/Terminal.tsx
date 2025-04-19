@@ -10,7 +10,7 @@ const Terminal: React.FC = () => {
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [inputValue, setInputValue] = useState<string>("");
   const [outputContent, setOutputContent] = useState<string>("");
-  const terminalWindowRef = useRef<HTMLDivElement>(null);
+    const terminalWindowRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const ASCII_LOGO = `
@@ -22,7 +22,7 @@ const Terminal: React.FC = () => {
          |_|                      |___/ 
 `;
 
-  const welcomeMessage = `${ASCII_LOGO}\nWelcome to my Terminal\nType 'help' for available commands.\n\n`;
+  const welcomeMessage = `${ASCII_LOGO}\n<span style="color: #42b983;">Welcome to my Terminal</span>\nType '<span style="color: #ff79c6;">help</span>' for available commands.\n\n`;
 
   // Initialize terminal on component mount
   useEffect(() => {
@@ -464,7 +464,7 @@ ${data.explanation.slice(0, 200)}...`;
     <div className="container" id="terminal" data-aos="fade-up">
       <h2>Terminal</h2>
       <div className="terminal-section">
-        <div id="terminal-window" ref={terminalWindowRef}>
+                <div id="terminal-window" ref={terminalWindowRef}>
           <div
             id="terminal-output"
             dangerouslySetInnerHTML={createMarkup(outputContent)}
@@ -478,10 +478,10 @@ ${data.explanation.slice(0, 200)}...`;
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-            />
+              />
           </div>
         </div>
-      </div>
+              </div>
     </div>
   );
 };

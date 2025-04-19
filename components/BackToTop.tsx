@@ -28,12 +28,14 @@ const BackToTop: React.FC = () => {
     });
   };
 
-  // Button styles based on state
+  // Button styles based on state with important flags to override any external CSS
   const buttonStyle: React.CSSProperties = {
     position: "fixed",
     bottom: "20px",
     right: "20px",
     backgroundColor: hovered ? "#2980b9" : "#3498db",
+    background: hovered ? "#2980b9 !important" : "#3498db !important", // Force solid color
+    backgroundImage: "none !important", // Prevent gradient
     color: "white",
     width: "50px",
     height: "50px",
@@ -66,6 +68,7 @@ const BackToTop: React.FC = () => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={buttonStyle}
+      className="solid-back-to-top" // Add a custom class to help with specificity
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

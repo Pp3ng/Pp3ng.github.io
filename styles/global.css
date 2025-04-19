@@ -1,0 +1,131 @@
+/* Global Styles */
+html {
+  scroll-padding-top: 72px;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding-top: 72px;
+  font-family: "Fira Code", monospace;
+  font-weight: 500;
+  background: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.7em;
+  margin-top: 18px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+p {
+  font-size: 1.08em;
+  max-width: 540px;
+  margin: 18px auto;
+  color: #2c3e50;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+mark {
+  background: linear-gradient(
+    120deg,
+    rgba(74, 144, 226, 0.12) 0%,
+    rgba(74, 144, 226, 0.18) 100%
+  );
+  padding: 0.18em 0.36em;
+  border-radius: 3.6px;
+  color: var(--text-color);
+  font-weight: 500;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+strong {
+  color: #3a7abd;
+  font-weight: 600;
+}
+
+/* Images */
+img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(31, 38, 135, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 20px rgba(52, 152, 219, 0.2);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(195, 207, 226, 0.3);
+  border-radius: 4.5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border-radius: 4.5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2980b9, #27ae60);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) rgba(195, 207, 226, 0.3);
+}
+
+/* Footer */
+footer {
+  margin-top: 45px;
+  font-size: 0.9em;
+  color: var(--text-color);
+  text-align: center;
+  padding: 18px;
+}
+
+/* Icons */
+.fa-brands,
+.fa-solid {
+  font-size: 7.5em;
+}
+
+.devicon {
+  font-size: 8em;
+  line-height: 1;
+  vertical-align: middle;
+}

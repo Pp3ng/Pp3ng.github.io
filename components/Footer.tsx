@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="site-footer">
       <p>
         &copy; {new Date().getFullYear()} PENN ZHOU | Built with{" "}
-        <i className="fas fa-coffee"></i> &<i className="fas fa-keyboard"></i>
+        <i className="fas fa-coffee"></i> & <i className="fas fa-keyboard"></i>
       </p>
     </footer>
   );

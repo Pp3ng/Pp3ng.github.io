@@ -4,7 +4,8 @@ const Journey: React.FC = () => {
   const journeyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Observer for journey items
+    const itemObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -15,22 +16,48 @@ const Journey: React.FC = () => {
       { threshold: 0.1 }
     );
 
-    // Observe all journey items for scroll animation
+    // Observer for timeline axis animation
+    const axisObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-timeline");
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    // Observe all journey items
     const journeyItems = document.querySelectorAll(".journey-item");
     journeyItems.forEach((item) => {
-      observer.observe(item);
+      itemObserver.observe(item);
     });
+
+    // Observe the timeline
+    const timeline = document.querySelector(".journey-wrapper");
+    if (timeline) {
+      axisObserver.observe(timeline);
+    }
 
     // Cleanup
     return () => {
       journeyItems.forEach((item) => {
-        observer.unobserve(item);
+        itemObserver.unobserve(item);
       });
+      if (timeline) {
+        axisObserver.unobserve(timeline);
+      }
     };
   }, []);
 
   return (
-    <div className="container" id="journey" data-aos="fade-up" ref={journeyRef}>
+    <div
+      className="container compact-section"
+      id="journey"
+      data-aos="fade-up"
+      ref={journeyRef}
+    >
       <h2>Life Journey</h2>
       <div className="journey-wrapper">
         <div className="journey-item">

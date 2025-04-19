@@ -7,17 +7,16 @@ const About: React.FC = () => {
 
   useEffect(() => {
     const typeWriter = (): void => {
-      if (indexRef.current < fullText.length) {
-        setDisplayText((prev) => prev + fullText.charAt(indexRef.current));
+      // Get current index from ref to avoid stale closure
+      const currentIndex = indexRef.current;
+
+      if (currentIndex < fullText.length) {
+        setDisplayText((prev) => prev + fullText.charAt(currentIndex));
         indexRef.current++;
         setTimeout(typeWriter, 100);
       }
     };
-
-    // Start the typewriter effect
     typeWriter();
-
-    // Clean up function
     return () => {
       indexRef.current = 0;
     };
@@ -26,7 +25,7 @@ const About: React.FC = () => {
   return (
     <div className="container" id="about">
       <img src="photos/my_photo.jpg" alt="My Photo" className="profile-photo" />
-      <h1>{displayText}</h1>
+      <h1 style={{ color: "var(--primary-color)" }}>{displayText}</h1>
       <p className="bio-text">
         Welcome to my digital space! As an individual fascinated by the
         intricate interplay between hardware

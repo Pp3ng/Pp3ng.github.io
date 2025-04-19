@@ -1,0 +1,82 @@
+/* Terminal Section */
+#terminal {
+  margin-top: 45px;
+}
+
+#terminal h2 {
+  color: var(--text-color);
+  margin-bottom: 18px;
+}
+
+#terminal-window {
+  font-family: "Fira Code", monospace;
+  background: rgba(24, 24, 27, 0.95);
+  color: #f0f0f0;
+  padding: 18px;
+  height: 450px;
+  overflow-y: auto;
+  border-radius: 11px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  line-height: 1.4;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#terminal-window::-webkit-scrollbar {
+  display: none;
+}
+
+#terminal-prompt {
+  color: #42b983;
+  font-weight: bold;
+  margin-right: 7.2px;
+  text-shadow: 0 0 8px rgba(66, 185, 131, 0.4);
+}
+
+#terminal-input {
+  background: transparent;
+  border: none;
+  color: #f0f0f0;
+  font-family: "Fira Code", monospace;
+  font-size: 14.4px;
+  outline: none;
+  width: calc(100% - 180px);
+  caret-color: #42b983;
+  text-shadow: 0 0 8px rgba(240, 240, 240, 0.4);
+}
+
+#terminal-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+  text-shadow: 0 0 8px rgba(240, 240, 240, 0.2);
+}
+
+#terminal-output a {
+  color: #8be9fd;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+#terminal-output a:hover {
+  color: #ff79c6;
+  text-decoration: underline;
+}
+
+#terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 9px;
+  position: relative;
+}
+
+#terminal-window ::selection {
+  background: rgba(135, 212, 65, 0.3);
+  color: #f0f0f0;
+}

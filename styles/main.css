@@ -1,0 +1,21 @@
+/* Main CSS File - Imports all modular CSS components */
+
+/* Base Styles */
+@import "./variables.css";
+@import "./global.css";
+@import "./layout.css";
+@import "./animations.css";
+
+/* Component Styles */
+@import "./components/navbar.css";
+@import "./components/terminal.css";
+@import "./components/gallery.css";
+@import "./components/projects.css";
+@import "./components/insights.css";
+@import "./components/social.css";
+@import "./components/bookshelf.css";
+@import "./components/journey.css";
+@import "./components/passions.css";
+
+/* responsive.css */
+@import "./responsive.css";

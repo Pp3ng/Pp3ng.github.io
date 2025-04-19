@@ -1,0 +1,20 @@
+/* CSS Variables */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #42b983;
+  --text-color: #34495e;
+  --background-color: linear-gradient(
+    135deg,
+    rgba(252, 253, 255, 0.94) 0%,
+    rgba(246, 249, 255, 0.92) 35%,
+    rgba(240, 244, 252, 0.94) 70%,
+    rgba(252, 253, 255, 0.96) 100%
+  );
+  --glass-background: rgba(255, 255, 255, 0.15);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --hover-transform: translateY(-6px);
+  --hover-transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
