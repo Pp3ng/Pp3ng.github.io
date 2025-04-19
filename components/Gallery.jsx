@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+// Import lightbox2 library and its styles
+import "lightbox2";
+import "lightbox2/dist/css/lightbox.min.css";
 
 const Gallery = () => {
   // The images array is the same as in scripts.js
