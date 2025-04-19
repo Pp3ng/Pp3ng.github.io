@@ -18,7 +18,7 @@ import ScrollProgressBar from "./components/ScrollProgressBar";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const App = () => {
+const App: React.FC = () => {
   useEffect(() => {
     // Initialize AOS animation library
     AOS.init({

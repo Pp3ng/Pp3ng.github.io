@@ -1,6 +1,6 @@
 import React from "react";
 
-const Passions = () => {
+const Passions: React.FC = () => {
   return (
     <div className="container" id="passions" data-aos="fade-up">
       <h2>My Passions</h2>
@@ -86,4 +86,4 @@ const Passions = () => {
   );
 };
 
-export default Passions;
+export default Passions; 

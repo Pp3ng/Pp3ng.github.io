@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
-const Journey = () => {
-  const journeyRef = useRef(null);
+const Journey: React.FC = () => {
+  const journeyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -121,4 +121,4 @@ const Journey = () => {
   );
 };
 
-export default Journey;
+export default Journey; 

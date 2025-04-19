@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-const BackToTop = () => {
-  const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
+const BackToTop: React.FC = () => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   // Show button when page is scrolled down
   useEffect(() => {
-    const toggleVisibility = () => {
+    const toggleVisibility = (): void => {
       if (window.pageYOffset > 100) {
         setVisible(true);
       } else {
@@ -20,7 +20,7 @@ const BackToTop = () => {
   }, []);
 
   // Scroll to top smoothly
-  const scrollToTop = (e) => {
+  const scrollToTop = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     window.scrollTo({
       top: 0,
@@ -29,7 +29,7 @@ const BackToTop = () => {
   };
 
   // Button styles based on state
-  const buttonStyle = {
+  const buttonStyle: React.CSSProperties = {
     position: "fixed",
     bottom: "20px",
     right: "20px",
@@ -54,7 +54,7 @@ const BackToTop = () => {
     transform: hovered ? "translateY(-2px)" : "translateY(0)",
   };
 
-  const svgStyle = {
+  const svgStyle: React.CSSProperties = {
     width: "60%",
     height: "60%",
   };
@@ -85,4 +85,4 @@ const BackToTop = () => {
   );
 };
 
-export default BackToTop;
+export default BackToTop; 

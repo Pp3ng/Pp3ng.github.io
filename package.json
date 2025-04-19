@@ -5,10 +5,11 @@
   "homepage": "https://pp3ng.github.io",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "clean": "rm -rf node_modules dist package-lock.json",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "portfolio",
@@ -25,7 +26,13 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/jquery": "^3.5.29",
+    "@types/node": "^20.10.7",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }
 }

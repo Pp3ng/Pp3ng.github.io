@@ -1,8 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const Bookshelf = () => {
+interface Book {
+  title: string;
+  cover: string;
+  pdfFilename: string;
+}
+
+const Bookshelf: React.FC = () => {
   // Book data with covers and PDF links
-  const books = [
+  const books: Book[] = [
     {
       title: "Advanced Programming in UNIX Environment",
       cover: "BookCovers/APUE.jpg",
@@ -140,4 +146,4 @@ const Bookshelf = () => {
   );
 };
 
-export default Bookshelf;
+export default Bookshelf; 

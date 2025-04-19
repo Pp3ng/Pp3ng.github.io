@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Terminal = () => {
-  const [commandHistory, setCommandHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [inputValue, setInputValue] = useState("");
-  const [outputContent, setOutputContent] = useState("");
-  const terminalWindowRef = useRef(null);
-  const inputRef = useRef(null);
+interface CommandResponse {
+  content: string;
+  isHTML: boolean;
+}
+
+const Terminal: React.FC = () => {
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [outputContent, setOutputContent] = useState<string>("");
+  const terminalWindowRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const ASCII_LOGO = `
   ____            _____                 
@@ -35,7 +40,7 @@ const Terminal = () => {
   }, [outputContent]);
 
   // Commands available in the terminal
-  const commands = {
+  const commands: Record<string, (...args: any[]) => string | Promise<string> | null> = {
     help: () => `Available commands:
 - help: Show this help message
 - whoami: Display personal information
@@ -53,20 +58,23 @@ const Terminal = () => {
 - date: Show current date and time
 - history: Show command history
 - neofetch: Display system information
+- advice: Get a random advice
+- word: Get a random word with definition
 
 Type any command to execute.`,
     whoami: () =>
-      "Name: Penn Zhou(周罗鹏)\nOccupation: Programmer\nPassions:\n- Programming: C/C++ development in Linux environment\n- Photography: Capturing moments and finding beauty in everyday scenes\n- Billiards: Strategic game requiring precision and focus",
+      "Name: Penn.L.Zhou(周罗鹏)\nOccupation: Programmer\nPassions:\n- Programming: C/C++ development in Linux environment\n- Photography: Capturing moments and finding beauty in everyday scenes\n- Billiards: Strategic game requiring precision and focus",
     contact: () =>
       '<a href="https://www.instagram.com/pp3ng___" target="_blank">Instagram: @pp3ng___</a>\n<a href="https://github.com/Pp3ng" target="_blank">GitHub: github.com/Pp3ng</a>\n<a href="mailto:pp3ng@outlook.com">Email: Pp3ng@outlook.com</a>',
     clear: () => {
       setOutputContent(welcomeMessage);
       return null;
     },
-    goto: (section) => {
+    goto: (section: string) => {
       const element = document.getElementById(section);
       if (element) {
-        const navHeight = document.querySelector(".navbar")?.offsetHeight || 0;
+        const navbarElement = document.querySelector(".navbar") as HTMLElement;
+        const navHeight = navbarElement?.offsetHeight || 0;
         window.scrollTo({
           top: element.offsetTop - navHeight - 20,
           behavior: "smooth",
@@ -79,7 +87,7 @@ Type any command to execute.`,
     joke: () => {
       return `<img src="https://readme-jokes.vercel.app/api?theme=vue" alt="Programming Joke" style="max-width: 100%; border-radius: 8px;">`;
     },
-    cowsay: (message = "Mooooo!") => {
+    cowsay: (message: string | string[] = "Mooooo!") => {
       const fullMessage = Array.isArray(message)
         ? message.join(" ")
         : message.toString();
@@ -95,7 +103,7 @@ Type any command to execute.`,
                 ||     ||
         `;
     },
-    weather: async (city) => {
+    weather: async (city?: string) => {
       try {
         if (!city) {
           const response = await fetch("https://wttr.in/?format=3");
@@ -223,12 +231,12 @@ ${data.explanation.slice(0, 200)}...`;
       const startDate = new Date("2024-09-28");
       const currentDate = new Date();
       const uptimeDays = Math.floor(
-        (currentDate - startDate) / (1000 * 60 * 60 * 24)
+        (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
       );
       const locale = navigator.language || "en-US";
 
       // Browser detection
-      const getBrowser = () => {
+      const getBrowser = (): string => {
         const userAgent = navigator.userAgent;
         if (userAgent.includes("Firefox")) return "Browser (Firefox)";
         if (userAgent.includes("Chrome") && !userAgent.includes("Edg"))
@@ -273,10 +281,56 @@ ${data.explanation.slice(0, 200)}...`;
                                                  Locale: ${locale} <i class="fas fa-globe-asia"></i>
                                                  Battery: Coffee 99% <i class="fas fa-coffee"></i>`;
     },
+    advice: async () => {
+      try {
+        const response = await fetch("https://api.adviceslip.com/advice");
+        const data = await response.json();
+        return `💡 Advice #${data.slip.id}: ${data.slip.advice}`;
+      } catch (e) {
+        return "Failed to fetch advice. Maybe that's the advice: sometimes things fail.";
+      }
+    },
+    word: async () => {
+      try {
+        // Get a random word
+        const wordResponse = await fetch("https://random-word-api.herokuapp.com/word");
+        const [randomWord] = await wordResponse.json();
+        
+        // Get the definition
+        const definitionResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${randomWord}`);
+        
+        if (!definitionResponse.ok) {
+          return `Random Word: ${randomWord}\nDefinition: No definition found for this random word.`;
+        }
+        
+        const definitionData = await definitionResponse.json();
+        
+        let result = `📚 Random Word: ${randomWord}\n\n`;
+        
+        if (definitionData[0]?.meanings?.length > 0) {
+          const firstMeaning = definitionData[0].meanings[0];
+          const partOfSpeech = firstMeaning.partOfSpeech;
+          const definition = firstMeaning.definitions[0]?.definition || "No definition available";
+          
+          result += `Part of Speech: ${partOfSpeech}\nDefinition: ${definition}`;
+          
+          // Add example if available
+          if (firstMeaning.definitions[0]?.example) {
+            result += `\n\nExample: "${firstMeaning.definitions[0].example}"`;
+          }
+        } else {
+          result += "No definition found for this random word.";
+        }
+        
+        return result;
+      } catch (e) {
+        return "Failed to fetch a random word. Please try again later.";
+      }
+    },
   };
 
   // Handle command execution
-  const handleCommand = async (cmd) => {
+  const handleCommand = async (cmd: string): Promise<string | null> => {
     if (!cmd.trim()) return "";
 
     const parts = cmd.split(" ");
@@ -300,12 +354,12 @@ ${data.explanation.slice(0, 200)}...`;
   };
 
   // Check if device is mobile
-  const isMobile = () => {
+  const isMobile = (): boolean => {
     return window.innerWidth <= 600;
   };
 
   // Scroll terminal to bottom
-  const scrollToBottom = () => {
+  const scrollToBottom = (): void => {
     if (terminalWindowRef.current) {
       terminalWindowRef.current.scrollTop =
         terminalWindowRef.current.scrollHeight;
@@ -313,7 +367,7 @@ ${data.explanation.slice(0, 200)}...`;
   };
 
   // Handle key presses
-  const handleKeyDown = async (e) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
     if (e.key === "Enter") {
       const command = inputValue.trim();
       if (command) {
@@ -391,7 +445,7 @@ ${data.explanation.slice(0, 200)}...`;
   };
 
   // Set the terminal output HTML safely
-  const createMarkup = (html) => {
+  const createMarkup = (html: string) => {
     return { __html: html };
   };
 
@@ -421,4 +475,4 @@ ${data.explanation.slice(0, 200)}...`;
   );
 };
 
-export default Terminal;
+export default Terminal; 

@@ -3,9 +3,16 @@ import React, { useEffect } from "react";
 import "lightbox2";
 import "lightbox2/dist/css/lightbox.min.css";
 
-const Gallery = () => {
+// Extend Window interface to include lightbox property
+declare global {
+  interface Window {
+    lightbox: any;
+  }
+}
+
+const Gallery: React.FC = () => {
   // The images array is the same as in scripts.js
-  const images = [
+  const images: string[] = [
     "p1.jpg",
     "p12.jpg",
     "p3.jpg",
@@ -45,12 +52,12 @@ const Gallery = () => {
       });
 
       // Initialize lazy loading exactly as in scripts.js
-      const lazyLoadImages = () => {
+      const lazyLoadImages = (): void => {
         const imageObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const img = entry.target;
-              img.src = img.dataset.src;
+              const img = entry.target as HTMLImageElement;
+              img.src = img.dataset.src || '';
               img.onload = () => {
                 img.classList.add("loaded");
               };
@@ -81,8 +88,9 @@ const Gallery = () => {
       });
 
       // Close lightbox on click outside image - exactly as in scripts.js
-      const handleLightboxClick = (e) => {
-        if (e.target.classList.contains("lb-image")) {
+      const handleLightboxClick = (e: MouseEvent): void => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains("lb-image")) {
           window.lightbox.end();
         }
       };
@@ -103,4 +111,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default Gallery; 

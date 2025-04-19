@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 
-const Insights = () => {
+const Insights: React.FC = () => {
   useEffect(() => {
     // Initialize insights toggle functionality
     const insightItems = document.querySelectorAll("#insights .insight-item");
 
     insightItems.forEach((item) => {
-      item.addEventListener("click", (e) => {
+      item.addEventListener("click", (e: Event) => {
         // Prevent toggle when clicking on links
-        if (e.target.tagName === "A" || e.target.closest("a")) {
+        const target = e.target as HTMLElement;
+        if (target.tagName === "A" || target.closest("a")) {
           return;
         }
 
@@ -20,69 +21,75 @@ const Insights = () => {
 
         // Implement slide toggle behavior similar to jQuery's slideToggle
         contents.forEach((content) => {
+          // Cast content to HTMLElement to access style properties
+          const contentEl = content as HTMLElement;
+
           // Check if element is currently visible
-          const isVisible = window.getComputedStyle(content).display !== "none";
+          const isVisible =
+            window.getComputedStyle(contentEl).display !== "none";
 
           if (isVisible) {
             // If visible, slide up (hide)
-            const height = content.offsetHeight;
-            content.style.height = height + "px";
-            content.style.overflow = "hidden";
-            content.style.transition = "height 300ms ease-out";
+            const height = contentEl.offsetHeight;
+            contentEl.style.height = height + "px";
+            contentEl.style.overflow = "hidden";
+            contentEl.style.transition = "height 300ms ease-out";
 
             // Force reflow to ensure transition works
-            content.offsetHeight;
+            contentEl.offsetHeight;
 
-            content.style.height = "0px";
-            content.style.paddingTop = "0px";
-            content.style.paddingBottom = "0px";
-            content.style.marginTop = "0px";
-            content.style.marginBottom = "0px";
+            contentEl.style.height = "0px";
+            contentEl.style.paddingTop = "0px";
+            contentEl.style.paddingBottom = "0px";
+            contentEl.style.marginTop = "0px";
+            contentEl.style.marginBottom = "0px";
 
             setTimeout(() => {
-              content.style.display = "none";
-              content.style.height = "";
-              content.style.paddingTop = "";
-              content.style.paddingBottom = "";
-              content.style.marginTop = "";
-              content.style.marginBottom = "";
-              content.style.overflow = "";
-              content.style.transition = "";
+              contentEl.style.display = "none";
+              contentEl.style.height = "";
+              contentEl.style.paddingTop = "";
+              contentEl.style.paddingBottom = "";
+              contentEl.style.marginTop = "";
+              contentEl.style.marginBottom = "";
+              contentEl.style.overflow = "";
+              contentEl.style.transition = "";
             }, 300);
           } else {
             // If hidden, slide down (show)
-            content.style.display = "flex"; // Use flex instead of block to match CSS
-            content.style.height = "0px";
-            content.style.overflow = "hidden";
-            content.style.transition = "height 300ms ease-in";
-            content.style.paddingTop = "0px";
-            content.style.paddingBottom = "0px";
-            content.style.marginTop = "0px";
-            content.style.marginBottom = "0px";
+            contentEl.style.display = "flex"; // Use flex instead of block to match CSS
+            contentEl.style.height = "0px";
+            contentEl.style.overflow = "hidden";
+            contentEl.style.transition = "height 300ms ease-in";
+            contentEl.style.paddingTop = "0px";
+            contentEl.style.paddingBottom = "0px";
+            contentEl.style.marginTop = "0px";
+            contentEl.style.marginBottom = "0px";
 
             // Force reflow
-            content.offsetHeight;
+            contentEl.offsetHeight;
 
             // Get the full height and restore it
-            const height = content.scrollHeight;
-            content.style.height = height + "px";
-            content.style.paddingTop = "";
-            content.style.paddingBottom = "";
-            content.style.marginTop = "";
-            content.style.marginBottom = "";
+            const height = contentEl.scrollHeight;
+            contentEl.style.height = height + "px";
+            contentEl.style.paddingTop = "";
+            contentEl.style.paddingBottom = "";
+            contentEl.style.marginTop = "";
+            contentEl.style.marginBottom = "";
 
             setTimeout(() => {
-              content.style.height = "";
-              content.style.overflow = "";
-              content.style.transition = "";
+              contentEl.style.height = "";
+              contentEl.style.overflow = "";
+              contentEl.style.transition = "";
 
               // Only scroll after animation is complete and content is fully visible
               if (!isVisible) {
                 setTimeout(() => {
-                  const navHeight =
-                    document.querySelector(".navbar")?.offsetHeight || 0;
+                  const navbarElement = document.querySelector(
+                    ".navbar"
+                  ) as HTMLElement;
+                  const navHeight = navbarElement?.offsetHeight || 0;
                   const yOffset =
-                    item.getBoundingClientRect().top +
+                    (item as HTMLElement).getBoundingClientRect().top +
                     window.pageYOffset -
                     navHeight -
                     20;
@@ -100,13 +107,13 @@ const Insights = () => {
       // Hide content initially
       const contents = item.querySelectorAll(".insight-content");
       contents.forEach((content) => {
-        content.style.display = "none";
+        (content as HTMLElement).style.display = "none";
       });
     });
   }, []);
 
   // Custom styling to match the original HTML layout
-  const insightStyle = {
+  const insightStyle: React.CSSProperties = {
     display: "flex",
     alignItems: "flex-start",
     marginBottom: "18px",
@@ -115,13 +122,13 @@ const Insights = () => {
     paddingLeft: "18px",
   };
 
-  const paragraphStyle = {
+  const paragraphStyle: React.CSSProperties = {
     margin: "4.5px 0 0",
     color: "#000000",
     flex: "1",
   };
 
-  const imageStyle = {
+  const imageStyle: React.CSSProperties = {
     marginLeft: "27px",
     maxWidth: "270px",
     height: "auto",
@@ -672,8 +679,7 @@ const Insights = () => {
             <strong>extended typing periods</strong>.
           </p>
           <img
-            src="photos/hhkb.png"
-            alt="HHKB Professional"
+            src="photos/hhkb_logo.png"
             className="insight-image"
             style={imageStyle}
           />
@@ -691,9 +697,80 @@ const Insights = () => {
             represent a significant advancement in both
             <strong>comfort</strong> and <strong>typing efficiency</strong>.
           </p>
+          <img
+            src="photos/hhkb.png"
+            className="insight-image"
+            style={imageStyle}
+          />
         </div>
         <div className="insight-time">
           <span className="timestamp">Wed Nov 6 19:03:21 KST 2024</span>
+        </div>
+      </div>
+
+      <div className="insight-item">
+        <h3>MacOS: The Perfect Blend of GUI and UNIX Power</h3>
+        <div className="insight-content" style={insightStyle}>
+          <p style={paragraphStyle}>
+            Recently acquired a <mark>MacBook Pro</mark>, marking my transition
+            from
+            <mark>Windows Subsystem for Linux (WSL)</mark> to a fully integrated
+            <mark>macOS environment</mark>. This shift represents a significant
+            upgrade in my development workflow. MacOS brilliantly combines an
+            <strong>aesthetically pleasing GUI</strong> with a
+            <strong>powerful command-line interface</strong>, offering the best
+            of both worlds without compromises. The system's{" "}
+            <mark>UNIX certification</mark> ensures
+            <strong>robust command-line capabilities</strong> while maintaining
+            a<strong>polished user experience</strong> at the surface level.
+          </p>
+          <img
+            src="photos/Macos.png"
+            className="insight-image"
+            style={imageStyle}
+          />
+        </div>
+        <div className="insight-content" style={insightStyle}>
+          <p style={paragraphStyle}>
+            The <mark>native UNIX foundation</mark> of macOS eliminates the
+            <strong> compatibility layers</strong> and{" "}
+            <strong>performance constraints</strong>
+            commonly encountered with virtualized Linux environments like WSL.
+            This direct implementation provides <strong>
+              seamless access
+            </strong>{" "}
+            to essential development tools and utilities, significantly
+            enhancing <strong>system responsiveness</strong> and
+            <strong>development efficiency</strong>. The integration with my
+            <mark>HHKB keyboard</mark> creates an{" "}
+            <strong>optimal coding experience</strong>, with macOS's keyboard
+            mapping perfectly complementing the HHKB's unique layout.
+          </p>
+          <img
+            src="photos/mac_with_hhkb.jpg"
+            className="insight-image"
+            style={imageStyle}
+          />
+        </div>
+        <div className="insight-content" style={insightStyle}>
+          <p style={paragraphStyle}>
+            This new MacBook Pro will serve as my primary platform for
+            <strong>software development</strong> and{" "}
+            <strong>creative projects</strong>. The{" "}
+            <mark>unified ecosystem</mark> between hardware and software
+            provides a<strong>consistent development environment</strong> that
+            significantly
+            <strong>reduces configuration overhead</strong> and enables me to
+            focus on
+            <strong>creating innovative solutions</strong>. The combination of
+            <mark>powerful hardware</mark>, <mark>Unix underpinnings</mark>, and
+            <mark>refined user interface</mark> makes macOS an
+            <strong>ideal platform</strong> for professional software
+            development.
+          </p>
+        </div>
+        <div className="insight-time">
+          <span className="timestamp">Fri Jan 10 20:15:00 CST 2025</span>
         </div>
       </div>
     </div>

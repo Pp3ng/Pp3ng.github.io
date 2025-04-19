@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="site-footer">
       <p>
@@ -11,4 +11,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer; 

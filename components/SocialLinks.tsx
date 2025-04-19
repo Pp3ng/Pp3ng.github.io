@@ -1,6 +1,6 @@
 import React from "react";
 
-const SocialLinks = () => {
+const SocialLinks: React.FC = () => {
   return (
     <div className="container" id="Social-Accounts" data-aos="fade-up">
       <h2>Let's Connect</h2>
@@ -57,4 +57,4 @@ const SocialLinks = () => {
   );
 };
 
-export default SocialLinks;
+export default SocialLinks; 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const ScrollProgressBar = () => {
+const ScrollProgressBar: React.FC = () => {
   useEffect(() => {
     // Create a progress bar element exactly like in scripts.js
     const progressBar = document.createElement("div");
@@ -8,7 +8,7 @@ const ScrollProgressBar = () => {
     document.body.appendChild(progressBar);
 
     // Scroll handler matching the functionality in scripts.js
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       const windowHeight =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrolled = window.scrollY / windowHeight;
@@ -34,4 +34,4 @@ const ScrollProgressBar = () => {
   return null;
 };
 
-export default ScrollProgressBar;
+export default ScrollProgressBar; 

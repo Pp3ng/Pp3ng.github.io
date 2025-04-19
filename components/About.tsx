@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const About = () => {
-  const [displayText, setDisplayText] = useState("");
-  const fullText = "Hello,World! I'm ZHOU.";
-  const indexRef = useRef(0);
+const About: React.FC = () => {
+  const [displayText, setDisplayText] = useState<string>("");
+  const fullText: string = "Hello,World! I'm ZHOU.";
+  const indexRef = useRef<number>(0);
 
   useEffect(() => {
-    const typeWriter = () => {
+    const typeWriter = (): void => {
       if (indexRef.current < fullText.length) {
         setDisplayText((prev) => prev + fullText.charAt(indexRef.current));
         indexRef.current++;
@@ -43,4 +43,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default About; 

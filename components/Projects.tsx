@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-const Projects = () => {
+const Projects: React.FC = () => {
   // Setup project grid
   useEffect(() => {
-    const setupProjectGrid = () => {
+    const setupProjectGrid = (): void => {
       const projectsGrid = document.querySelector(".projects-grid");
       if (projectsGrid) {
         projectsGrid.classList.add("project-container");

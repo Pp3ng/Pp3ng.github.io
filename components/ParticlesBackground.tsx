@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 
-const ParticlesBackground = () => {
+// Define the window.particlesJS interface
+declare global {
+  interface Window {
+    particlesJS: (id: string, config: any) => void;
+  }
+}
+
+const ParticlesBackground: React.FC = () => {
   useEffect(() => {
     // This ensures the particles-js div exists before initialization
     const particlesContainer = document.getElementById("particles-js");
@@ -137,4 +144,4 @@ const ParticlesBackground = () => {
   );
 };
 
-export default ParticlesBackground;
+export default ParticlesBackground; 

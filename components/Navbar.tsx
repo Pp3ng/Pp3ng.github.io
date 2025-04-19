@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const Navbar = () => {
-  const [isActive, setIsActive] = useState(false);
+const Navbar: React.FC = () => {
+  const [isActive, setIsActive] = useState<boolean>(false);
 
-  const toggleNavbar = () => {
+  const toggleNavbar = (): void => {
     setIsActive(!isActive);
   };
 
   // Smooth scroll to anchor links
-  const handleNavClick = (e) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    const href = e.target.getAttribute("href");
+    const href = e.currentTarget.getAttribute("href");
 
     if (href && href.startsWith("#")) {
       const target = document.querySelector(href);
       if (target) {
-        const navHeight = document.querySelector(".navbar").offsetHeight;
+        const navbarElement = document.querySelector(".navbar") as HTMLElement;
+        const navHeight = navbarElement?.offsetHeight || 0;
         window.scrollTo({
-          top: target.offsetTop - navHeight - 20,
+          top: (target as HTMLElement).offsetTop - navHeight - 20,
           behavior: "smooth",
         });
 
@@ -65,4 +66,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; 
