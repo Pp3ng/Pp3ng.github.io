@@ -40,7 +40,10 @@ const Terminal: React.FC = () => {
   }, [outputContent]);
 
   // Commands available in the terminal
-  const commands: Record<string, (...args: any[]) => string | Promise<string> | null> = {
+  const commands: Record<
+    string,
+    (...args: any[]) => string | Promise<string> | null
+  > = {
     help: () => `Available commands:
 - help: Show this help message
 - whoami: Display personal information
@@ -293,27 +296,33 @@ ${data.explanation.slice(0, 200)}...`;
     word: async () => {
       try {
         // Get a random word
-        const wordResponse = await fetch("https://random-word-api.herokuapp.com/word");
+        const wordResponse = await fetch(
+          "https://random-word-api.herokuapp.com/word"
+        );
         const [randomWord] = await wordResponse.json();
-        
+
         // Get the definition
-        const definitionResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${randomWord}`);
-        
+        const definitionResponse = await fetch(
+          `https://api.dictionaryapi.dev/api/v2/entries/en/${randomWord}`
+        );
+
         if (!definitionResponse.ok) {
           return `Random Word: ${randomWord}\nDefinition: No definition found for this random word.`;
         }
-        
+
         const definitionData = await definitionResponse.json();
-        
+
         let result = `📚 Random Word: ${randomWord}\n\n`;
-        
+
         if (definitionData[0]?.meanings?.length > 0) {
           const firstMeaning = definitionData[0].meanings[0];
           const partOfSpeech = firstMeaning.partOfSpeech;
-          const definition = firstMeaning.definitions[0]?.definition || "No definition available";
-          
+          const definition =
+            firstMeaning.definitions[0]?.definition ||
+            "No definition available";
+
           result += `Part of Speech: ${partOfSpeech}\nDefinition: ${definition}`;
-          
+
           // Add example if available
           if (firstMeaning.definitions[0]?.example) {
             result += `\n\nExample: "${firstMeaning.definitions[0].example}"`;
@@ -321,7 +330,7 @@ ${data.explanation.slice(0, 200)}...`;
         } else {
           result += "No definition found for this random word.";
         }
-        
+
         return result;
       } catch (e) {
         return "Failed to fetch a random word. Please try again later.";
@@ -367,7 +376,9 @@ ${data.explanation.slice(0, 200)}...`;
   };
 
   // Handle key presses
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
+  const handleKeyDown = async (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): Promise<void> => {
     if (e.key === "Enter") {
       const command = inputValue.trim();
       if (command) {
@@ -475,4 +486,4 @@ ${data.explanation.slice(0, 200)}...`;
   );
 };
 
-export default Terminal; 
+export default Terminal;

@@ -144,4 +144,4 @@ const ParticlesBackground: React.FC = () => {
   );
 };
 
-export default ParticlesBackground; 
+export default ParticlesBackground;

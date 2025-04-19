@@ -34,4 +34,4 @@ const ScrollProgressBar: React.FC = () => {
   return null;
 };
 
-export default ScrollProgressBar; 
+export default ScrollProgressBar;

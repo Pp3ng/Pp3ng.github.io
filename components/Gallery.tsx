@@ -57,7 +57,7 @@ const Gallery: React.FC = () => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const img = entry.target as HTMLImageElement;
-              img.src = img.dataset.src || '';
+              img.src = img.dataset.src || "";
               img.onload = () => {
                 img.classList.add("loaded");
               };
@@ -111,4 +111,4 @@ const Gallery: React.FC = () => {
   );
 };
 
-export default Gallery; 
+export default Gallery;

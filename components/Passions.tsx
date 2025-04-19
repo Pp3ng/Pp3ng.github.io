@@ -86,4 +86,4 @@ const Passions: React.FC = () => {
   );
 };
 
-export default Passions; 
+export default Passions;

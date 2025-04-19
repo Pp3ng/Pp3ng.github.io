@@ -57,4 +57,4 @@ const SocialLinks: React.FC = () => {
   );
 };
 
-export default SocialLinks; 
+export default SocialLinks;

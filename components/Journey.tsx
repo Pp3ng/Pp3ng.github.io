@@ -121,4 +121,4 @@ const Journey: React.FC = () => {
   );
 };
 
-export default Journey; 
+export default Journey;
