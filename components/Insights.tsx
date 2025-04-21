@@ -5,6 +5,42 @@ const Insights: React.FC = () => {
     // Initialize insights toggle functionality
     const insightItems = document.querySelectorAll("#insights .insight-item");
 
+    // Custom smooth scroll function optimized for insights expansion
+    const smoothScrollToElement = (
+      element: HTMLElement,
+      offset: number = 0
+    ): void => {
+      const targetPosition =
+        element.getBoundingClientRect().top + window.pageYOffset - offset;
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+
+      // Specific duration for insight content expansion scrolling
+      const duration = 600; // Slightly faster than navigation for better UX
+      let start: number | null = null;
+
+      // Animation step function
+      const step = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        const percentage = Math.min(progress / duration, 1);
+
+        // Ease-out-quad easing - smoother for content expansion
+        const easeOutQuad = (t: number) => t * (2 - t);
+
+        window.scrollTo({
+          top: startPosition + distance * easeOutQuad(percentage),
+          behavior: "auto",
+        });
+
+        if (progress < duration) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
     insightItems.forEach((item) => {
       item.addEventListener("click", (e: Event) => {
         // Prevent toggle when clicking on links
@@ -88,15 +124,9 @@ const Insights: React.FC = () => {
                     ".navbar"
                   ) as HTMLElement;
                   const navHeight = navbarElement?.offsetHeight || 0;
-                  const yOffset =
-                    (item as HTMLElement).getBoundingClientRect().top +
-                    window.pageYOffset -
-                    navHeight -
-                    20;
-                  window.scrollTo({
-                    top: yOffset,
-                    behavior: "smooth",
-                  });
+
+                  // Use the custom smooth scroll function optimized for content expansion
+                  smoothScrollToElement(item as HTMLElement, navHeight + 20);
                 }, 50);
               }
             }, 300);

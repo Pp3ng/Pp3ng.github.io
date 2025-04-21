@@ -12,12 +12,32 @@ const BackToTop: React.FC = () => {
     }
   };
 
-  // Scroll to top smooth
+  // Custom smooth scroll implementation optimized for back-to-top animation
   const scrollToTop = (): void => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const startPosition = window.pageYOffset;
+    const duration = 700; // Slightly faster for back-to-top
+    let start: number | null = null;
+
+    // Animation step function using requestAnimationFrame
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percentage = Math.min(progress / duration, 1);
+
+      // Custom easing for back-to-top (more acceleration at start)
+      const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 5);
+
+      window.scrollTo({
+        top: startPosition * (1 - easeOutQuint(percentage)),
+        behavior: "auto", // Using custom animation
+      });
+
+      if (progress < duration) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
   };
 
   useEffect(() => {

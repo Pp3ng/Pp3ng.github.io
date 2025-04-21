@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
     setIsActive(!isActive);
   };
 
-  // Smooth scroll to anchor links
+  // Smooth scroll to anchor links with optimized animation
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute("href");
@@ -18,10 +18,37 @@ const Navbar: React.FC = () => {
       if (target) {
         const navbarElement = document.querySelector(".navbar") as HTMLElement;
         const navHeight = navbarElement?.offsetHeight || 0;
-        window.scrollTo({
-          top: (target as HTMLElement).offsetTop - navHeight - 20,
-          behavior: "smooth",
-        });
+
+        // Calculate target position with navbar offset
+        const targetPosition =
+          (target as HTMLElement).offsetTop - navHeight - 20;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+
+        // Optimized animation duration and settings
+        const duration = 800;
+        let start: number | null = null;
+
+        const step = (timestamp: number) => {
+          if (!start) start = timestamp;
+          const progress = timestamp - start;
+          const percentage = Math.min(progress / duration, 1);
+
+          // Enhanced easing function for smooth navigation
+          const easeInOutCubic = (t: number) =>
+            t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+          window.scrollTo({
+            top: startPosition + distance * easeInOutCubic(percentage),
+            behavior: "auto", // Using custom animation instead of browser default
+          });
+
+          if (progress < duration) {
+            window.requestAnimationFrame(step);
+          }
+        };
+
+        window.requestAnimationFrame(step);
 
         // Close the mobile menu if open
         if (isActive) {
