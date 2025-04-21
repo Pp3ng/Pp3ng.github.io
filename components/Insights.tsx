@@ -124,7 +124,6 @@ const Insights: React.FC = () => {
 
   const paragraphStyle: React.CSSProperties = {
     margin: "4.5px 0 0",
-    color: "#000000",
     flex: "1",
   };
 

@@ -18,12 +18,14 @@
   ],
   "author": "Penn Zhou",
   "dependencies": {
+    "@types/three": "^0.175.0",
     "aos": "^2.3.4",
-    "jquery": "^3.6.0",
     "gh-pages": "^4.0.0",
+    "jquery": "^3.6.0",
     "lightbox2": "^2.11.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.175.0"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",

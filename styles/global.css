@@ -26,7 +26,7 @@ p {
   font-size: 1.08em;
   max-width: 540px;
   margin: 18px auto;
-  color: #2c3e50;
+  color: var(--text-color);
   line-height: 1.7;
 }
 
@@ -44,8 +44,8 @@ a:hover {
 mark {
   background: linear-gradient(
     120deg,
-    rgba(74, 144, 226, 0.12) 0%,
-    rgba(74, 144, 226, 0.18) 100%
+    rgba(var(--primary-rgb), 0.12) 0%,
+    rgba(var(--primary-rgb), 0.18) 100%
   );
   padding: 0.18em 0.36em;
   border-radius: 3.6px;
@@ -56,7 +56,7 @@ mark {
 }
 
 strong {
-  color: #3a7abd;
+  color: var(--primary-color);
   font-weight: 600;
 }
 
@@ -86,16 +86,12 @@ img:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(195, 207, 226, 0.3);
+  background: var(--scrollbar-track);
   border-radius: 4.5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+  background: var(--scrollbar-thumb);
   border-radius: 4.5px;
   transition: background 0.3s ease;
 }
@@ -106,7 +102,7 @@ img:hover {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) rgba(195, 207, 226, 0.3);
+  scrollbar-color: var(--primary-color) var(--scrollbar-track);
 }
 
 /* Footer */
@@ -128,4 +124,70 @@ footer {
   font-size: 8em;
   line-height: 1;
   vertical-align: middle;
+}
+
+/* Fade-in animation for content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Dark mode transition */
+body,
+.container,
+.navbar,
+.project-item,
+.insight-item,
+.book-item,
+.gallery-container a,
+.social-links a,
+.journey-content,
+.journey-date,
+#terminal-window,
+.passion-item,
+img,
+.dark-mode-toggle {
+  transition: background 0.3s ease, background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Dark mode persistent elements */
+[data-theme="dark"] img {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .project-item,
+[data-theme="dark"] .book-item,
+[data-theme="dark"] .insight-item,
+[data-theme="dark"] .container {
+  border-color: var(--card-border);
+  background: var(--card-bg);
+  outline-color: var(--card-outline);
+  box-shadow: var(--box-shadow);
+}
+
+[data-theme="dark"] .container:hover::after,
+[data-theme="dark"] .project-item:hover::after,
+[data-theme="dark"] .book-item:hover::after,
+[data-theme="dark"] .insight-item:hover::after {
+  opacity: 0.6;
+}
+
+[data-theme="dark"] p {
+  color: #d1d7e0;
+}
+
+[data-theme="dark"] .insight-item p {
+  color: #d1d7e0;
 }

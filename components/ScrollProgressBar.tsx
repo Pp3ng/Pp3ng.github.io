@@ -1,18 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ScrollProgressBar: React.FC = () => {
-  useEffect(() => {
-    // Create a progress bar element exactly like in scripts.js
-    const progressBar = document.createElement("div");
-    progressBar.className = "scroll-progress";
-    document.body.appendChild(progressBar);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-    // Scroll handler matching the functionality in scripts.js
-    const handleScroll = (): void => {
-      const windowHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = window.scrollY / windowHeight;
-      progressBar.style.transform = `scaleX(${scrolled})`;
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrollPosition = window.scrollY;
+      const progress = scrollPosition / totalHeight;
+      setScrollProgress(progress);
     };
 
     // Add scroll event listener
@@ -21,17 +19,16 @@ const ScrollProgressBar: React.FC = () => {
     // Initial calculation
     handleScroll();
 
-    // Clean up
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (progressBar.parentNode) {
-        progressBar.parentNode.removeChild(progressBar);
-      }
-    };
+    // Cleanup
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Return null because the DOM element is created imperatively
-  return null;
+  return (
+    <div
+      className="scroll-progress"
+      style={{ transform: `scaleX(${scrollProgress})` }}
+    />
+  );
 };
 
 export default ScrollProgressBar;

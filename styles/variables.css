@@ -1,20 +1,65 @@
 /* CSS Variables */
 :root {
+  /* Base Colors */
   --primary-color: #4a90e2;
+  --primary-rgb: 74, 144, 226;
   --secondary-color: #42b983;
+  --secondary-rgb: 66, 185, 131;
+
+  /* Light Theme Colors */
+  --background-color: #f5f7fa;
+  --card-bg: rgba(255, 255, 255, 0.75);
   --text-color: #34495e;
-  --background-color: linear-gradient(
-    135deg,
-    rgba(252, 253, 255, 0.94) 0%,
-    rgba(246, 249, 255, 0.92) 35%,
-    rgba(240, 244, 252, 0.94) 70%,
-    rgba(252, 253, 255, 0.96) 100%
-  );
-  --glass-background: rgba(255, 255, 255, 0.15);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  --text-rgb: 52, 73, 94;
+  --heading-color: #2c3e50;
+
+  /* Glass Morphism */
+  --glass-background: rgba(255, 255, 255, 0.65);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+  --card-border: 1px solid rgba(255, 255, 255, 0.3);
+  --card-outline: rgba(255, 255, 255, 0.3);
+
+  /* Shadows */
   --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  --hover-transform: translateY(-6px);
-  --hover-transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --text-shadow: none;
+
+  /* Scrollbar */
+  --scrollbar-track: #eaecef;
+  --scrollbar-thumb: #c1c7ce;
+
+  /* Terminal Colors */
+  --terminal-background: rgba(33, 37, 43, 0.95);
+  --terminal-text: #dcdfe4;
+
+  /* Transitions */
+  --transition: all 0.3s ease;
+  --hover-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Dark Theme Colors */
+  --background-color: #1a1d24;
+  --card-bg: rgba(30, 32, 40, 0.75);
+  --text-color: #d1d7e0;
+  --text-rgb: 209, 215, 224;
+  --heading-color: #e3e8ee;
+
+  /* Glass Morphism */
+  --glass-background: rgba(30, 32, 40, 0.65);
+  --glass-border: 1px solid rgba(45, 55, 72, 0.4);
+  --card-border: 1px solid rgba(45, 55, 72, 0.4);
+  --card-outline: rgba(45, 55, 72, 0.3);
+
+  /* Shadows */
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* Scrollbar */
+  --scrollbar-track: #2c303a;
+  --scrollbar-thumb: #454b5b;
+
+  /* Terminal Colors */
+  --terminal-background: rgba(22, 24, 29, 0.95);
+  --terminal-text: #d1d7e0;
 }

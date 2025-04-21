@@ -20,6 +20,14 @@
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark mode adjustments for navbar */
+[data-theme="dark"] .navbar {
+  background: rgba(30, 32, 40, 0.65);
+  border: 1px solid rgba(80, 90, 120, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 .navbar a {
@@ -64,10 +72,18 @@
   font-weight: 600;
 }
 
+[data-theme="dark"] .navbar a.active {
+  background: rgba(100, 160, 255, 0.15);
+}
+
 .navbar a:hover {
   background: rgba(255, 255, 255, 0.2);
   text-decoration: none;
   transform: translateY(-1px);
+}
+
+[data-theme="dark"] .navbar a:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .menu-toggle {
@@ -95,4 +111,105 @@
   transform: scaleX(0);
   z-index: 1001;
   transition: transform 0.2s ease;
+}
+
+/* Dark Mode Toggle Styles */
+.dark-mode-toggle {
+  margin: 0 5px;
+  padding: 6px;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px) rotate(15deg);
+}
+
+[data-theme="dark"] .dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode-toggle svg {
+  stroke: var(--text-color);
+  transition: stroke 0.3s ease, transform 0.5s ease;
+}
+
+.dark-mode-toggle:hover svg {
+  stroke: var(--primary-color);
+  transform: scale(1.1);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark-mode-toggle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(var(--primary-rgb), 0.1);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.dark-mode-toggle:hover::before {
+  transform: scale(1);
+}
+
+.dark-mode-toggle svg {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode-toggle:hover svg {
+  transform: rotate(30deg);
+  color: var(--primary-color);
+}
+
+/* Dark theme styles */
+[data-theme="dark"] .dark-mode-toggle:hover svg {
+  transform: rotate(-30deg);
+}
+
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dark-mode-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
 }

@@ -10,7 +10,7 @@ const Terminal: React.FC = () => {
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [inputValue, setInputValue] = useState<string>("");
   const [outputContent, setOutputContent] = useState<string>("");
-    const terminalWindowRef = useRef<HTMLDivElement>(null);
+  const terminalWindowRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const ASCII_LOGO = `
@@ -364,7 +364,7 @@ ${data.explanation.slice(0, 200)}...`;
 
   // Check if device is mobile
   const isMobile = (): boolean => {
-    return window.innerWidth <= 600;
+    return window.innerWidth <= 768;
   };
 
   // Scroll terminal to bottom
@@ -464,13 +464,13 @@ ${data.explanation.slice(0, 200)}...`;
     <div className="container" id="terminal" data-aos="fade-up">
       <h2>Terminal</h2>
       <div className="terminal-section">
-                <div id="terminal-window" ref={terminalWindowRef}>
+        <div id="terminal-window" ref={terminalWindowRef}>
           <div
             id="terminal-output"
             dangerouslySetInnerHTML={createMarkup(outputContent)}
           ></div>
           <div id="terminal-input-line">
-            <span id="terminal-prompt">&gt;_</span>
+            <span id="terminal-prompt">pp3ng@portfolio:~$</span>
             <input
               type="text"
               id="terminal-input"
@@ -478,10 +478,10 @@ ${data.explanation.slice(0, 200)}...`;
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              />
+            />
           </div>
         </div>
-              </div>
+      </div>
     </div>
   );
 };

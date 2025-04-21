@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Terminal from "./components/Terminal";
@@ -14,36 +17,37 @@ import BackToTop from "./components/BackToTop";
 import ParticlesBackground from "./components/ParticlesBackground";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 
-// Import AOS for animations
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const App: React.FC = () => {
   useEffect(() => {
-    // Initialize AOS animation library
+    // Initialize AOS animations
     AOS.init({
-      duration: 500,
-      easing: "ease-in-sine",
-      once: true,
+      duration: 800,
+      once: false,
+      easing: "ease-out-cubic",
     });
   }, []);
 
   return (
     <>
+      <ParticlesBackground />
+      <ScrollProgressBar />
       <Navbar />
-      <About />
-      <Terminal />
-      <Journey />
-      <Passions />
-      <Gallery />
-      <Projects />
-      <Insights />
-      <Bookshelf />
-      <SocialLinks />
+
+      <main>
+        <About />
+        <Terminal />
+        <Journey />
+        <Passions />
+        <Gallery />
+        <Projects />
+        <Insights />
+        <Bookshelf />
+        <SocialLinks />
+      </main>
+
       <Footer />
       <BackToTop />
-      <ScrollProgressBar />
-      <ParticlesBackground />
     </>
   );
 };

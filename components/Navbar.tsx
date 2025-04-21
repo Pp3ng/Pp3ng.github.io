@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -59,6 +60,7 @@ const Navbar: React.FC = () => {
       <a href="#Social-Accounts" onClick={handleNavClick}>
         Connect
       </a>
+      <DarkModeToggle />
       <button className="menu-toggle" onClick={toggleNavbar}>
         <i className="fas fa-bars"></i>
       </button>
