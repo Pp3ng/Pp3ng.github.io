@@ -7,6 +7,7 @@
 @import "./animations.css";
 
 /* Component Styles */
+@import "./components/about.css";
 @import "./components/navbar.css";
 @import "./components/terminal.css";
 @import "./components/gallery.css";

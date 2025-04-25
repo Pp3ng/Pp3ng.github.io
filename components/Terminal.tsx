@@ -35,7 +35,7 @@ const Terminal: React.FC = () => {
 
   const welcomeMessage = useMemo(
     () =>
-      `${ASCII_LOGO}\n<span style="color: #42b983;">Welcome to my Terminal</span>\nType '<span style="color: #ff79c6;">help</span>' for available commands.\n\n`,
+      `${ASCII_LOGO}\n<span class="success-text">Welcome to my terminal</span>\nType '<span class="info-text">help</span>' for available commands\n`,
     [ASCII_LOGO]
   );
 
@@ -76,24 +76,24 @@ const Terminal: React.FC = () => {
   const commands = useMemo<Commands>(
     () => ({
       help: () => `Available commands:
-- help: Show this help message
-- whoami: Display personal information
-- contact: Show contact information
-- clear: Clear terminal
-- goto [section]: Navigate to a section
-- joke: Show a programming joke
-- cowsay [message]: Make a cow say something
-- weather [city]: Show weather (your location if no city specified)
-- crypto: Show current Bitcoin prices
-- cat: Get random cat picture
-- dog: Get random dog picture
-- nasa: Get NASA astronomy picture of the day
-- fact: Get random fact
-- date: Show current date and time
-- history: Show command history
-- neofetch: Display system information
-- advice: Get a random advice
-- word: Get a random word
+<span class="info-text">help</span>: Show this help message
+<span class="info-text">whoami</span>: Display personal information
+<span class="info-text">contact</span>: Show contact information
+<span class="info-text">clear</span>: Clear terminal
+<span class="info-text">goto</span> [section]: Navigate to a section
+<span class="info-text">joke</span>: Show a programming joke
+<span class="info-text">cowsay</span> [message]: Make a cow say something
+<span class="info-text">weather</span> [city]: Show weather (your location if no city specified)
+<span class="info-text">crypto</span>: Show current Bitcoin prices
+<span class="info-text">cat</span>: Get random cat picture
+<span class="info-text">dog</span>: Get random dog picture
+<span class="info-text">nasa</span>: Get NASA astronomy picture of the day
+<span class="info-text">fact</span>: Get random fact
+<span class="info-text">date</span>: Show current date and time
+<span class="info-text">history</span>: Show command history
+<span class="info-text">neofetch</span>: Display system information
+<span class="info-text">advice</span>: Get a random advice
+<span class="info-text">word</span>: Get a random word
 
 Type any command to execute.`,
       whoami: () =>
@@ -115,9 +115,9 @@ Type any command to execute.`,
             top: element.offsetTop - navHeight - 20,
             behavior: "smooth",
           });
-          return `Navigating to ${section}...`;
+          return `<span class="success-text">Navigating to ${section}...</span>`;
         } else {
-          return `Section not found: ${section}. Available sections: about, terminal, journey, passions, gallery, projects, insights, bookshelf`;
+          return `<span class="error-text">Section not found: ${section}.</span>\nAvailable sections: about, terminal, journey, passions, gallery, projects, insights, bookshelf`;
         }
       },
       joke: () => {
@@ -154,7 +154,7 @@ Type any command to execute.`,
           }
           return await response.text();
         } catch (e) {
-          return "Failed to fetch weather data. Please try again later or specify a valid city name.";
+          return '<span class="error-text">Failed to fetch weather data. Please try again later or specify a valid city name.</span>';
         }
       },
       crypto: async () => {
@@ -171,19 +171,19 @@ Type any command to execute.`,
           const data = await response.json();
 
           // Format the output with the prices
-          return `Cryptocurrency Prices:
+          return `<span class="success-text">Cryptocurrency Prices:</span>
 
-Bitcoin (BTC):
+<span class="info-text">Bitcoin (BTC):</span>
 USD: $${data.bitcoin.usd.toFixed(2)}
 EUR: €${data.bitcoin.eur.toFixed(2)}
 CNY: ¥${data.bitcoin.cny.toFixed(2)}
 
-Ethereum (ETH):
+<span class="info-text">Ethereum (ETH):</span>
 USD: $${data.ethereum.usd.toFixed(2)}
 EUR: €${data.ethereum.eur.toFixed(2)}
 CNY: ¥${data.ethereum.cny.toFixed(2)}`;
         } catch (e) {
-          return "Failed to fetch cryptocurrency prices. The API might be rate limited or temporarily unavailable.";
+          return '<span class="error-text">Failed to fetch cryptocurrency prices. The API might be rate limited or temporarily unavailable.</span>';
         }
       },
       cat: async () => {
@@ -196,7 +196,7 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
                     <img src="${data[0].url}" alt="Random Cat" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 3px solid rgba(255, 255, 255, 0.4);">
                 </div>`;
         } catch (e) {
-          return "Failed to fetch cat picture";
+          return '<span class="error-text">Failed to fetch cat picture</span>';
         }
       },
       dog: async () => {
@@ -209,7 +209,7 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
                     <img src="${data[0].url}" alt="Random Dog" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 3px solid rgba(255, 255, 255, 0.4);">
                 </div>`;
         } catch (e) {
-          return "Failed to fetch dog picture";
+          return '<span class="error-text">Failed to fetch dog picture</span>';
         }
       },
       nasa: async () => {
@@ -218,7 +218,7 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
             "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
           );
           const data = await response.json();
-          return `NASA Astronomy Picture of the Day:
+          return `<span class="success-text">NASA Astronomy Picture of the Day:</span>
 Title: ${data.title}
 Date: ${data.date}
 <div style="margin: 10px 0;">
@@ -228,7 +228,7 @@ Date: ${data.date}
 </div>
 ${data.explanation.slice(0, 200)}...`;
         } catch (e) {
-          return "Failed to fetch NASA picture of the day";
+          return '<span class="error-text">Failed to fetch NASA picture of the day</span>';
         }
       },
       fact: async () => {
@@ -237,9 +237,9 @@ ${data.explanation.slice(0, 200)}...`;
             "https://uselessfacts.jsph.pl/random.json?language=en"
           );
           const data = await response.json();
-          return `Random Fact: ${data.text}`;
+          return `<span class="info-text">Random Fact:</span> ${data.text}`;
         } catch (e) {
-          return "Failed to fetch random fact";
+          return '<span class="error-text">Failed to fetch random fact</span>';
         }
       },
       date: () => {
@@ -260,12 +260,19 @@ ${data.explanation.slice(0, 200)}...`;
           "Dec",
         ];
 
-        return `${days[d.getDay()]} ${months[d.getMonth()]} ${d.getDate()} ${d
+        return `<span class="success-text">${days[d.getDay()]} ${
+          months[d.getMonth()]
+        } ${d.getDate()} ${d
           .toTimeString()
-          .slice(0, 8)} KST ${d.getFullYear()}`;
+          .slice(0, 8)} KST ${d.getFullYear()}</span>`;
       },
       history: () => {
-        return commandHistory.map((cmd, i) => ` ${i + 1}  ${cmd}`).join("\n");
+        if (commandHistory.length === 0) {
+          return '<span class="error-text">No command history found</span>';
+        }
+        return commandHistory
+          .map((cmd, i) => `<span class="info-text"> ${i + 1}</span>  ${cmd}`)
+          .join("\n");
       },
       neofetch: () => {
         const startDate = new Date("2024-09-28");
@@ -299,35 +306,37 @@ ${data.explanation.slice(0, 200)}...`;
         const randomQuote =
           randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
 
-        return `
-                            .---.                ${randomQuote}
+        return `<span style="color: #4a90e2;">
+                            .---.                </span><span class="success-text">${randomQuote}</span><span style="color: #4a90e2;">
                            /     \\               ------------------------------------
-                           \\.@-@./               OS: ${getBrowser()} <i class="fas fa-globe"></i>
-                           /\`\\_/\`\\               Host: Personal Portfolio v2.0 <i class="fas fa-laptop-code"></i>
-                          //  _  \\\\              Kernel: JavaScript ES2024 <i class="fab fa-js"></i>
-                         | \\     )|_             Uptime: ${Math.abs(
+                           \\.@-@./               </span><span class="info-text">OS:</span> ${getBrowser()} <i class="fas fa-globe"></i><span style="color: #4a90e2;">
+                           /\`\\_/\`\\               </span><span class="info-text">Host:</span> Personal Portfolio v2.0 <i class="fas fa-laptop-code"></i><span style="color: #4a90e2;">
+                          //  _  \\\\              </span><span class="info-text">Kernel:</span> JavaScript ES2024 <i class="fab fa-js"></i><span style="color: #4a90e2;">
+                         | \\     )|_             </span><span class="info-text">Uptime:</span> ${Math.abs(
                            uptimeDays
-                         )} days <i class="fas fa-clock"></i>
-                        /\`\\_\`>  <_/ \\            Packages: 42 node_modules installed <i class="fab fa-npm"></i>
-                       (  \\_     _/  )           Shell: Terminal.js v3.14 <i class="fas fa-terminal"></i>
-                        \`-\\_____/--'             Resolution: ${
+                         )} days <i class="fas fa-clock"></i><span style="color: #4a90e2;">
+                        /\`\\_\`>  <_/ \\            </span><span class="info-text">Packages:</span> 42 node_modules installed <i class="fab fa-npm"></i><span style="color: #4a90e2;">
+                       (  \\_     _/  )           </span><span class="info-text">Shell:</span> Terminal.js v3.14 <i class="fas fa-terminal"></i><span style="color: #4a90e2;">
+                        \`-\\_____/--'             </span><span class="info-text">Resolution:</span> ${
                           window.screen.width
-                        }x${window.screen.height} <i class="fas fa-desktop"></i>
-                                                 DE: Glass Morphism <i class="fas fa-palette"></i>
-                                                 Icons: Font Awesome <i class="fab fa-font-awesome"></i>
-                                                 Terminal: Web Console Pro <i class="fas fa-code"></i>
-                                                 CPU: Brain 6.0 GHz <i class="fas fa-microchip"></i>
-                                                 GPU: Eyes RTX 5090 Ti <i class="fas fa-eye"></i>
-                                                 Locale: ${locale} <i class="fas fa-globe-asia"></i>
-                                                 Battery: Coffee 99% <i class="fas fa-coffee"></i>`;
+                        }x${
+          window.screen.height
+        } <i class="fas fa-desktop"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">DE:</span> Glass Morphism <i class="fas fa-palette"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">Icons:</span> Font Awesome <i class="fab fa-font-awesome"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">Terminal:</span> Web Console Pro <i class="fas fa-code"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">CPU:</span> Brain 6.0 GHz <i class="fas fa-microchip"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">GPU:</span> Eyes RTX 5090 Ti <i class="fas fa-eye"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">Locale:</span> ${locale} <i class="fas fa-globe-asia"></i><span style="color: #4a90e2;">
+                                                 </span><span class="info-text">Battery:</span> Coffee 99% <i class="fas fa-coffee"></i></span>`;
       },
       advice: async () => {
         try {
           const response = await fetch("https://api.adviceslip.com/advice");
           const data = await response.json();
-          return `💡 Advice #${data.slip.id}: ${data.slip.advice}`;
+          return `<span class="success-text">💡 Advice #${data.slip.id}:</span> ${data.slip.advice}`;
         } catch (e) {
-          return "Failed to fetch advice. Maybe that's the advice: sometimes things fail.";
+          return '<span class="error-text">Failed to fetch advice. Maybe that\'s the advice: sometimes things fail.</span>';
         }
       },
       word: async () => {
@@ -337,9 +346,9 @@ ${data.explanation.slice(0, 200)}...`;
             "https://random-word-api.herokuapp.com/word"
           );
           const [randomWord] = await wordResponse.json();
-          return randomWord;
+          return `<span class="info-text">Random word:</span> ${randomWord}`;
         } catch (e) {
-          return "Failed to fetch a random word. Please try again later.";
+          return '<span class="error-text">Failed to fetch a random word. Please try again later.</span>';
         }
       },
     }),
@@ -366,7 +375,7 @@ ${data.explanation.slice(0, 200)}...`;
         }
         return result;
       } else if (cmd.trim() !== "") {
-        return `Command not found: ${cmd}. Type 'help' for available commands.`;
+        return `<span class="error-text">Command not found: ${cmd}.</span> Type '<span class="info-text">help</span>' for available commands.`;
       }
       return "";
     },
@@ -383,13 +392,22 @@ ${data.explanation.slice(0, 200)}...`;
           setCommandHistory((prev) => [...prev, command]);
           setHistoryIndex(commandHistory.length + 1);
 
+          // Special handling for clear command
+          if (command === "clear") {
+            commands.clear();
+            setInputValue("");
+            return;
+          }
+
           // Process command and get result
           const result = await handleCommand(command);
 
+          // Display command in terminal
+          setOutputContent((prev) => `${prev}>_ ${command}\n`);
+
+          // Display results immediately
           if (result !== null) {
-            setOutputContent(
-              (prev) => `${prev}>_ ${command}\n${result || ""}\n\n`
-            );
+            setOutputContent((prev) => `${prev}${result || ""}\n\n`);
           }
         }
         setInputValue("");

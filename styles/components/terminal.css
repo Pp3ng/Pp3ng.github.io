@@ -10,22 +10,23 @@
 
 #terminal-window {
   font-family: "Fira Code", monospace;
-  background: rgba(24, 24, 27, 0.95);
+  background: rgba(24, 24, 27, 0.75);
   color: #f0f0f0;
-  padding: 18px;
+  padding: 24px;
   height: 450px;
   overflow-y: auto;
-  border-radius: 11px;
+  border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   line-height: 1.4;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
   z-index: 1;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  transition: all 0.3s ease;
 }
 
 #terminal-window::-webkit-scrollbar {
@@ -79,4 +80,24 @@
 #terminal-window ::selection {
   background: rgba(135, 212, 65, 0.3);
   color: #f0f0f0;
+}
+
+/* Style for command results with different color themes */
+.success-text {
+  color: #42b983;
+}
+
+.error-text {
+  color: #ff5f56;
+}
+
+.info-text {
+  color: #6a9ec5;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] #terminal-window {
+  background: rgba(18, 18, 20, 0.75);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }

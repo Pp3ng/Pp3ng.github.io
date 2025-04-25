@@ -1,0 +1,100 @@
+/* About Component Styles */
+
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-text-content {
+  max-width: 800px;
+  margin-top: 1.6rem;
+}
+
+.about-title {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--primary-color);
+}
+
+.cursor {
+  font-weight: 300;
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.role-container {
+  margin: 0.75rem 0 1.5rem;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+}
+
+.role-prefix {
+  margin-right: 0.6rem;
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+.role-text {
+  color: var(--accent-color);
+  font-weight: 600;
+  min-width: 10px;
+}
+
+.bio-text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 1rem auto;
+  color: var(--text-color);
+  opacity: 0.9;
+  max-width: 700px;
+}
+
+.bio-text i {
+  margin: 0 3px;
+  color: var(--accent-color);
+}
+
+/* Profile photo styles */
+.about-photo-container {
+  position: relative;
+  display: inline-block;
+  margin: 1rem 0 0.5rem;
+}
+
+.profile-photo {
+  width: 220px;
+  height: auto;
+  border-radius: 20px;
+  border: none;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode adaptations */
+[data-theme="dark"] .role-text,
+[data-theme="dark"] .bio-text i {
+  color: var(--accent-color-dark);
+}
