@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const About: React.FC = () => {
   const [displayText, setDisplayText] = useState<string>("");
@@ -22,11 +23,51 @@ const About: React.FC = () => {
     };
   }, []);
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="container" id="about">
-      <img src="photos/my_photo.jpg" alt="My Photo" className="profile-photo" />
-      <h1 style={{ color: "var(--primary-color)" }}>{displayText}</h1>
-      <p className="bio-text">
+    <motion.div
+      className="container"
+      id="about"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+    >
+      <motion.img
+        src="photos/my_photo.jpg"
+        alt="My Photo"
+        className="profile-photo"
+        variants={itemVariants}
+      />
+      <motion.h1
+        style={{ color: "var(--primary-color)" }}
+        variants={itemVariants}
+      >
+        {displayText}
+      </motion.h1>
+      <motion.p className="bio-text" variants={itemVariants}>
         Welcome to my digital space! As an individual fascinated by the
         intricate interplay between hardware
         <i className="fas fa-microchip"></i> and software
@@ -37,8 +78,8 @@ const About: React.FC = () => {
         share my journey through system architecture, creative pursuits, and
         continuous learning
         <i className="fas fa-book"></i>.
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   );
 };
 

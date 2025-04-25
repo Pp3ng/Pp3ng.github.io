@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 const BackToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  // Show button when page is scrolled down
-  const toggleVisibility = (): void => {
+  // Show button when page is scrolled down (no throttle)
+  const toggleVisibility = useCallback((): void => {
     if (window.scrollY > 300) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
     }
-  };
+  }, []);
 
   // Custom smooth scroll implementation optimized for back-to-top animation
-  const scrollToTop = (): void => {
+  const scrollToTop = useCallback((): void => {
     const startPosition = window.pageYOffset;
     const duration = 700; // Slightly faster for back-to-top
     let start: number | null = null;
@@ -38,20 +38,11 @@ const BackToTop: React.FC = () => {
     };
 
     window.requestAnimationFrame(step);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  return (
-    <button
-      id="back-to-top"
-      className={`back-to-top ${isVisible ? "visible" : ""}`}
-      onClick={scrollToTop}
-      aria-label="Back to top"
-    >
+  // Memoize the SVG to prevent unnecessary re-renders
+  const arrowIcon = useMemo(
+    () => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -63,9 +54,32 @@ const BackToTop: React.FC = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
         className="back-to-top-icon"
+        aria-hidden="true"
       >
         <polyline points="18 15 12 9 6 15"></polyline>
       </svg>
+    ),
+    []
+  );
+
+  useEffect(() => {
+    // Direct scroll event listener without throttling
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
+
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, [toggleVisibility]);
+
+  return (
+    <button
+      id="back-to-top"
+      className={`back-to-top ${isVisible ? "visible" : ""}`}
+      onClick={scrollToTop}
+      onKeyDown={(e) => e.key === "Enter" && scrollToTop()}
+      aria-label="Back to top"
+      tabIndex={isVisible ? 0 : -1}
+      style={{ display: isVisible ? "flex" : "none" }}
+    >
+      {arrowIcon}
       <span className="back-to-top-circle"></span>
     </button>
   );

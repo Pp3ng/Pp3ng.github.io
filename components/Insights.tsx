@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Insights: React.FC = () => {
   useEffect(() => {
@@ -165,11 +166,51 @@ const Insights: React.FC = () => {
     transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
   };
 
-  return (
-    <div className="container" id="insights" data-aos="fade-up">
-      <h2>Technical Insights</h2>
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-      <div className="insight-item">
+  const itemVariants = {
+    hidden: { x: -20, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 70,
+        damping: 10,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      className="container"
+      id="insights"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      <motion.h2
+        initial={{ y: -20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        Technical Insights
+      </motion.h2>
+
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Language Abstraction Levels: Performance vs Productivity</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -242,9 +283,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Mon Mar 20 02:52:22 KST 2023</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Operating Systems: Linux and FreeBSD Deep Dive</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -355,9 +396,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Wed Aug 23 23:08:31 KST 2023</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Network Security: From Infrastructure to Implementation</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -463,9 +504,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Fri Sep 15 16:43:00 KST 2023</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Modern Database Systems: SQL, NoSQL and Beyond</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -535,9 +576,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Wed Jan 03 05:39:34 KST 2024</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>High Performance Computing: CPU-GPU Synergy</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -627,9 +668,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Wed Oct 16 19:58:26 CST 2024</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Web Servers: Tomcat and Nginx Ecosystem</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -688,9 +729,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Fri Oct 25 00:26:33 KST 2024</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>Hardware Spotlight: HHKB Professional</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -735,9 +776,9 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Wed Nov 6 19:03:21 KST 2024</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="insight-item">
+      <motion.div className="insight-item" variants={itemVariants}>
         <h3>MacOS: The Perfect Blend of GUI and UNIX Power</h3>
         <div className="insight-content" style={insightStyle}>
           <p style={paragraphStyle}>
@@ -801,8 +842,8 @@ const Insights: React.FC = () => {
         <div className="insight-time">
           <span className="timestamp">Fri Jan 10 20:15:00 CST 2025</span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

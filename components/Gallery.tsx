@@ -105,7 +105,6 @@ const Gallery: React.FC = () => {
     <div className="container" id="gallery" data-aos="fade-up">
       <h2>My Gallery</h2>
       <div className="gallery-container">
-        {/* The gallery will be populated via DOM manipulation exactly as in scripts.js */}
       </div>
     </div>
   );

@@ -1,97 +1,104 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [scrollY, setScrollY] = useState<number>(0);
 
-  const toggleNavbar = (): void => {
-    setIsActive(!isActive);
-  };
+  // Memoized toggle function
+  const toggleNavbar = useCallback((): void => {
+    setIsActive((prev) => !prev);
+  }, []);
 
-  // Smooth scroll to anchor links with optimized animation
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
-    e.preventDefault();
-    const href = e.currentTarget.getAttribute("href");
+  // Optimized scroll event handling with throttling
+  useEffect(() => {
+    let ticking = false;
 
-    if (href && href.startsWith("#")) {
-      const target = document.querySelector(href);
-      if (target) {
-        const navbarElement = document.querySelector(".navbar") as HTMLElement;
-        const navHeight = navbarElement?.offsetHeight || 0;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
 
-        // Calculate target position with navbar offset
-        const targetPosition =
-          (target as HTMLElement).offsetTop - navHeight - 20;
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-        // Optimized animation duration and settings
-        const duration = 800;
-        let start: number | null = null;
+  // Add transparent class to navbar when scrolling down
+  const navbarClass = useMemo(() => {
+    return `navbar ${isActive ? "active" : ""} ${
+      scrollY > 50 ? "scrolled" : ""
+    }`;
+  }, [isActive, scrollY]);
 
-        const step = (timestamp: number) => {
-          if (!start) start = timestamp;
-          const progress = timestamp - start;
-          const percentage = Math.min(progress / duration, 1);
+  // Optimized smooth scroll with useCallback to avoid recreating function on each render
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>): void => {
+      e.preventDefault();
+      const href = e.currentTarget.getAttribute("href");
 
-          // Enhanced easing function for smooth navigation
-          const easeInOutCubic = (t: number) =>
-            t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      if (href && href.startsWith("#")) {
+        const target = document.querySelector(href);
+        if (target) {
+          const navbarElement = document.querySelector(
+            ".navbar"
+          ) as HTMLElement;
+          const navHeight = navbarElement?.offsetHeight || 0;
 
+          // Calculate target position with navbar offset
+          const targetPosition =
+            (target as HTMLElement).offsetTop - navHeight - 20;
+
+          // Use the native smooth scrolling for better performance
           window.scrollTo({
-            top: startPosition + distance * easeInOutCubic(percentage),
-            behavior: "auto", // Using custom animation instead of browser default
+            top: targetPosition,
+            behavior: "smooth",
           });
 
-          if (progress < duration) {
-            window.requestAnimationFrame(step);
-          }
-        };
-
-        window.requestAnimationFrame(step);
-
-        // Close the mobile menu if open
-        if (isActive) {
+          // Close the mobile menu if open
           setIsActive(false);
         }
       }
-    }
-  };
+    },
+    []
+  );
+
+  // Memoize navigation items to prevent unnecessary re-renders
+  const navItems = useMemo(
+    () => [
+      { href: "#about", label: "About" },
+      { href: "#terminal", label: "Terminal" },
+      { href: "#journey", label: "Journey" },
+      { href: "#passions", label: "Passions" },
+      { href: "#gallery", label: "Gallery" },
+      { href: "#projects", label: "Projects" },
+      { href: "#insights", label: "Insights" },
+      { href: "#bookshelf", label: "Books" },
+      { href: "#Social-Accounts", label: "Connect" },
+    ],
+    []
+  );
 
   return (
-    <div className={`navbar ${isActive ? "active" : ""}`}>
-      <a href="#about" onClick={handleNavClick}>
-        About
-      </a>
-      <a href="#terminal" onClick={handleNavClick}>
-        Terminal
-      </a>
-      <a href="#journey" onClick={handleNavClick}>
-        Journey
-      </a>
-      <a href="#passions" onClick={handleNavClick}>
-        Passions
-      </a>
-      <a href="#gallery" onClick={handleNavClick}>
-        Gallery
-      </a>
-      <a href="#projects" onClick={handleNavClick}>
-        Projects
-      </a>
-      <a href="#insights" onClick={handleNavClick}>
-        Insights
-      </a>
-      <a href="#bookshelf" onClick={handleNavClick}>
-        Books
-      </a>
-      <a href="#Social-Accounts" onClick={handleNavClick}>
-        Connect
-      </a>
+    <nav className={navbarClass}>
+      {navItems.map((item, index) => (
+        <a key={`nav-${index}`} href={item.href} onClick={handleNavClick}>
+          {item.label}
+        </a>
+      ))}
       <DarkModeToggle />
-      <button className="menu-toggle" onClick={toggleNavbar}>
+      <button
+        className="menu-toggle"
+        onClick={toggleNavbar}
+        aria-label="Toggle navigation menu"
+      >
         <i className="fas fa-bars"></i>
       </button>
-    </div>
+    </nav>
   );
 };
 

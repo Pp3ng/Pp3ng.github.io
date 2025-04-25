@@ -1,57 +1,68 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: string;
+  tooltip: string;
+  ariaLabel: string;
+}
 
 const SocialLinks: React.FC = () => {
+  // Use useMemo to prevent recreation of the links array on each render
+  const socialLinks = useMemo<SocialLink[]>(
+    () => [
+      {
+        name: "instagram",
+        url: "https://www.instagram.com/pp3ng___",
+        icon: "fa-brands fa-instagram",
+        tooltip: "Follow on Instagram",
+        ariaLabel: "Instagram",
+      },
+      {
+        name: "twitter",
+        url: "https://x.com/Pp3ng_",
+        icon: "fa-brands fa-x-twitter",
+        tooltip: "Follow on X",
+        ariaLabel: "Twitter",
+      },
+      {
+        name: "github",
+        url: "https://github.com/Pp3ng",
+        icon: "fa-brands fa-github",
+        tooltip: "Visit my GitHub",
+        ariaLabel: "GitHub",
+      },
+      {
+        name: "email",
+        url: "mailto:pp3ng@outlook.com",
+        icon: "fa-solid fa-envelope",
+        tooltip: "Send me an email",
+        ariaLabel: "Email",
+      },
+    ],
+    []
+  );
+
   return (
     <div className="container" id="Social-Accounts" data-aos="fade-up">
       <h2>Let's Connect</h2>
       <ul className="social-links">
-        <li className="social-link-item">
-          <div className="social-link-wrapper">
-            <a
-              href="https://www.instagram.com/pp3ng___"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              <i className="fa-brands fa-instagram"></i>
-            </a>
-            <span className="social-tooltip">Follow on Instagram</span>
-          </div>
-        </li>
-        <li className="social-link-item">
-          <div className="social-link-wrapper">
-            <a
-              href="https://x.com/Pp3ng_"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-            >
-              <i className="fa-brands fa-x-twitter"></i>
-            </a>
-            <span className="social-tooltip">Follow on X</span>
-          </div>
-        </li>
-        <li className="social-link-item">
-          <div className="social-link-wrapper">
-            <a
-              href="https://github.com/Pp3ng"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <span className="social-tooltip">Visit my GitHub</span>
-          </div>
-        </li>
-        <li className="social-link-item">
-          <div className="social-link-wrapper">
-            <a href="mailto:pp3ng@outlook.com" aria-label="Email">
-              <i className="fa-solid fa-envelope"></i>
-            </a>
-            <span className="social-tooltip">Send me an email</span>
-          </div>
-        </li>
+        {socialLinks.map((link) => (
+          <li className="social-link-item" key={link.name}>
+            <div className="social-link-wrapper">
+              <a
+                href={link.url}
+                target={link.name !== "email" ? "_blank" : undefined}
+                rel={link.name !== "email" ? "noopener noreferrer" : undefined}
+                aria-label={link.ariaLabel}
+              >
+                <i className={link.icon}></i>
+              </a>
+              <span className="social-tooltip">{link.tooltip}</span>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
