@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -16,7 +17,7 @@ import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import ParticlesBackground from "./components/ParticlesBackground";
 import ScrollProgressBar from "./components/ScrollProgressBar";
-
+import SEO from "./components/SEO";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -29,7 +30,8 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <HelmetProvider>
+      <SEO />
       <ParticlesBackground />
       <ScrollProgressBar />
       <Navbar />
@@ -48,7 +50,7 @@ const App: React.FC = () => {
 
       <Footer />
       <BackToTop />
-    </>
+    </HelmetProvider>
   );
 };
 

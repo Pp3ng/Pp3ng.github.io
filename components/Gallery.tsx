@@ -1,18 +1,63 @@
-import React, { useEffect } from "react";
-// Import lightbox2 library and its styles
-import "lightbox2";
-import "lightbox2/dist/css/lightbox.min.css";
+import React, { useState, useEffect } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Counter from "yet-another-react-lightbox/plugins/counter";
+import "yet-another-react-lightbox/plugins/counter.css";
 
-// Extend Window interface to include lightbox property
-declare global {
-  interface Window {
-    lightbox: any;
-  }
-}
+// Add inline style reset to ensure Lightbox images are not affected by global CSS
+const LightboxStyleReset = () => {
+  useEffect(() => {
+    // Create a style element
+    const style = document.createElement("style");
+
+    // Add high priority style rules
+    style.innerHTML = `
+      [data-yarl-portal] [data-yarl-slide] img,
+      body [data-yarl-portal] [data-yarl-slide] img,
+      html body [data-yarl-portal] [data-yarl-slide] img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        transform: none !important;
+        transition: none !important;
+        position: static !important;
+        z-index: auto !important;
+        border: none !important;
+        cursor: default !important;
+      }
+      
+      [data-yarl-portal] [data-yarl-slide] img:hover,
+      body [data-yarl-portal] [data-yarl-slide] img:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      
+      [data-yarl-container] {
+        z-index: 9999 !important;
+      }
+    `;
+
+    // Append style element to head
+    document.head.appendChild(style);
+
+    // Cleanup when component unmounts
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  return null;
+};
 
 const Gallery: React.FC = () => {
-  // The images array is the same as in scripts.js
-  const images: string[] = [
+  // Image array
+  const images = [
     "p1.jpg",
     "p12.jpg",
     "p3.jpg",
@@ -27,85 +72,79 @@ const Gallery: React.FC = () => {
     "p14.jpg",
   ];
 
-  useEffect(() => {
-    // This exactly matches the populateGallery function from scripts.js
-    const galleryContainer = document.querySelector(".gallery-container");
+  // Lightbox state
+  const [index, setIndex] = useState(-1);
 
-    if (galleryContainer) {
-      // Clear the container
-      galleryContainer.innerHTML = "";
-
-      // Add images exactly as in scripts.js
-      images.forEach((image, index) => {
-        const imagePath = `photos/gallery/${image}`;
-        const galleryItem = document.createElement("a");
-        galleryItem.setAttribute("href", imagePath);
-        galleryItem.setAttribute("data-lightbox", "gallery");
-
-        const img = document.createElement("img");
-        img.setAttribute("data-src", imagePath);
-        img.setAttribute("alt", `Gallery image ${index + 1}`);
-        img.classList.add("gallery-image");
-
-        galleryItem.appendChild(img);
-        galleryContainer.appendChild(galleryItem);
-      });
-
-      // Initialize lazy loading exactly as in scripts.js
-      const lazyLoadImages = (): void => {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const img = entry.target as HTMLImageElement;
-              img.src = img.dataset.src || "";
-              img.onload = () => {
-                img.classList.add("loaded");
-              };
-              observer.unobserve(img);
-            }
-          });
-        });
-
-        document.querySelectorAll(".gallery-image[data-src]").forEach((img) => {
-          imageObserver.observe(img);
-        });
-      };
-
-      lazyLoadImages();
-    }
-
-    // Configure lightbox exactly as in scripts.js
-    if (typeof window.lightbox !== "undefined") {
-      window.lightbox.option({
-        showImageNumberLabel: false,
-        wrapAround: true,
-        alwaysShowNavOnTouchDevices: false,
-        disableScrolling: true,
-        fadeDuration: 300,
-        resizeDuration: 300,
-        imageFadeDuration: 300,
-        closeButtonEnabled: false,
-      });
-
-      // Close lightbox on click outside image - exactly as in scripts.js
-      const handleLightboxClick = (e: MouseEvent): void => {
-        const target = e.target as HTMLElement;
-        if (target.classList.contains("lb-image")) {
-          window.lightbox.end();
-        }
-      };
-
-      // First remove any existing listener to avoid duplicates
-      document.removeEventListener("click", handleLightboxClick);
-      document.addEventListener("click", handleLightboxClick);
-    }
-  }, []); // Empty dependency array ensures this runs once on mount
+  // Prepare slides data for Lightbox
+  const slides = images.map((img) => ({
+    src: `photos/gallery/${img}`,
+  }));
 
   return (
     <div className="container" id="gallery" data-aos="fade-up">
+      {/* Inject style reset component */}
+      <LightboxStyleReset />
+
       <h2>My Gallery</h2>
       <div className="gallery-container">
+        {images.map((image, i) => (
+          <div className="gallery-item" key={i} onClick={() => setIndex(i)}>
+            <img
+              src={`photos/gallery/${image}`}
+              alt={`Gallery image ${i + 1}`}
+              className="gallery-image"
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
+
+      <Lightbox
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        slides={slides}
+        plugins={[Zoom, Fullscreen, Counter]}
+        styles={{
+          container: {
+            backgroundColor: "rgba(0, 0, 0, 0.95)",
+            zIndex: 9999,
+          },
+        }}
+        animation={{ fade: 300 }}
+        zoom={{
+          maxZoomPixelRatio: 5,
+          scrollToZoom: true,
+        }}
+        render={{
+          slide: ({ slide }) => (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={slide.src}
+                alt="Gallery photo"
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  maxWidth: "100%",
+                  maxHeight: "90vh",
+                  objectFit: "contain",
+                  borderRadius: 0,
+                  boxShadow: "none",
+                  border: "none",
+                }}
+              />
+            </div>
+          ),
+        }}
+      />
     </div>
   );
 };
