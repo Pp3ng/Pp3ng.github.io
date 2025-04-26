@@ -7,18 +7,22 @@ interface SEOProps {
   image?: string;
   url?: string;
   type?: string;
+  lang?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
   title = "PENN.L.ZHOU | Code & Create",
-  description = "周罗鹏的个人网站 - 探索技术与创意的交汇点。分享系统架构、摄影作品与技术见解，记录持续学习与成长的旅程。",
+  description = "pp3ng - 周罗鹏的个人网站 - 探索技术与创意的交汇点。分享系统架构、摄影作品与技术见解，记录持续学习与成长的旅程。",
   image = "https://Pp3ng.github.io/photos/my_photo.jpg",
   url = "https://Pp3ng.github.io",
   type = "website",
+  lang = "en",
 }) => {
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang }}>
       {/* Basic metadata */}
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="author" content="Penn.L.Zhou" />

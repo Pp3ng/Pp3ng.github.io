@@ -13,7 +13,7 @@
   -webkit-backdrop-filter: blur(8px) saturate(180%);
   border: var(--glass-border);
   border-left: 4px solid var(--primary-color);
-  transition: var(--hover-transition);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -21,11 +21,25 @@
   outline-offset: -3px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
 }
 
-.insight-item:hover {
-  transform: var(--hover-transform);
-  animation: glowPulse 3s ease-in-out infinite;
+.insight-item:not(.active):hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 36px rgba(31, 38, 135, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.insight-item.active {
+  border-left-width: 6px;
+  transform: none;
+}
+
+[data-theme="dark"] .insight-item.active {
+  background: rgba(40, 44, 52, 0.75);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(70, 80, 100, 0.5);
+  border-left-color: var(--primary-color);
 }
 
 .insight-item::before {
@@ -44,16 +58,37 @@
   border-radius: inherit;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
 .insight-item:not(.active):hover::before {
   opacity: 1;
-  transition: opacity 0.4s ease;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .insight-item h3 {
   margin: 0;
+  position: relative;
+  display: inline-block;
+  color: var(--primary-color);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.insight-item:not(.active):hover h3 {
+  transform: translateX(5px);
+  color: var(--secondary-color);
 }
 
 .insight-item p {
@@ -64,10 +99,23 @@
 .insight-content {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 18px;
+  margin: 18px 0;
   gap: 24px;
   position: relative;
   padding-left: 18px;
+  transition: opacity 250ms ease, transform 250ms ease,
+    height 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: height, opacity, transform;
+}
+
+.insight-item:not(.active) .insight-content {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.insight-item.active .insight-content {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .insight-content::before {
@@ -87,20 +135,27 @@
   transition: opacity 0.3s ease;
 }
 
-.insight-item:hover .insight-content::before {
+.insight-content:hover::before {
   opacity: 1;
 }
 
-.insight-content img {
+.insight-paragraph {
+  flex: 1;
+  line-height: 1.6;
+}
+
+.insight-image {
   margin-left: 27px;
   max-width: 270px;
   height: auto;
   border-radius: 13.5px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.insight-content:hover img {
+.insight-content:hover .insight-image {
   transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .insight-time {
@@ -110,12 +165,15 @@
   margin-top: 9px;
 }
 
-/* Ensure active state doesn't show hover effect */
-.insight-item.active::before {
-  opacity: 0;
+.timestamp {
+  position: relative;
 }
 
 @media (max-width: 768px) {
+  .insight-item {
+    padding: 18px;
+  }
+
   .insight-item p {
     font-size: 1em;
     max-width: 100%;
@@ -123,19 +181,23 @@
 
   .insight-content {
     display: block;
+    padding-left: 12px;
+    margin: 15px 0;
   }
 
-  .insight-content img {
+  .insight-image {
     margin-left: 0;
-    margin-top: 9px;
+    margin-top: 12px;
     max-width: 100%;
     height: auto;
   }
 
   .insight-time {
-    font-size: 1.5em;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin-top: 9px;
+    font-size: 1.2em;
+    margin-top: 12px;
+  }
+
+  .insight-item:not(.active):hover h3 {
+    transform: translateX(3px);
   }
 }
