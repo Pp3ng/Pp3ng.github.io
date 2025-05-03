@@ -1,50 +1,61 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+
+const ProgressBar = styled.div<{ $progress: number }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  transform-origin: 0 50%;
+  transform: scaleX(${(props) => props.$progress});
+  z-index: 1001;
+  transition: transform 0.2s ease;
+`;
 
 const ScrollProgressBar: React.FC = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [progress, setProgress] = useState<number>(0);
 
-  // Throttle function to limit how often the scroll handler fires
-  const throttle = (callback: Function, delay: number) => {
-    let lastCall = 0;
-    return (...args: any[]) => {
-      const now = Date.now();
-      if (now - lastCall >= delay) {
-        lastCall = now;
-        callback(...args);
-      }
-    };
-  };
+  // Optimized scroll handler with requestAnimationFrame for smoother updates
+  const handleScroll = useCallback(() => {
+    let ticking = false;
 
-  // Memoized scroll handler with throttling
-  const handleScroll = useCallback(
-    throttle(() => {
-      const totalHeight =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrollPosition = window.scrollY;
-      const progress = scrollPosition / totalHeight;
-      setScrollProgress(progress);
-    }, 16), // Throttle to approximately 60fps (1000ms / 60 ≈ 16ms)
-    []
-  );
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        // Calculate the scroll progress
+        const totalScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPosition = window.scrollY;
+        const currentProgress =
+          totalScroll > 0 ? scrollPosition / totalScroll : 0;
+
+        setProgress(currentProgress);
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  }, []);
 
   useEffect(() => {
-    // Add scroll event listener with throttled handler
-    window.addEventListener("scroll", handleScroll);
+    // Add event listener with passive option for better performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Initial calculation
     handleScroll();
 
-    // Cleanup
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Clean up
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [handleScroll]);
 
-  return (
-    <div
-      className="scroll-progress"
-      style={{ transform: `scaleX(${scrollProgress})` }}
-    />
-  );
+  return <ProgressBar $progress={progress} />;
 };
 
 export default ScrollProgressBar;
