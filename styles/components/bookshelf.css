@@ -5,29 +5,6 @@
   padding: 20px;
 }
 
-@media (max-width: 1200px) {
-  .bookshelf-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 992px) {
-  .bookshelf-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .bookshelf-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .bookshelf-container {
-    grid-template-columns: 1fr;
-  }
-}
 
 .book-item {
   position: relative;
@@ -100,75 +77,41 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   font-size: 0.9em;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.15);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(74, 144, 226, 0.2);
   position: relative;
   overflow: hidden;
   z-index: 1;
-  min-width: 100px;
-  max-width: 140px;
+  min-width: 110px;
   margin-top: 3px;
 }
 
 .book-link::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.2)
-  );
-  transform: translateX(-100%);
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
   z-index: -1;
-}
-
-.book-link:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.25);
-  color: white;
-  text-decoration: none;
-}
-
-.book-link:hover::before {
-  transform: translateX(0);
-}
-
-.book-link:active {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
 }
 
 .book-link::after {
   content: "\f019";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  margin-left: 6px;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.3s ease;
   position: absolute;
-  right: 0.8rem;
-}
-
-.book-link:hover::after {
-  opacity: 1;
-  transform: translateY(0);
+  right: -20px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: white;
+  margin-left: 12px;
 }
 
 .book-link span {
@@ -176,6 +119,32 @@
   z-index: 2;
   font-size: 0.85em;
   letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.book-link:hover {
+  border-color: transparent;
+  text-decoration: none;
+}
+
+.book-link:hover::before {
+  opacity: 1;
+}
+
+.book-link:hover span {
+  color: white;
+  transform: translateX(-8px);
+}
+
+.book-link:hover::after {
+  right: 1rem;
+  opacity: 1;
+}
+
+.book-link:active {
+  transform: scale(0.98);
 }
 
 .book-item {

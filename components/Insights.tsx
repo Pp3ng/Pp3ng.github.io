@@ -1,167 +1,57 @@
-import React, { useEffect, useCallback, useState, memo } from "react";
+import React, { useCallback, memo } from "react";
 import { motion } from "framer-motion";
 
-const useInsightToggle = () => {
-  const smoothScrollToElement = useCallback(
-    (element: HTMLElement, offset: number = 0): void => {
-      const targetPosition =
-        element.getBoundingClientRect().top + window.pageYOffset - offset;
-      const startPosition = window.pageYOffset;
-      const distance = targetPosition - startPosition;
-      const duration = 600;
-      let start: number | null = null;
-
-      const step = (timestamp: number) => {
-        if (!start) start = timestamp;
-        const progress = timestamp - start;
-        const percentage = Math.min(progress / duration, 1);
-        const easeOutQuad = (t: number) => t * (2 - t);
-
-        window.scrollTo({
-          top: startPosition + distance * easeOutQuad(percentage),
-          behavior: "auto",
-        });
-
-        if (progress < duration) {
-          window.requestAnimationFrame(step);
-        }
-      };
-
-      window.requestAnimationFrame(step);
-    },
-    []
-  );
-
-  const toggleInsightContent = useCallback(
-    (element: HTMLElement, target: HTMLElement): void => {
-      // Prevent toggle when clicking on links
-      if (target.tagName === "A" || target.closest("a")) {
-        return;
-      }
-
-      // Find all content elements in this item
-      const contents = element.querySelectorAll(".insight-content");
-
-      if (element.classList.contains("active")) {
-        contents.forEach((content) => {
-          const contentEl = content as HTMLElement;
-          const height = contentEl.offsetHeight;
-          contentEl.style.height = `${height}px`;
-          contentEl.style.overflow = "hidden";
-          contentEl.offsetHeight;
-
-          contentEl.style.transition =
-            "height 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease";
-          contentEl.style.opacity = "0";
-          contentEl.style.height = "0px";
-
-          setTimeout(() => {
-            contentEl.style.display = "none";
-            contentEl.style.height = "";
-            contentEl.style.opacity = "";
-            contentEl.style.overflow = "";
-            contentEl.style.transition = "";
-          }, 250);
-        });
-
-        setTimeout(() => {
-          element.classList.remove("active");
-        }, 50);
-      } else {
-        element.classList.add("active");
-
-        contents.forEach((content) => {
-          const contentEl = content as HTMLElement;
-          contentEl.style.display = "flex";
-          contentEl.style.height = "0px";
-          contentEl.style.opacity = "0";
-          contentEl.style.overflow = "hidden";
-          contentEl.style.transition =
-            "height 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms ease";
-
-          contentEl.offsetHeight;
-
-          const height = contentEl.scrollHeight;
-          contentEl.style.height = `${height}px`;
-          contentEl.style.opacity = "1";
-
-          setTimeout(() => {
-            contentEl.style.height = "";
-            contentEl.style.opacity = "";
-            contentEl.style.overflow = "";
-            contentEl.style.transition = "";
-
-            const navbarElement = document.querySelector(
-              ".navbar"
-            ) as HTMLElement;
-            const navHeight = navbarElement?.offsetHeight || 0;
-            smoothScrollToElement(element, navHeight + 20);
-          }, 300);
-        });
-      }
-    },
-    [smoothScrollToElement]
-  );
-
-  useEffect(() => {
-    const insightItems = document.querySelectorAll("#insights .insight-item");
-
-    // Add click event listeners
-    const eventListeners: { element: Element; handler: (e: Event) => void }[] =
-      [];
-
-    insightItems.forEach((item) => {
-      const handler = (e: Event) => {
-        toggleInsightContent(item as HTMLElement, e.target as HTMLElement);
-      };
-
-      item.addEventListener("click", handler);
-      eventListeners.push({ element: item, handler });
-
-      // Hide content initially
-      const contents = item.querySelectorAll(".insight-content");
-      contents.forEach((content) => {
-        (content as HTMLElement).style.display = "none";
-      });
-    });
-
-    // Cleanup event listeners on unmount
-    return () => {
-      eventListeners.forEach(({ element, handler }) => {
-        element.removeEventListener("click", handler);
-      });
-    };
-  }, [toggleInsightContent]);
-};
-
-// Timestamp component
-const InsightTimestamp = memo(({ date }: { date: string }) => (
-  <div className="insight-time">
-    <span className="timestamp">{date}</span>
-  </div>
-));
-
-InsightTimestamp.displayName = "InsightTimestamp";
-
-// Content component for insight content sections
+// Individual insight content section
 const InsightContent = memo(
   ({
     children,
     image,
+    isActive,
   }: {
     children: React.ReactNode;
     image?: { src: string | null; alt: string | null };
+    isActive: boolean;
   }) => (
-    <div className="insight-content">
-      <p className="insight-paragraph">{children}</p>
-      {image && image.src && (
-        <img src={image.src} alt={image.alt || ""} className="insight-image" />
-      )}
+    <div
+      className={`transition-all duration-300 ease-in-out overflow-hidden
+        ${
+          isActive
+            ? "max-h-[1000px] opacity-100 translate-y-0"
+            : "max-h-0 opacity-0 -translate-y-1"
+        }
+      `}
+    >
+      <div className="flex flex-col md:flex-row items-start gap-1 py-1 pl-2 relative">
+        <div className="flex-1 min-w-0">
+          <p className="text-sm leading-relaxed text-[var(--text-color)]">
+            {children}
+          </p>
+        </div>
+        {image && image.src && (
+          <div className="md:ml-1">
+            <img
+              src={image.src}
+              alt={image.alt || ""}
+              className="rounded-lg max-w-[220px] max-h-[220px] w-auto h-auto"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 );
 
 InsightContent.displayName = "InsightContent";
+
+// Timestamp component
+const InsightTimestamp = memo(({ date }: { date: string }) => (
+  <div className="text-sm text-[var(--text-color)] opacity-70 mt-2">
+    <span>{date}</span>
+  </div>
+));
+
+InsightTimestamp.displayName = "InsightTimestamp";
 
 // Individual insight item component
 const InsightItem = memo(
@@ -178,26 +68,101 @@ const InsightItem = memo(
     }[];
     timestamp: string;
     variants: any;
-  }) => (
-    <motion.div className="insight-item" variants={variants}>
-      <h3>{title}</h3>
-      {contents.map((content, index) => (
-        <InsightContent key={`content-${index}`} image={content.image}>
-          {content.text}
-        </InsightContent>
-      ))}
-      <InsightTimestamp date={timestamp} />
-    </motion.div>
-  )
+  }) => {
+    const [isActive, setIsActive] = React.useState(false);
+
+    const toggleActive = useCallback(
+      (e: React.MouseEvent) => {
+        // Prevent toggle when clicking on links
+        if (
+          (e.target as HTMLElement).tagName === "A" ||
+          (e.target as HTMLElement).closest("a")
+        ) {
+          return;
+        }
+
+        setIsActive((prev) => !prev);
+
+        if (!isActive) {
+          setTimeout(() => {
+            const element = e.currentTarget as HTMLElement;
+            const navbarElement = document.querySelector(
+              ".navbar"
+            ) as HTMLElement;
+            const navHeight = navbarElement?.offsetHeight || 0;
+
+            const targetPosition =
+              element.getBoundingClientRect().top +
+              window.pageYOffset -
+              (navHeight + 20);
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
+            });
+          }, 100);
+        }
+      },
+      [isActive]
+    );
+
+    return (
+      <motion.div
+        variants={variants}
+        className={`card group backdrop-blur-[8px] backdrop-saturate-[180%]
+          border border-[var(--glass-border)] border-l-4 
+          ${
+            isActive
+              ? "border-l-[6px] border-[var(--primary-color)]"
+              : "border-l-[var(--primary-color)]"
+          } 
+          shadow-[0_4px_12px_rgba(31,38,135,0.1)] hover:shadow-[0_8px_24px_rgba(31,38,135,0.15)]
+          transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer
+          relative overflow-hidden z-10 my-6 rounded-[12px] p-2 ${
+            !isActive ? "h-[90px]" : ""
+          }`}
+        onClick={toggleActive}
+      >
+        <div
+          className={`absolute inset-0 bg-gradient-to-r from-[var(--primary-color)]/20 to-[var(--secondary-color)]/20 opacity-0 
+          transition-opacity duration-300 ease-in-out z-[-1] ${
+            !isActive
+              ? "group-hover:opacity-100 group-hover:animate-gradient-shift"
+              : ""
+          }`}
+        ></div>
+
+        <div className="card-body p-0 flex flex-col h-full">
+          <h3
+            className={`card-title text-[var(--primary-color)] group-hover:text-[var(--secondary-color)] transition-all duration-300 text-base mb-2
+            ${!isActive && "group-hover:translate-x-1"}`}
+          >
+            {title}
+          </h3>
+
+          <div className={`flex-1 ${!isActive ? "overflow-hidden" : ""}`}>
+            {contents.map((content, index) => (
+              <InsightContent
+                key={`content-${index}`}
+                image={content.image}
+                isActive={isActive}
+              >
+                {content.text}
+              </InsightContent>
+            ))}
+          </div>
+
+          <InsightTimestamp date={timestamp} />
+        </div>
+      </motion.div>
+    );
+  }
 );
 
 InsightItem.displayName = "InsightItem";
 
 // Main component
 const Insights: React.FC = () => {
-  // Initialize toggle functionality
-  useInsightToggle();
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -232,16 +197,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The distinction between
-              <mark>low-level languages</mark>
-              like C/C++ and
-              <mark>higher-level alternatives</mark>
-              presents a fundamental trade-off in software development.
-              Low-level languages provide
-              <strong>direct hardware access</strong> and
-              <strong>memory management capabilities</strong>, enabling
-              <strong>precise system control</strong> and
-              <strong>optimal performance</strong>.
+              The distinction between low-level languages like C/C++ and
+              higher-level alternatives presents a fundamental trade-off in
+              software development. Low-level languages provide direct hardware
+              access and memory management capabilities , enabling precise
+              system control and optimal performance .
             </>
           ),
           image: { src: "photos/hardwares.png", alt: "hardware" },
@@ -249,23 +209,14 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Higher-level languages
-              <strong>abstract implementation details</strong> through features
-              like
-              <mark>automatic memory management</mark>
-              and
-              <mark>intuitive syntax constructs</mark>. While this abstraction
-              can impact performance, it significantly
-              <strong>accelerates development cycles</strong> and
-              <strong>reduces potential errors</strong>. The choice between
-              abstraction levels typically depends on
-              <strong>specific project requirements</strong> -
-              <mark>system programming</mark>
-              and
-              <mark>performance-critical applications</mark>
-              benefit from low-level control, while
-              <strong>rapid development</strong> often favors higher-level
-              abstractions.
+              Higher-level languages abstract implementation details through
+              features like automatic memory management and intuitive syntax
+              constructs . While this abstraction can impact performance, it
+              significantly accelerates development cycles and reduces potential
+              errors . The choice between abstraction levels typically depends
+              on specific project requirements - system programming and
+              performance-critical applications benefit from low-level control,
+              while rapid development often favors higher-level abstractions.
             </>
           ),
           image: { src: "photos/languages.png", alt: "Programming Languages" },
@@ -273,17 +224,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Understanding both paradigms provides
-              <strong>comprehensive insight</strong> into the software
-              development spectrum. This knowledge enables
-              <strong>informed decisions</strong> about language selection based
-              on
-              <mark>project requirements</mark>,
-              <mark>performance constraints</mark>, and
-              <mark>development timelines</mark>. The ability to navigate
-              different abstraction levels proves invaluable when{" "}
-              <strong>optimizing critical systems</strong> or
-              <strong>rapidly prototyping solutions</strong>.
+              Understanding both paradigms provides comprehensive insight into
+              the software development spectrum. This knowledge enables informed
+              decisions about language selection based on project requirements ,
+              performance constraints , and development timelines . The ability
+              to navigate different abstraction levels proves invaluable when
+              optimizing critical systems or rapidly prototyping solutions .
             </>
           ),
           image: { src: "photos/programmer.png", alt: "Coder" },
@@ -297,17 +243,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Linux system programming</mark>
-              reveals the sophisticated interface between
-              <mark>hardware</mark>
-              and
-              <mark>software layers</mark>. The kernel's
-              <strong>resource management capabilities</strong> provide a robust
-              foundation for system operations, while
-              <strong>system calls</strong> enable efficient hardware access.
-              This architecture demonstrates the
-              <strong>elegant abstraction</strong> of complex hardware
-              interactions through a<mark>unified programming interface</mark>.
+              Linux system programming reveals the sophisticated interface
+              between hardware and software layers . The kernel's resource
+              management capabilities provide a robust foundation for system
+              operations, while system calls enable efficient hardware access.
+              This architecture demonstrates the elegant abstraction of complex
+              hardware interactions through a unified programming interface .
             </>
           ),
           image: { src: "photos/linux.png", alt: "linux" },
@@ -315,20 +256,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>FreeBSD's architecture</mark>
-              emphasizes <strong>stability</strong> and
-              <strong>performance optimization</strong>, particularly evident in
-              <mark>server</mark>
-              and
-              <mark>embedded system</mark>
-              deployments. Its coherent design philosophy manifests in the
-              <strong>ports system</strong> and
-              <strong>package management infrastructure</strong>. The
-              implementation of
-              <mark>ZFS</mark>
-              provides <strong>advanced data management capabilities</strong>,
-              while the kernel architecture facilitates
-              <strong>efficient system resource utilization</strong>.
+              FreeBSD's architecture emphasizes stability and performance
+              optimization , particularly evident in server and embedded system
+              deployments. Its coherent design philosophy manifests in the ports
+              system and package management infrastructure . The implementation
+              of ZFS provides advanced data management capabilities , while the
+              kernel architecture facilitates efficient system resource
+              utilization .
             </>
           ),
           image: { src: "photos/FreeBSD.png", alt: "FreeBSD" },
@@ -336,14 +270,10 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Vim</mark>
-              serves as an efficient interface for
-              <strong>system-level development</strong>, offering
-              <strong>precise text manipulation capabilities</strong> and
-              <strong>extensive customization options</strong>. Its
-              <mark>modal editing paradigm</mark>
-              enables <strong>rapid code navigation</strong> and
-              <strong>modification</strong>, particularly valuable in system
+              Vim serves as an efficient interface for system-level development
+              , offering precise text manipulation capabilities and extensive
+              customization options . Its modal editing paradigm enables rapid
+              code navigation and modification , particularly valuable in system
               programming contexts where efficiency is paramount.
             </>
           ),
@@ -352,17 +282,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The
-              <mark>Command Line Interface</mark>
-              provides <strong>direct system interaction capabilities</strong>,
-              enabling <strong>efficient resource management</strong> and
-              <strong>process control</strong>. Its
-              <mark>scripting capabilities</mark>
-              facilitate <strong>task automation</strong> and
-              <strong>system administration</strong>. Advanced text processing
-              tools enhance <strong>data manipulation capabilities</strong>,
-              while the immediate feedback loop accelerates the development
-              cycle.
+              The Command Line Interface provides direct system interaction
+              capabilities , enabling efficient resource management and process
+              control . Its scripting capabilities facilitate task automation
+              and system administration . Advanced text processing tools enhance
+              data manipulation capabilities , while the immediate feedback loop
+              accelerates the development cycle.
             </>
           ),
           image: { src: "photos/Terminalicon2.png", alt: "Terminal" },
@@ -370,21 +295,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The
-              <mark>open-source nature</mark>
-              of these systems enables <strong>
-                comprehensive analysis
-              </strong>{" "}
-              and
-              <strong>modification</strong> of system components. This
-              transparency facilitates <strong>deep understanding</strong> of
-              system architecture and enables <strong>customization</strong> for
-              specific use cases. The interaction between
-              <mark>software abstractions</mark>
-              and
-              <mark>hardware implementations</mark>
-              demonstrates the sophisticated design principles underlying modern
-              operating systems.
+              The open-source nature of these systems enables comprehensive
+              analysis and modification of system components. This transparency
+              facilitates deep understanding of system architecture and enables
+              customization for specific use cases. The interaction between
+              software abstractions and hardware implementations demonstrates
+              the sophisticated design principles underlying modern operating
+              systems.
             </>
           ),
           image: { src: "photos/open-source.png", alt: "Ubuntu" },
@@ -398,17 +315,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Linux's network infrastructure</mark>
-              provides comprehensive control over
-              <mark>network interfaces</mark>,<mark>connections</mark>, and
-              <mark>security protocols</mark>. The platform's{" "}
-              <strong>extensive toolkit</strong> facilitates network management
-              through
-              <strong>sophisticated utilities</strong> including
-              <mark>ifconfig</mark>,<mark>iptables</mark>, and
-              <mark>Wireshark</mark>. These tools enable{" "}
-              <strong>precise monitoring</strong>,<strong>analysis</strong>, and
-              <strong>security implementation</strong> across network layers.
+              Linux's network infrastructure provides comprehensive control over
+              network interfaces , connections , and security protocols . The
+              platform's extensive toolkit facilitates network management
+              through sophisticated utilities including ifconfig , iptables ,
+              and Wireshark . These tools enable precise monitoring , analysis ,
+              and security implementation across network layers.
             </>
           ),
           image: { src: "photos/network.png", alt: "Linux Networking" },
@@ -416,16 +328,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Kali Linux's security framework</mark>
-              incorporates <strong>advanced network analysis tools</strong>.
-              <mark>Netdiscover</mark>
-              facilitates <strong>network topology mapping</strong> and
-              <strong>device enumeration</strong>, while
-              <mark>nmap</mark>
-              enables <strong>comprehensive port scanning</strong> and
-              <strong>service detection</strong>. These capabilities form an
-              essential foundation for <strong>security assessment</strong> and
-              <strong>vulnerability analysis</strong> in network environments.
+              Kali Linux's security framework incorporates advanced network
+              analysis tools . Netdiscover facilitates network topology mapping
+              and device enumeration , while nmap enables comprehensive port
+              scanning and service detection . These capabilities form an
+              essential foundation for security assessment and vulnerability
+              analysis in network environments.
             </>
           ),
           image: { src: "photos/kali.png", alt: "Kali Linux Networking Tools" },
@@ -433,15 +341,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The
-              <mark>iptables framework</mark>
-              provides <strong>granular control</strong> over network traffic
-              through its <strong>robust packet filtering mechanism</strong>.
-              This system enables <strong>precise implementation</strong> of
-              security policies through
-              <mark>custom rule sets</mark>, facilitating
-              <strong>comprehensive network access control</strong> and
-              <strong>traffic management</strong> at the kernel level.
+              The iptables framework provides granular control over network
+              traffic through its robust packet filtering mechanism . This
+              system enables precise implementation of security policies through
+              custom rule sets , facilitating comprehensive network access
+              control and traffic management at the kernel level.
             </>
           ),
           image: { src: "photos/iptables.png", alt: "Iptables Firewall" },
@@ -449,17 +353,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Network security auditing tools like
-              <mark>Bettercap</mark>
-              enable <strong>sophisticated network analysis</strong> and
-              <strong>vulnerability assessment</strong>. The platform's
-              <strong>packet capture</strong> and
-              <strong>analysis capabilities</strong> facilitate thorough
-              security evaluations, emphasizing the critical importance of
-              <mark>encryption protocols</mark>
-              and
-              <mark>secure communication channels</mark>
-              in modern network architectures.
+              Network security auditing tools like Bettercap enable
+              sophisticated network analysis and vulnerability assessment . The
+              platform's packet capture and analysis capabilities facilitate
+              thorough security evaluations, emphasizing the critical importance
+              of encryption protocols and secure communication channels in
+              modern network architectures.
             </>
           ),
           image: { src: "photos/bettercap.png", alt: "Bettercap" },
@@ -467,17 +366,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>SSH protocol</mark>
-              implementation provides
-              <strong>secure remote system administration</strong> capabilities.
-              The transition to
-              <mark>key-based authentication</mark>
-              mechanisms enhances security through
-              <strong>cryptographic verification</strong>, while maintaining
-              <strong>operational efficiency</strong>. This approach exemplifies
-              the balance between <strong>security requirements</strong> and
-              <strong>administrative functionality</strong> in network
-              operations.
+              SSH protocol implementation provides secure remote system
+              administration capabilities. The transition to key-based
+              authentication mechanisms enhances security through cryptographic
+              verification , while maintaining operational efficiency . This
+              approach exemplifies the balance between security requirements and
+              administrative accessibility in network operations.
             </>
           ),
           image: { src: "photos/ssh.png", alt: "SSH Secure Shell" },
@@ -491,20 +385,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The architectural distinctions between
-              <mark>SQL</mark>
-              and
-              <mark>NoSQL</mark>
-              database systems present fundamental trade-offs in data management
-              strategies. SQL databases implement
-              <strong>ACID properties</strong>, facilitating
-              <strong>complex query operations</strong> and maintaining
-              <strong>strict data integrity</strong>. NoSQL systems prioritize
-              <mark>scalability</mark>
-              and
-              <mark>flexibility</mark>, particularly advantageous in
-              <strong>distributed computing environments</strong> and
-              <strong>unstructured data management</strong>.
+              The architectural distinctions between SQL and NoSQL database
+              systems present fundamental trade-offs in data management
+              strategies. SQL databases implement rigid schemas , facilitating
+              data integrity and maintaining transactional consistency . NoSQL
+              systems prioritize horizontal scalability and schema flexibility ,
+              particularly advantageous in high-volume environments and dynamic
+              data structures .
             </>
           ),
           image: { src: "photos/sqlVSnosql.png", alt: "SQL vs NoSQL" },
@@ -512,18 +399,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>OLAP</mark>
-              and
-              <mark>OLTP</mark>
-              systems serve distinct operational requirements in database
-              architecture. OLTP systems
-              <strong>optimize transaction processing</strong> for operational
-              databases, emphasizing <strong>rapid query execution</strong> and
-              <strong>concurrent access patterns</strong>. OLAP implementations
-              focus on <strong>analytical processing</strong>, facilitating
-              <strong>complex data analysis</strong> and
-              <strong>decision support</strong> through optimized query
-              structures.
+              OLTP systems emphasize transaction processing efficiency ,
+              optimizing for high concurrency and minimal latency in operational
+              contexts. Conversely, OLAP architectures prioritize analytical
+              capabilities through columnar storage formats and complex query
+              optimization . This fundamental distinction shapes both system
+              design and implementation strategies across database ecosystems.
             </>
           ),
           image: { src: "photos/oltpVSolap.png", alt: "OLAP vs OLTP" },
@@ -531,15 +412,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Modern database architectures often implement
-              <mark>hybrid solutions</mark>, leveraging the{" "}
-              <strong>respective advantages</strong> of different database
-              paradigms. This approach enables
-              <strong>optimal performance</strong> across varied use cases,
-              combining
-              <mark>transactional efficiency</mark>
-              with <strong>analytical capabilities</strong> through carefully
-              designed <strong>system integration</strong>.
+              Modern database paradigms increasingly embrace hybrid
+              architectures that combine relational integrity with NoSQL
+              flexibility . These systems leverage sophisticated indexing
+              mechanisms and query optimization strategies to facilitate both
+              transactional reliability and analytical performance within
+              unified data platforms.
             </>
           ),
           image: { src: "photos/database.png", alt: "Database Paradigms" },
@@ -553,19 +431,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>CUDA implementation</mark>
-              enables efficient parallel computation through
-              <mark>GPU architecture utilization</mark>. The fundamental
-              distinction between
-              <mark>CPU</mark>
-              and
-              <mark>GPU</mark>
-              architectures manifests in their respective
-              <strong>optimization strategies</strong> - GPUs excel in
-              <strong>parallel data processing</strong> through multiple
-              processing units, while CPUs optimize
-              <strong>sequential execution</strong> through sophisticated
-              control units.
+              CPU architecture focuses on low-latency sequential processing with
+              sophisticated branch prediction and out-of-order execution
+              capabilities. In contrast, GPU design emphasizes high-throughput
+              parallel computation through thousands of simpler cores and
+              specialized memory hierarchies , enabling massive data processing.
             </>
           ),
           image: {
@@ -576,19 +446,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              GPU
-              <mark>parallel processing capabilities</mark>
-              particularly benefit
-              <strong>computationally intensive applications</strong> in
-              <strong>machine learning</strong>,
-              <strong>graphics processing</strong>, and
-              <strong>scientific computing</strong>. CUDA framework
-              implementation facilitates{" "}
-              <strong>efficient workload distribution</strong> across GPU
-              threads, while requiring careful optimization of
-              <mark>memory access patterns</mark>
-              and
-              <mark>kernel execution parameters</mark>.
+              CUDA framework provides a sophisticated parallel programming model
+              that exposes GPU capabilities through abstract compute kernels .
+              This architecture facilitates efficient data-parallel operations
+              across domains like scientific computing , machine learning , and
+              high-performance simulation through its optimized memory
+              management.
             </>
           ),
           image: { src: "photos/CUDA.png", alt: "GPU Parallel Computing" },
@@ -596,17 +459,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The
-              <mark>CPU architecture</mark>
-              maintains primary control through its
-              <strong>sophisticated instruction pipeline</strong> and
-              <strong>branch prediction capabilities</strong>. Its design
-              optimizes
-              <mark>sequential processing</mark>
-              and <strong>complex decision-making tasks</strong>, while
-              providing
-              <strong>efficient interrupt handling</strong> and
-              <strong>system resource management</strong>.
+              The CPU architecture maintains primary control through its
+              sophisticated instruction pipeline and branch prediction
+              capabilities . Its design optimizes sequential processing and
+              complex decision-making tasks , while providing efficient
+              interrupt handling and system resource management .
             </>
           ),
           image: { src: "photos/CGC.png", alt: "CPU and GPU Collaboration" },
@@ -614,16 +471,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Optimal
-              <mark>heterogeneous computing</mark>
-              requires understanding of both architectures'
-              <strong>performance characteristics</strong>. This knowledge
-              enables
-              <strong>effective workload distribution</strong> between CPU and
-              GPU, maximizing
-              <mark>system efficiency</mark>
-              through <strong>parallel execution</strong> of suitable tasks
-              while maintaining <strong>sequential processing</strong> for
+              Optimal heterogeneous computing requires understanding of both
+              architectures' performance characteristics . This knowledge
+              enables effective workload distribution between CPU and GPU,
+              maximizing system efficiency through parallel execution of
+              suitable tasks while maintaining sequential processing for
               control-intensive operations.
             </>
           ),
@@ -641,16 +493,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Tomcat's architecture</mark>
-              specializes in
-              <strong>Java Servlet container implementation</strong>, providing
-              robust support for
-              <strong>dynamic content generation</strong> through
-              <mark>Java Servlet</mark>
-              and
-              <mark>JSP processing</mark>. This architecture enables
-              <strong>efficient server-side application logic execution</strong>
-              within the Java ecosystem.
+              Tomcat's architecture specializes in Java Servlet container
+              implementation , providing robust support for dynamic content
+              generation through Java Servlet and JSP processing . This
+              architecture enables efficient server-side application logic
+              execution within the Java ecosystem.
             </>
           ),
           image: { src: "photos/tomcat.png", alt: "Overview of Tomcat" },
@@ -658,15 +505,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              <mark>Nginx's event-driven architecture</mark>
-              optimizes <strong>static content delivery</strong> and
-              <strong>connection management</strong>. Its implementation
-              efficiently handles
-              <strong>high-concurrency scenarios</strong> while minimizing
-              resource utilization, particularly effective in
-              <mark>reverse proxy configurations</mark>
-              and
-              <mark>content delivery optimization</mark>.
+              Nginx's event-driven architecture delivers exceptional static
+              content serving capability and reverse proxy functionality . Its
+              asynchronous processing model enables high concurrency handling
+              with minimal resource requirements , making it ideal for
+              high-traffic environments and microservice architectures.
             </>
           ),
           image: { src: "photos/nginx.png", alt: "Overview of Nginx" },
@@ -674,12 +517,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Integration of both server architectures enables
-              <strong>optimal resource utilization</strong> through
-              <mark>specialized task distribution</mark>. This approach
-              maximizes <strong>system performance</strong> by leveraging each
-              server's
-              <strong>specific optimization characteristics</strong>.
+              The Tomcat-Nginx integration represents an optimal architecture
+              for enterprise applications . Nginx provides efficient request
+              routing , SSL termination , and static content caching , while
+              Tomcat manages dynamic content generation and application logic
+              execution . This separation of concerns enhances both performance
+              and maintainability .
             </>
           ),
           image: {
@@ -696,18 +539,14 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Received the
-              <mark>HHKB Professional HYBRID Type-S</mark>
-              as a birthday gift, marking a significant upgrade in my typing
-              experience. The keyboard's
-              <mark>Topre switches</mark>
-              provide <strong>exceptional tactile feedback</strong> and
-              <strong>reduced actuation force</strong>, offering substantial
-              relief from the finger fatigue and hand strain commonly associated
-              with traditional mechanical keyboards. This ergonomic improvement
-              is particularly valuable for
-              <strong>intensive coding sessions</strong> and
-              <strong>extended typing periods</strong>.
+              Received the HHKB Professional HYBRID Type-S as a birthday gift,
+              marking a significant upgrade in my typing experience. The
+              keyboard's Topre switches provide exceptional tactile feedback and
+              reduced actuation force , offering substantial relief from the
+              finger fatigue and hand strain commonly associated with
+              traditional mechanical keyboards. This ergonomic improvement is
+              particularly valuable for intensive coding sessions and extended
+              typing periods .
             </>
           ),
           image: { src: "photos/hhkb_logo.png", alt: "HHKB Logo" },
@@ -715,16 +554,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The
-              <mark>electrostatic capacitive switches</mark>
-              demonstrate their superiority through
-              <strong>smoother keystrokes</strong> and
-              <strong>reduced typing fatigue</strong>. For
-              <mark>professional developers</mark>
-              and <strong>content creators</strong> who engage in extensive
-              daily typing, the HHKB's thoughtful design and premium switch
-              technology represent a significant advancement in both
-              <strong>comfort</strong> and <strong>typing efficiency</strong>.
+              The electrostatic capacitive switches demonstrate their
+              superiority through smoother keystrokes and consistent actuation
+              across the entire keyboard. The minimalist 60% layout emphasizes
+              efficiency by reducing hand movement through thoughtful key
+              placement and function layer design . This compact form factor
+              also improves desk ergonomics by allowing for more natural mouse
+              positioning.
             </>
           ),
           image: { src: "photos/hhkb.png", alt: "HHKB Keyboard" },
@@ -738,20 +574,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Recently acquired a <mark>MacBook Pro</mark>, marking my
-              transition from
-              <mark>Windows Subsystem for Linux (WSL)</mark> to a fully
-              integrated
-              <mark>macOS environment</mark>. This shift represents a
-              significant upgrade in my development workflow. MacOS brilliantly
-              combines an
-              <strong>aesthetically pleasing GUI</strong> with a
-              <strong>powerful command-line interface</strong>, offering the
-              best of both worlds without compromises. The system's{" "}
-              <mark>UNIX certification</mark> ensures
-              <strong>robust command-line capabilities</strong> while
-              maintaining a<strong>polished user experience</strong> at the
-              surface level.
+              macOS's architecture represents a sophisticated blend of
+              user-friendly interface design and robust UNIX underpinnings .
+              This combination provides an ideal development environment with
+              access to both powerful command-line tools and polished
+              productivity applications . The system's Darwin foundation ensures
+              compatibility with UNIX utilities while maintaining a distinctive
+              visual identity .
             </>
           ),
           image: { src: "photos/Macos.png", alt: "macOS" },
@@ -759,18 +588,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The <mark>native UNIX foundation</mark> of macOS eliminates the
-              <strong> compatibility layers</strong> and{" "}
-              <strong>performance constraints</strong>
-              commonly encountered with virtualized Linux environments like WSL.
-              This direct implementation provides{" "}
-              <strong>seamless access</strong> to essential development tools
-              and utilities, significantly enhancing{" "}
-              <strong>system responsiveness</strong> and
-              <strong>development efficiency</strong>. The integration with my
-              <mark>HHKB keyboard</mark> creates an{" "}
-              <strong>optimal coding experience</strong>, with macOS's keyboard
-              mapping perfectly complementing the HHKB's unique layout.
+              The hardware integration in Apple's ecosystem provides exceptional
+              stability and performance optimization . When paired with quality
+              peripherals like the HHKB keyboard, the system delivers a superior
+              development experience through reliable hardware interaction and
+              predictable performance characteristics . This consistency is
+              particularly valuable for professional software development and
+              system administration tasks .
             </>
           ),
           image: { src: "photos/mac_with_hhkb.jpg", alt: "MacBook with HHKB" },
@@ -778,20 +602,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              This new MacBook Pro will serve as my primary platform for
-              <strong>software development</strong> and{" "}
-              <strong>creative projects</strong>. The{" "}
-              <mark>unified ecosystem</mark> between hardware and software
-              provides a<strong>consistent development environment</strong> that
-              significantly
-              <strong>reduces configuration overhead</strong> and enables me to
-              focus on
-              <strong>creating innovative solutions</strong>. The combination of
-              <mark>powerful hardware</mark>, <mark>Unix underpinnings</mark>,
-              and
-              <mark>refined user interface</mark> makes macOS an
-              <strong>ideal platform</strong> for professional software
-              development.
+              macOS's development tools provide a comprehensive ecosystem for
+              software engineering . The native terminal application offers
+              seamless integration with development workflows, while scripting
+              capabilities enhance automation options . Combined with its
+              intuitive interface and robust security model , macOS represents
+              an ideal platform for professional software development.
             </>
           ),
           image: { src: null, alt: null },
@@ -803,7 +619,7 @@ const Insights: React.FC = () => {
 
   return (
     <motion.div
-      className="container"
+      className="container mx-auto px-4 py-6 mt-[30px]"
       id="insights"
       variants={containerVariants}
       initial="hidden"
@@ -811,6 +627,7 @@ const Insights: React.FC = () => {
       viewport={{ once: true, margin: "-100px" }}
     >
       <motion.h2
+        className="text-xl md:text-2xl font-bold mb-4 text-center md:text-left text-[var(--heading-color)]"
         initial={{ y: -20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -825,7 +642,7 @@ const Insights: React.FC = () => {
           title={insight.title}
           contents={insight.contents.map((content) => ({
             text: content.text,
-            image: content.image || { src: "", alt: "" },
+            image: content.image || { src: null, alt: null },
           }))}
           timestamp={insight.timestamp}
           variants={itemVariants}
@@ -834,5 +651,21 @@ const Insights: React.FC = () => {
     </motion.div>
   );
 };
+
+// Add custom keyframe animation for gradient shift
+const style = document.createElement("style");
+style.textContent = `
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .animate-gradient-shift {
+    animation: gradient-shift 3s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+`;
+document.head.appendChild(style);
 
 export default Insights;

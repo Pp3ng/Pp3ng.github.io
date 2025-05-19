@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 
 interface JourneyItem {
   date: string;
@@ -46,88 +47,100 @@ const journeyData: JourneyItem[] = [
 ];
 
 const Journey: React.FC = () => {
-  const journeyRef = useRef<HTMLDivElement>(null);
-
-  // Setup intersection observers with useCallback to avoid recreation on each render
-  const setupObservers = useCallback(() => {
-    // Observer for journey items
-    const itemObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Observer for timeline axis animation
-    const axisObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-timeline");
-          }
-        });
-      },
-      { threshold: 0.05 }
-    );
-
-    // Observe all journey items
-    const journeyItems = document.querySelectorAll(".journey-item");
-    journeyItems.forEach((item) => {
-      itemObserver.observe(item);
-    });
-
-    // Observe the timeline
-    const timeline = document.querySelector(".journey-wrapper");
-    if (timeline) {
-      axisObserver.observe(timeline);
-    }
-
-    // Return cleanup function
-    return () => {
-      journeyItems.forEach((item) => {
-        itemObserver.unobserve(item);
-      });
-      if (timeline) {
-        axisObserver.unobserve(timeline);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    // Apply observers and get cleanup function
-    const cleanup = setupObservers();
-
-    // Run cleanup when component unmounts
-    return cleanup;
-  }, [setupObservers]);
-
   return (
-    <div
-      className="container compact-section"
-      id="journey"
-      data-aos="fade-up"
-      ref={journeyRef}
-    >
-      <h2>Life Journey</h2>
-      <div className="journey-wrapper">
+    <div className="container compact-section" id="journey" data-aos="fade-up">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-3xl font-bold text-center mb-12"
+        style={{ color: "var(--heading-color)" }}
+      >
+        Life Journey
+      </motion.h2>
+      <ul className="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
         {journeyData.map((item, index) => (
-          <div className="journey-item" key={`journey-${index}`}>
-            <div className="journey-dot"></div>
-            <div className="journey-date">{item.date}</div>
-            <div className="journey-content">
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              <div className="journey-icon">
-                <i className={item.icon}></i>
+          <motion.li
+            key={`journey-${index}`}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30, y: 20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ 
+              duration: 0.6,
+              delay: index * 0.15,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="hover:scale-[1.02] transition-all duration-500 ease-out"
+          >
+            <div className="timeline-middle">
+              <div className="relative group">
+                <div
+                  className="absolute -inset-1 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-700 group-hover:duration-300"
+                  style={{ backgroundColor: "var(--primary-color)" }}
+                ></div>
+                <div className="relative bg-base-100 rounded-full p-3">
+                  <i
+                    className={`${item.icon} text-2xl transition-all duration-500 group-hover:scale-110`}
+                    style={{ color: "var(--primary-color)" }}
+                  ></i>
+                </div>
               </div>
             </div>
-          </div>
+            <div
+              className={`timeline-${
+                index % 2 === 0 ? "start" : "end"
+              } md:text-end mb-10`}
+            >
+              <motion.div 
+                className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-500"
+                whileHover={{ 
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+              >
+                <div className="card-body">
+                  <motion.time
+                    className="font-mono italic"
+                    style={{ color: "var(--primary-color)" }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+                  >
+                    {item.date}
+                  </motion.time>
+                  <motion.h3
+                    className="text-xl font-black"
+                    style={{ color: "var(--heading-color)" }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
+                  >
+                    {item.title}
+                  </motion.h3>
+                  <motion.p
+                    className="leading-relaxed"
+                    style={{ color: "var(--text-color)" }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.4 }}
+                  >
+                    {item.description}
+                  </motion.p>
+                </div>
+              </motion.div>
+            </div>
+            <motion.hr
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: index * 0.15 + 0.5 }}
+              style={{ 
+                backgroundColor: "var(--primary-color)", 
+                opacity: 0.2,
+                transformOrigin: "left"
+              }}
+            />
+          </motion.li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

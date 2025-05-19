@@ -26,8 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   background: var(--glass-background);
   border-radius: 50%;
   border: var(--glass-border);
@@ -62,7 +62,7 @@
 }
 
 .social-links i {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: var(--text-color);
   transition: all 0.3s ease;
   z-index: 1;
@@ -75,13 +75,13 @@
 
 .social-tooltip {
   position: absolute;
-  bottom: -36px;
+  bottom: -26px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   background: var(--glass-background);
-  padding: 7.2px 13.5px;
-  border-radius: 18px;
-  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
   color: var(--text-color);
   opacity: 0;
   visibility: hidden;

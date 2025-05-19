@@ -1,10 +1,76 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Counter from "yet-another-react-lightbox/plugins/counter";
 import "yet-another-react-lightbox/plugins/counter.css";
+
+const GalleryContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.35rem;
+  padding: 1.35rem;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const GalleryItem = styled.div`
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 3.6px 13.5px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 20px rgba(52, 152, 219, 0.2),
+      inset 0 0 8px rgba(52, 152, 219, 0.1);
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(
+      45deg,
+      rgba(var(--primary-rgb), 0.2),
+      rgba(var(--secondary-rgb), 0.2),
+      rgba(var(--primary-rgb), 0.2)
+    );
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+`;
+
+const GalleryImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  transition: transform 0.3s ease;
+
+  ${GalleryItem}:hover & {
+    transform: scale(1.04);
+  }
+`;
 
 // Add inline style reset to ensure Lightbox images are not affected by global CSS
 const LightboxStyleReset = () => {
@@ -86,18 +152,17 @@ const Gallery: React.FC = () => {
       <LightboxStyleReset />
 
       <h2>My Gallery</h2>
-      <div className="gallery-container">
+      <GalleryContainer>
         {images.map((image, i) => (
-          <div className="gallery-item" key={i} onClick={() => setIndex(i)}>
-            <img
+          <GalleryItem key={i} onClick={() => setIndex(i)}>
+            <GalleryImage
               src={`photos/gallery/${image}`}
               alt={`Gallery image ${i + 1}`}
-              className="gallery-image"
               loading="lazy"
             />
-          </div>
+          </GalleryItem>
         ))}
-      </div>
+      </GalleryContainer>
 
       <Lightbox
         open={index >= 0}

@@ -59,31 +59,46 @@ const passionsData: PassionData[] = [
 
 const Passions: React.FC = () => {
   return (
-    <section className="container" id="passions" data-aos="fade-up">
-      <h2 className="section-title">My Passions</h2>
+    <section
+      className="container mx-auto px-4 py-8"
+      id="passions"
+      data-aos="fade-up"
+    >
+      <h2 className="text-2xl font-bold text-center mb-6">My Passions</h2>
 
-      <div className="passion-items-container">
+      <div className="flex flex-col gap-4 max-w-6xl mx-auto">
         {passionsData.map((passion, index) => (
-          <div className="passion-item" key={`passion-${index}`}>
-            <div className="passion-images">
-              <img
-                src={passion.images[0].src}
-                alt={passion.images[0].alt}
-                className="passion-image"
-                loading="lazy"
-              />
-            </div>
-            <div className="passion-description">
-              <h3>{passion.title}</h3>
-              <p>{passion.description}</p>
-            </div>
-            <div className="passion-images">
-              <img
-                src={passion.images[1].src}
-                alt={passion.images[1].alt}
-                className="passion-image"
-                loading="lazy"
-              />
+          <div
+            key={`passion-${index}`}
+            className="card bg-base-200/5 backdrop-blur-sm"
+          >
+            <div className="card-body p-6">
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0">
+                  <img
+                    src={passion.images[0].src}
+                    alt={passion.images[0].alt}
+                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex-1 px-4">
+                  <h3 className="text-xl font-semibold mb-3 text-[#4a90e2]">
+                    {passion.title}
+                  </h3>
+                  <p className="text-base text-base-content/80 leading-relaxed">
+                    {passion.description}
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <img
+                    src={passion.images[1].src}
+                    alt={passion.images[1].alt}
+                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         ))}

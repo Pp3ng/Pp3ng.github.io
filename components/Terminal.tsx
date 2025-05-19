@@ -192,8 +192,8 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
             "https://api.thecatapi.com/v1/images/search"
           );
           const data = await response.json();
-          return `<div style="margin: 10px 0;">
-                    <img src="${data[0].url}" alt="Random Cat" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 3px solid rgba(255, 255, 255, 0.4);">
+          return `<div class="my-2.5">
+                    <img src="${data[0].url}" alt="Random Cat" class="w-60 h-60 object-cover rounded-[15px] border-3 border-white/40">
                 </div>`;
         } catch (e) {
           return '<span class="error-text">Failed to fetch cat picture</span>';
@@ -205,8 +205,8 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
             "https://api.thedogapi.com/v1/images/search"
           );
           const data = await response.json();
-          return `<div style="margin: 10px 0;">
-                    <img src="${data[0].url}" alt="Random Dog" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 3px solid rgba(255, 255, 255, 0.4);">
+          return `<div class="my-2.5">
+                    <img src="${data[0].url}" alt="Random Dog" class="w-60 h-60 object-cover rounded-[15px] border-3 border-white/40">
                 </div>`;
         } catch (e) {
           return '<span class="error-text">Failed to fetch dog picture</span>';
@@ -221,10 +221,10 @@ CNY: ¥${data.ethereum.cny.toFixed(2)}`;
           return `<span class="success-text">NASA Astronomy Picture of the Day:</span>
 Title: ${data.title}
 Date: ${data.date}
-<div style="margin: 10px 0;">
+<div class="my-2.5">
     <img src="${data.url}" alt="${
             data.title
-          }" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 3px solid rgba(255, 255, 255, 0.4);">
+          }" class="w-60 h-60 object-cover rounded-[15px] border-3 border-white/40">
 </div>
 ${data.explanation.slice(0, 200)}...`;
         } catch (e) {

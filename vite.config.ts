@@ -2,10 +2,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   base: "/",
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   build: {
     outDir: "dist",
     assetsDir: "assets",
@@ -18,4 +19,4 @@ export default defineConfig({
       "@": resolve(__dirname, "./"),
     },
   },
-}); 
+});
