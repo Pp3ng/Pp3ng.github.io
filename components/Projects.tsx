@@ -1,10 +1,19 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 
 interface ProjectData {
   title: string;
   repoUrl: string;
   description: string;
+  language?: string;
+  stars?: number;
+  forks?: number;
+}
+
+interface GitHubRepoData {
+  stargazers_count: number;
+  forks_count: number;
+  language: string;
 }
 
 const projectsData: ProjectData[] = [
@@ -61,31 +70,27 @@ const projectsData: ProjectData[] = [
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
+  gap: 24px;
   margin: 50px 0;
 `;
 
-const ProjectItem = styled.div`
-  margin: 0;
-  padding: 20px;
-  border-radius: 12px;
+const ProjectCard = styled.div`
   background: var(--glass-background);
   backdrop-filter: blur(8px) saturate(180%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);
   border: var(--glass-border);
-  box-shadow: var(--box-shadow);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  text-align: left;
-  outline: 1px solid rgba(255, 255, 255, 0.3);
-  outline-offset: -3px;
+  border-radius: 6px;
+  padding: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   height: 100%;
   display: flex;
   flex-direction: column;
-  transform-origin: center bottom;
+  position: relative;
+  overflow: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  outline-offset: -3px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 
   &::before {
     content: "";
@@ -96,124 +101,192 @@ const ProjectItem = styled.div`
     bottom: -1px;
     background: linear-gradient(
       45deg,
-      rgba(var(--primary-rgb), 0.2),
-      rgba(var(--secondary-rgb), 0.2),
-      rgba(var(--primary-rgb), 0.2)
+      rgba(74, 144, 226, 0.2),
+      rgba(66, 185, 131, 0.2),
+      rgba(74, 144, 226, 0.2)
     );
     border-radius: inherit;
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
   }
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(31, 38, 135, 0.25);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 20px rgba(52, 152, 219, 0.2),
+      inset 0 0 8px rgba(52, 152, 219, 0.1);
   }
 
   &:hover::before {
     opacity: 1;
-    animation: gradientShift 3s ease-in-out infinite;
-  }
-
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+    transition: opacity 0.4s ease;
   }
 `;
 
-const ProjectDescription = styled.div`
+const ProjectHeader = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+`;
+
+const ProjectTitle = styled.h3`
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
   flex: 1;
-  text-align: center;
-
-  h3 {
-    margin-top: 0;
-    text-align: center;
-    color: var(--primary-color);
-  }
-
-  p {
-    text-align: center;
-    margin: 10px 0;
-  }
 `;
 
 const ProjectLink = styled.a`
-  position: relative;
   text-decoration: none;
-  color: var(--primary-color);
-  transition: var(--transition);
-  padding: 0.18rem 0;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1.8px;
-    background: var(--primary-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease-out;
-    transform-origin: left;
-  }
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 
   &:hover {
-    text-decoration: none;
     color: var(--primary-color);
   }
+`;
 
-  &:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
+const ProjectDescription = styled.p`
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin: 8px 0;
+  flex: 1;
+`;
 
-  &:not(:hover)::after {
-    transform-origin: right;
+const ProjectFooter = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+`;
+
+const LanguageDot = styled.span<{ color?: string }>`
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color || "#3178c6"};
+  margin-right: 4px;
+`;
+
+const StatItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+
+  svg {
+    width: 14px;
+    height: 14px;
   }
 `;
 
 const Projects: React.FC = () => {
-  // Memoized setup function
-  const setupProjectGrid = useCallback((): void => {
-    const projectsGrid = document.querySelector(".projects-grid");
-    if (projectsGrid) {
-      projectsGrid.classList.add("project-container");
+  const [reposData, setReposData] = useState<{ [key: string]: GitHubRepoData }>(
+    {}
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchRepoData = useCallback(async (repoUrl: string) => {
+    try {
+      const repoPath = repoUrl.replace("https://github.com/", "");
+      const response = await fetch(`https://api.github.com/repos/${repoPath}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching repo data:", error);
+      return null;
     }
   }, []);
 
-  // Setup project grid
   useEffect(() => {
-    setupProjectGrid();
-  }, [setupProjectGrid]);
+    const fetchAllReposData = async () => {
+      setIsLoading(true);
+      const reposDataPromises = projectsData.map((project) =>
+        fetchRepoData(project.repoUrl)
+      );
+
+      const results = await Promise.all(reposDataPromises);
+      const newReposData: { [key: string]: GitHubRepoData } = {};
+
+      results.forEach((data, index) => {
+        if (data) {
+          newReposData[projectsData[index].title] = {
+            stargazers_count: data.stargazers_count,
+            forks_count: data.forks_count,
+            language: data.language,
+          };
+        }
+      });
+
+      setReposData(newReposData);
+      setIsLoading(false);
+    };
+
+    fetchAllReposData();
+  }, [fetchRepoData]);
+
+  const getLanguageColor = (language: string): string => {
+    const colors: { [key: string]: string } = {
+      "C++": "#f34b7d",
+      C: "#555555",
+      TypeScript: "#3178c6",
+    };
+    return colors[language] || "#3178c6";
+  };
 
   return (
     <div className="container" id="projects" data-aos="fade-up">
       <h2>My Projects</h2>
       <ProjectsGrid>
-        {projectsData.map((project, index) => (
-          <ProjectItem key={`project-${index}`}>
-            <ProjectDescription>
-              <h3>
-                <ProjectLink
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {project.title}
-                </ProjectLink>
-              </h3>
-              <p>{project.description}</p>
-            </ProjectDescription>
-          </ProjectItem>
-        ))}
+        {projectsData.map((project, index) => {
+          const repoData = reposData[project.title];
+          return (
+            <ProjectCard key={`project-${index}`}>
+              <ProjectHeader>
+                <ProjectTitle>
+                  <ProjectLink
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.title}
+                  </ProjectLink>
+                </ProjectTitle>
+              </ProjectHeader>
+              <ProjectDescription>{project.description}</ProjectDescription>
+              <ProjectFooter>
+                {repoData?.language && (
+                  <StatItem>
+                    <LanguageDot color={getLanguageColor(repoData.language)} />
+                    {repoData.language}
+                  </StatItem>
+                )}
+                {repoData?.stargazers_count !== undefined && (
+                  <StatItem>
+                    <i className="fas fa-star"></i>
+                    {repoData.stargazers_count}
+                  </StatItem>
+                )}
+                {repoData?.forks_count !== undefined && (
+                  <StatItem>
+                    <i className="fas fa-code-fork"></i>
+                    {repoData.forks_count}
+                  </StatItem>
+                )}
+              </ProjectFooter>
+            </ProjectCard>
+          );
+        })}
       </ProjectsGrid>
     </div>
   );

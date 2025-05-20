@@ -8,19 +8,19 @@ const NavbarContainer = styled.nav<{ $scrolled: boolean }>`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 5px;
+  gap: 3px;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   margin: 0 auto;
-  padding: 0.36rem 0.9rem;
+  padding: 0.2rem 0.7rem;
   position: fixed;
-  top: 22.5px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   width: fit-content;
   max-width: 90%;
-  border-radius: 45px;
+  border-radius: 30px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 1000;
@@ -37,23 +37,23 @@ const NavbarContainer = styled.nav<{ $scrolled: boolean }>`
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
-    padding: 0.4rem;
-    gap: 3px;
+    padding: 0.25rem;
+    gap: 2px;
   }
 
   @media (max-width: 480px) {
-    top: 15px;
-    padding: 0.3rem;
+    top: 10px;
+    padding: 0.2rem;
   }
 `;
 
 const NavLink = styled.a`
   color: var(--text-color);
   text-decoration: none;
-  padding: 0.4rem 0.75rem;
-  margin: 0 3px;
-  border-radius: 20px;
-  font-size: 0.85em;
+  padding: 0.25rem 0.55rem;
+  margin: 0 1.5px;
+  border-radius: 15px;
+  font-size: 0.8em;
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
@@ -63,10 +63,10 @@ const NavLink = styled.a`
   &::after {
     content: "";
     position: absolute;
-    bottom: 4.5px;
+    bottom: 3px;
     left: 15%;
     width: 70%;
-    height: 1.8px;
+    height: 1.2px;
     background: linear-gradient(
       90deg,
       var(--primary-color),

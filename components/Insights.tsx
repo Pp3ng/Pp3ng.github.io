@@ -117,7 +117,7 @@ const InsightItem = memo(
               : "border-l-[var(--primary-color)]"
           } 
           shadow-[0_4px_12px_rgba(31,38,135,0.1)] hover:shadow-[0_8px_24px_rgba(31,38,135,0.15)]
-          transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer
+          transition-all duration-300 ease-in-out cursor-pointer
           relative overflow-hidden z-10 my-6 rounded-[12px] p-2 ${
             !isActive ? "h-[90px]" : ""
           }`}
@@ -134,7 +134,7 @@ const InsightItem = memo(
 
         <div className="card-body p-0 flex flex-col h-full">
           <h3
-            className={`card-title text-[var(--primary-color)] group-hover:text-[var(--secondary-color)] transition-all duration-300 text-base mb-2
+            className={`card-title text-[var(--primary-color)] transition-all duration-300 text-base mb-2
             ${!isActive && "group-hover:translate-x-1"}`}
           >
             {title}
@@ -626,16 +626,7 @@ const Insights: React.FC = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
-      <motion.h2
-        className="text-xl md:text-2xl font-bold mb-4 text-center md:text-left text-[var(--heading-color)]"
-        initial={{ y: -20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        Technical Insights
-      </motion.h2>
-
+      <h2> Technical Insights </h2>
       {insightsData.map((insight, index) => (
         <InsightItem
           key={`insight-${index}`}

@@ -65,7 +65,7 @@ const About: React.FC = () => {
 
   return (
     <motion.div
-      className="container mx-auto px-4 pt-4 pb-2 flex flex-col items-center justify-center"
+      className="container"
       id="about"
       initial="hidden"
       whileInView="visible"
@@ -127,33 +127,15 @@ const About: React.FC = () => {
           >
             Welcome to my digital space! As an individual fascinated by the
             intricate interplay between hardware
-            <i
-              className="fas fa-microchip mx-[3px]"
-              style={{ color: "var(--accent-color)" }}
-            ></i>{" "}
-            and software
-            <i
-              className="fas fa-file-code mx-[3px]"
-              style={{ color: "var(--accent-color)" }}
-            ></i>
-            , I explore the full spectrum of technology. Beyond coding, I'm an
-            avid photographer capturing life's moments{" "}
-            <i
-              className="fas fa-camera mx-[3px]"
-              style={{ color: "var(--accent-color)" }}
-            ></i>{" "}
+            <i className="fas fa-microchip mx-[3px]"></i> and software
+            <i className="fas fa-file-code mx-[3px]"></i>, I explore the full
+            spectrum of technology. Beyond coding, I'm an avid photographer
+            capturing life's moments <i className="fas fa-camera mx-[3px]"></i>{" "}
             and a billiards enthusiast seeking the perfect shot{" "}
-            <i
-              className="fas fa-circle mx-[3px]"
-              style={{ color: "var(--accent-color)" }}
-            ></i>
-            . Here, I share my journey through system architecture, creative
-            pursuits, and continuous learning
-            <i
-              className="fas fa-book mx-[3px]"
-              style={{ color: "var(--accent-color)" }}
-            ></i>
-            .
+            <i className="fas fa-circle mx-[3px]"></i>. Here, I share my journey
+            through system architecture, creative pursuits, and continuous
+            learning
+            <i className="fas fa-book mx-[3px]"></i>.
           </motion.p>
         </motion.div>
       </motion.div>

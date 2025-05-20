@@ -59,26 +59,28 @@ const passionsData: PassionData[] = [
 
 const Passions: React.FC = () => {
   return (
-    <section
-      className="container mx-auto px-4 py-8"
-      id="passions"
-      data-aos="fade-up"
-    >
+    <section className="container" id="passions" data-aos="fade-up">
       <h2 className="text-2xl font-bold text-center mb-6">My Passions</h2>
 
       <div className="flex flex-col gap-4 max-w-6xl mx-auto">
         {passionsData.map((passion, index) => (
           <div
             key={`passion-${index}`}
-            className="card bg-base-200/5 backdrop-blur-sm"
+            className="card bg-base-200/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-500 ease-in-out relative overflow-hidden"
+            style={{
+              boxShadow:
+                "0 8px 32px rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
+            }}
           >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/10 via-[#42b983]/10 to-[#4a90e2]/10 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100" />
             <div className="card-body p-6">
               <div className="flex items-center gap-6">
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/5 via-[#42b983]/5 to-[#4a90e2]/5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 rounded-lg" />
                   <img
                     src={passion.images[0].src}
                     alt={passion.images[0].alt}
-                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    className="w-48 h-48 object-cover rounded-lg shadow-md transition-all duration-300 ease-out group-hover:scale-[1.01] group-hover:shadow-xl relative z-10"
                     loading="lazy"
                   />
                 </div>
@@ -90,11 +92,12 @@ const Passions: React.FC = () => {
                     {passion.description}
                   </p>
                 </div>
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/5 via-[#42b983]/5 to-[#4a90e2]/5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 rounded-lg" />
                   <img
                     src={passion.images[1].src}
                     alt={passion.images[1].alt}
-                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    className="w-48 h-48 object-cover rounded-lg shadow-md transition-all duration-300 ease-out group-hover:scale-[1.01] group-hover:shadow-xl relative z-10"
                     loading="lazy"
                   />
                 </div>

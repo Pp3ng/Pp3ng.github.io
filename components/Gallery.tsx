@@ -148,9 +148,7 @@ const Gallery: React.FC = () => {
 
   return (
     <div className="container" id="gallery" data-aos="fade-up">
-      {/* Inject style reset component */}
       <LightboxStyleReset />
-
       <h2>My Gallery</h2>
       <GalleryContainer>
         {images.map((image, i) => (

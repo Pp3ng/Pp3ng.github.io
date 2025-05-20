@@ -7,8 +7,6 @@
 @import "./global.css";
 @import "./layout.css";
 
-
 /* Component Styles */
 @import "./components/terminal.css";
-@import "./components/social.css";
 @import "./components/bookshelf.css";

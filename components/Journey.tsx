@@ -48,39 +48,27 @@ const journeyData: JourneyItem[] = [
 
 const Journey: React.FC = () => {
   return (
-    <div className="container compact-section" id="journey" data-aos="fade-up">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-3xl font-bold text-center mb-12"
-        style={{ color: "var(--heading-color)" }}
-      >
-        Life Journey
-      </motion.h2>
+    <div className="container" id="journey" data-aos="fade-up">
+      <h2>Life Journey</h2>
       <ul className="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
         {journeyData.map((item, index) => (
           <motion.li
             key={`journey-${index}`}
             initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30, y: 20 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ 
+            transition={{
               duration: 0.6,
               delay: index * 0.15,
-              ease: [0.22, 1, 0.36, 1]
+              ease: [0.22, 1, 0.36, 1],
             }}
             className="hover:scale-[1.02] transition-all duration-500 ease-out"
           >
             <div className="timeline-middle">
               <div className="relative group">
-                <div
-                  className="absolute -inset-1 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-700 group-hover:duration-300"
-                  style={{ backgroundColor: "var(--primary-color)" }}
-                ></div>
-                <div className="relative bg-base-100 rounded-full p-3">
+                <div className="absolute -inset-0.5 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-700 group-hover:duration-300 bg-[var(--primary-color)]"></div>
+                <div className="relative bg-base-100 rounded-full p-2">
                   <i
-                    className={`${item.icon} text-2xl transition-all duration-500 group-hover:scale-110`}
-                    style={{ color: "var(--primary-color)" }}
+                    className={`${item.icon} text-lg transition-all duration-500 group-hover:scale-110 text-[var(--primary-color)]`}
                   ></i>
                 </div>
               </div>
@@ -88,55 +76,46 @@ const Journey: React.FC = () => {
             <div
               className={`timeline-${
                 index % 2 === 0 ? "start" : "end"
-              } md:text-end mb-10`}
+              } md:text-end mb-8`}
             >
-              <motion.div 
-                className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-500"
-                whileHover={{ 
+              <motion.div
+                className="p-6 rounded-lg backdrop-blur-md bg-white/10 dark:bg-black/10 transition-all duration-300 ease-out hover:shadow-xl hover:bg-white/20 dark:hover:bg-black/20"
+                whileHover={{
                   scale: 1.02,
-                  transition: { duration: 0.3, ease: "easeOut" }
+                  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
                 }}
               >
-                <div className="card-body">
-                  <motion.time
-                    className="font-mono italic"
-                    style={{ color: "var(--primary-color)" }}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
-                  >
-                    {item.date}
-                  </motion.time>
-                  <motion.h3
-                    className="text-xl font-black"
-                    style={{ color: "var(--heading-color)" }}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
-                  >
-                    {item.title}
-                  </motion.h3>
-                  <motion.p
-                    className="leading-relaxed"
-                    style={{ color: "var(--text-color)" }}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.15 + 0.4 }}
-                  >
-                    {item.description}
-                  </motion.p>
-                </div>
+                <motion.time
+                  className="font-mono italic block mb-2 text-xs tracking-wider text-[var(--primary-color)]"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+                >
+                  {item.date}
+                </motion.time>
+                <motion.h3
+                  className="text-lg font-black mb-3 tracking-tight text-[var(--heading-color)]"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
+                >
+                  {item.title}
+                </motion.h3>
+                <motion.p
+                  className="leading-relaxed text-sm/relaxed text-[var(--text-color)]"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 + 0.4 }}
+                >
+                  {item.description}
+                </motion.p>
               </motion.div>
             </div>
             <motion.hr
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: index * 0.15 + 0.5 }}
-              style={{ 
-                backgroundColor: "var(--primary-color)", 
-                opacity: 0.2,
-                transformOrigin: "left"
-              }}
+              className="bg-[var(--primary-color)] opacity-20 origin-left"
             />
           </motion.li>
         ))}
