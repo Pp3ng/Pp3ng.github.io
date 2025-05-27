@@ -246,7 +246,7 @@ const Projects: React.FC = () => {
 
   return (
     <div className="container" id="projects" data-aos="fade-up">
-      <h2>My Projects</h2>
+      <h2>Projects</h2>
       <ProjectsGrid>
         {projectsData.map((project, index) => {
           const repoData = reposData[project.title];

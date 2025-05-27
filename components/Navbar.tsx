@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 import styled from "styled-components";
 
@@ -15,7 +16,7 @@ const NavbarContainer = styled.nav<{ $scrolled: boolean }>`
   margin: 0 auto;
   padding: 0.2rem 0.7rem;
   position: fixed;
-  top: 15px;
+  top: 25px;
   left: 50%;
   transform: translateX(-50%);
   width: fit-content;
@@ -42,7 +43,7 @@ const NavbarContainer = styled.nav<{ $scrolled: boolean }>`
   }
 
   @media (max-width: 480px) {
-    top: 10px;
+    top: 20px;
     padding: 0.2rem;
   }
 `;
@@ -160,47 +161,23 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Optimized smooth scroll with useCallback to avoid recreating function on each render
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>): void => {
-      e.preventDefault();
-      const href = e.currentTarget.getAttribute("href");
-
-      if (href && href.startsWith("#")) {
-        const target = document.querySelector(href);
-        if (target) {
-          const navbarElement = document.querySelector(
-            ".navbar"
-          ) as HTMLElement;
-          const navHeight = navbarElement?.offsetHeight || 0;
-
-          // Calculate target position with navbar offset
-          const targetPosition =
-            (target as HTMLElement).offsetTop - navHeight - 20;
-
-          // Use the native smooth scrolling for better performance
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth",
-          });
-        }
-      }
+    (path: string): void => {
+      navigate(path);
     },
-    []
+    [navigate]
   );
 
   // Memoize navigation items to prevent unnecessary re-renders
   const navItems = useMemo(
     () => [
-      { href: "#about", label: "About" },
-      { href: "#terminal", label: "Terminal" },
-      { href: "#journey", label: "Journey" },
-      { href: "#passions", label: "Passions" },
-      { href: "#gallery", label: "Gallery" },
-      { href: "#projects", label: "Projects" },
-      { href: "#insights", label: "Insights" },
-      { href: "#bookshelf", label: "Books" },
-      { href: "#Social-Accounts", label: "Connect" },
+      { path: "/", label: "Home" },
+      { path: "/playground", label: "Playground" },
+      { path: "/works", label: "Works" },
+      { path: "/blog", label: "Blog" },
     ],
     []
   );
@@ -212,8 +189,12 @@ const Navbar: React.FC = () => {
         {navItems.map((item, index) => (
           <NavLink
             key={`nav-${index}`}
-            href={item.href}
-            onClick={handleNavClick}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick(item.path);
+            }}
+            className={location.pathname === item.path ? "active" : ""}
+            style={{ cursor: "pointer" }}
           >
             {item.label}
           </NavLink>

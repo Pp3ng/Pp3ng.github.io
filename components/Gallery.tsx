@@ -149,7 +149,7 @@ const Gallery: React.FC = () => {
   return (
     <div className="container" id="gallery" data-aos="fade-up">
       <LightboxStyleReset />
-      <h2>My Gallery</h2>
+      <h2>Gallery</h2>
       <GalleryContainer>
         {images.map((image, i) => (
           <GalleryItem key={i} onClick={() => setIndex(i)}>

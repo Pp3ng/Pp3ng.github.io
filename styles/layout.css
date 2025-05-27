@@ -1,7 +1,7 @@
 /* Layout */
 .container {
   max-width: 1024px;
-  margin: 30px auto;
+  margin: 24px auto;
   padding: 20px;
   text-align: center;
   background: var(--glass-background);

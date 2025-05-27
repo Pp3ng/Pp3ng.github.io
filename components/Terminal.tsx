@@ -80,7 +80,7 @@ const Terminal: React.FC = () => {
 <span class="info-text">whoami</span>: Display personal information
 <span class="info-text">contact</span>: Show contact information
 <span class="info-text">clear</span>: Clear terminal
-<span class="info-text">goto</span> [section]: Navigate to a section
+<span class="info-text">goto</span> [page/section]: Navigate to a page or section
 <span class="info-text">joke</span>: Show a programming joke
 <span class="info-text">cowsay</span> [message]: Make a cow say something
 <span class="info-text">weather</span> [city]: Show weather (your location if no city specified)
@@ -105,6 +105,27 @@ Type any command to execute.`,
         return null;
       },
       goto: (section: string) => {
+        // Handle page navigation
+        const pages = {
+          home: "/",
+          playground: "/playground",
+          terminal: "/playground",
+          passions: "/",
+          works: "/works",
+          projects: "/works",
+          gallery: "/works",
+          blog: "/blog",
+          insights: "/blog",
+          bookshelf: "/blog",
+          about: "/",
+        };
+
+        if (pages[section as keyof typeof pages]) {
+          window.location.hash = pages[section as keyof typeof pages];
+          return `<span class="success-text">Navigating to ${section} page...</span>`;
+        }
+
+        // Try to scroll to element on current page
         const element = document.getElementById(section);
         if (element) {
           const navbarElement = document.querySelector(
@@ -115,9 +136,9 @@ Type any command to execute.`,
             top: element.offsetTop - navHeight - 20,
             behavior: "smooth",
           });
-          return `<span class="success-text">Navigating to ${section}...</span>`;
+          return `<span class="success-text">Navigating to ${section} section...</span>`;
         } else {
-          return `<span class="error-text">Section not found: ${section}.</span>\nAvailable sections: about, terminal, journey, passions, gallery, projects, insights, bookshelf`;
+          return `<span class="error-text">Section not found: ${section}.</span>\nAvailable pages: home, playground, terminal, passions, works, projects, gallery, blog, insights, bookshelf, about`;
         }
       },
       joke: () => {
@@ -480,24 +501,27 @@ ${data.explanation.slice(0, 200)}...`;
   );
 
   return (
-    <div className="container" id="terminal" data-aos="fade-up">
-      <h2>Terminal</h2>
-      <div className="terminal-section">
-        <div id="terminal-window" ref={terminalWindowRef}>
-          <div
-            id="terminal-output"
-            dangerouslySetInnerHTML={createMarkup(outputContent)}
-          ></div>
-          <div id="terminal-input-line">
-            <span id="terminal-prompt">pp3ng@portfolio:~$</span>
-            <input
-              type="text"
-              id="terminal-input"
-              ref={inputRef}
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
+    <div className="flex justify-center items-center py-2">
+      <div className="w-full max-w-5xl mx-auto px-4">
+        <div id="terminal" data-aos="fade-up">
+          <div className="terminal-section">
+            <div id="terminal-window" ref={terminalWindowRef}>
+              <div
+                id="terminal-output"
+                dangerouslySetInnerHTML={createMarkup(outputContent)}
+              ></div>
+              <div id="terminal-input-line">
+                <span id="terminal-prompt">pp3ng@portfolio:~$</span>
+                <input
+                  type="text"
+                  id="terminal-input"
+                  ref={inputRef}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

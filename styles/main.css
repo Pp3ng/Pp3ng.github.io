@@ -1,6 +1,5 @@
 /* Main CSS File - Imports all modular CSS components */
 @import "tailwindcss";
-@plugin "daisyui";
 
 /* Base Styles */
 @import "./variables.css";

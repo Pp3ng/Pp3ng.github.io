@@ -1,7 +1,4 @@
 /* Terminal Section */
-#terminal {
-  margin-top: 45px;
-}
 
 #terminal h2 {
   color: var(--text-color);
@@ -12,18 +9,14 @@
   font-family: "Fira Code", monospace;
   background: rgba(24, 24, 27, 0.75);
   color: #f0f0f0;
-  padding: 24px;
-  height: 450px;
+  padding: 28px;
   overflow-y: auto;
-  border-radius: 24px;
+  border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  line-height: 1.4;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  position: relative;
-  z-index: 1;
   scrollbar-width: none;
   -ms-overflow-style: none;
   transition: all 0.3s ease;
@@ -36,7 +29,8 @@
 #terminal-prompt {
   color: #42b983;
   font-weight: bold;
-  margin-right: 7.2px;
+  margin-right: 8px;
+  font-size: 16px;
   text-shadow: 0 0 8px rgba(66, 185, 131, 0.4);
 }
 
@@ -45,9 +39,9 @@
   border: none;
   color: #f0f0f0;
   font-family: "Fira Code", monospace;
-  font-size: 14.4px;
+  font-size: 16px;
   outline: none;
-  width: calc(100% - 180px);
+  width: calc(100% - 220px);
   caret-color: #42b983;
   text-shadow: 0 0 8px rgba(240, 240, 240, 0.4);
 }
@@ -100,4 +94,46 @@
   background: rgba(18, 18, 20, 0.75);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
     inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Optimize for larger screens */
+@media (min-width: 1200px) {
+  #terminal-window {
+    height: 600px;
+  }
+}
+
+/* Responsive design for terminal */
+@media (max-width: 768px) {
+  #terminal-window {
+    height: 576px;
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  #terminal-input {
+    font-size: 15px;
+    width: calc(100% - 190px);
+  }
+
+  #terminal-prompt {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #terminal-window {
+    height: 504px;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  #terminal-input {
+    font-size: 14px;
+    width: calc(100% - 170px);
+  }
+
+  #terminal-prompt {
+    font-size: 14px;
+  }
 }
