@@ -11,7 +11,7 @@
   --card-bg: rgba(255, 255, 255, 0.75);
   --text-color: #34495e;
   --text-rgb: 52, 73, 94;
-  --heading-color: #2c3e50;
+  --text-secondary: #6c757d;
 
   /* Glass Morphism */
   --glass-background: rgba(255, 255, 255, 0.65);
@@ -21,19 +21,15 @@
 
   /* Shadows */
   --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  --text-shadow: none;
 
   /* Scrollbar */
   --scrollbar-track: #eaecef;
   --scrollbar-thumb: #c1c7ce;
 
-  /* Terminal Colors */
-  --terminal-background: rgba(33, 37, 43, 0.95);
-  --terminal-text: #dcdfe4;
-
   /* Transitions */
   --transition: all 0.3s ease;
   --hover-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --hover-transform: translateY(-8px) scale(1.02);
 }
 
 /* Dark Theme */
@@ -43,7 +39,7 @@
   --card-bg: rgba(30, 32, 40, 0.75);
   --text-color: #d1d7e0;
   --text-rgb: 209, 215, 224;
-  --heading-color: #e3e8ee;
+  --text-secondary: #9ca3af;
 
   /* Glass Morphism */
   --glass-background: rgba(30, 32, 40, 0.65);
@@ -53,13 +49,8 @@
 
   /* Shadows */
   --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  --text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
   /* Scrollbar */
   --scrollbar-track: #2c303a;
   --scrollbar-thumb: #454b5b;
-
-  /* Terminal Colors */
-  --terminal-background: rgba(22, 24, 29, 0.95);
-  --terminal-text: #d1d7e0;
 }
