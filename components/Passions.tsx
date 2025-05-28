@@ -60,46 +60,51 @@ const passionsData: PassionData[] = [
 const Passions: React.FC = () => {
   return (
     <section className="container" id="passions" data-aos="fade-up">
-      <h2 className="text-2xl font-bold text-center mb-6">My Passions</h2>
+      <h2>My Passions</h2>
 
-      <div className="flex flex-col gap-4 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-4 max-w-5xl mx-auto px-4">
         {passionsData.map((passion, index) => (
           <div
             key={`passion-${index}`}
-            className="card bg-base-200/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-500 ease-in-out relative overflow-hidden"
-            style={{
-              boxShadow:
-                "0 8px 32px rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-            }}
+            className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden hover:border-white/30 hover:bg-white/10 transition-all duration-300 ease-out shadow-md hover:shadow-lg"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/10 via-[#42b983]/10 to-[#4a90e2]/10 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100" />
-            <div className="card-body p-6">
-              <div className="flex items-center gap-6">
-                <div className="flex-shrink-0 group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/5 via-[#42b983]/5 to-[#4a90e2]/5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 rounded-lg" />
-                  <img
-                    src={passion.images[0].src}
-                    alt={passion.images[0].alt}
-                    className="w-48 h-48 object-cover rounded-lg shadow-md transition-all duration-300 ease-out group-hover:scale-[1.01] group-hover:shadow-xl relative z-10"
-                    loading="lazy"
-                  />
+            <div className="p-4">
+              <div
+                className={`flex items-center gap-4 ${
+                  index % 2 === 1 ? "flex-row-reverse" : ""
+                }`}
+              >
+                <div className="flex-shrink-0">
+                  <div className="relative">
+                    <img
+                      src={passion.images[0].src}
+                      alt={passion.images[0].alt}
+                      className="w-40 h-40 object-cover rounded-lg shadow-sm group-hover:shadow-md transition-all duration-300 ease-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-green-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
                 </div>
-                <div className="flex-1 px-4">
-                  <h3 className="text-xl font-semibold mb-3 text-[#4a90e2]">
+
+                <div className="flex-1 px-3">
+                  <h3 className="text-lg font-bold mb-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
                     {passion.title}
                   </h3>
-                  <p className="text-base text-base-content/80 leading-relaxed">
+                  <p className="text-sm text-base-content/90 leading-relaxed">
                     {passion.description}
                   </p>
                 </div>
-                <div className="flex-shrink-0 group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90e2]/5 via-[#42b983]/5 to-[#4a90e2]/5 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 rounded-lg" />
-                  <img
-                    src={passion.images[1].src}
-                    alt={passion.images[1].alt}
-                    className="w-48 h-48 object-cover rounded-lg shadow-md transition-all duration-300 ease-out group-hover:scale-[1.01] group-hover:shadow-xl relative z-10"
-                    loading="lazy"
-                  />
+
+                <div className="flex-shrink-0">
+                  <div className="relative">
+                    <img
+                      src={passion.images[1].src}
+                      alt={passion.images[1].alt}
+                      className="w-40 h-40 object-cover rounded-lg shadow-sm group-hover:shadow-md transition-all duration-300 ease-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-bl from-green-500/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
                 </div>
               </div>
             </div>

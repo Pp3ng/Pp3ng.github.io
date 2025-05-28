@@ -133,10 +133,7 @@ const InsightItem = memo(
         ></div>
 
         <div className="card-body p-0 flex flex-col h-full">
-          <h3
-            className={`card-title text-[var(--primary-color)] transition-all duration-300 text-base mb-2
-            ${!isActive && "group-hover:translate-x-1"}`}
-          >
+          <h3 className="card-title text-[var(--primary-color)] transition-all duration-300 text-base mb-2">
             {title}
           </h3>
 

@@ -1,70 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-
-// Styled components for DarkModeToggle
-const ToggleButton = styled.button`
-  background: transparent;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--text-color);
-  padding: 0;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  margin: 0 5px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(var(--primary-rgb), 0.1);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.3s ease;
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  &:hover::before {
-    transform: scale(1);
-  }
-
-  svg {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    stroke: var(--text-color);
-  }
-
-  &:hover svg {
-    transform: rotate(30deg);
-    color: var(--primary-color);
-    stroke: var(--primary-color);
-  }
-
-  [data-theme="dark"] &:hover svg {
-    transform: rotate(-30deg);
-  }
-
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 36px;
-
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
-`;
 
 const DarkModeToggle: React.FC = () => {
   const [isDark, setIsDark] = useState<boolean>(false);
@@ -96,7 +30,10 @@ const DarkModeToggle: React.FC = () => {
   }, []);
 
   return (
-    <ToggleButton onClick={toggleDarkMode} aria-label="Toggle dark mode">
+    <button
+      onClick={toggleDarkMode}
+      className="group relative w-10 h-10 md:w-9 md:h-9 rounded-full bg-transparent border-none flex items-center justify-center cursor-pointer mx-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 before:absolute before:inset-0 before:bg-blue-500/10 before:rounded-full before:scale-0 before:transition-transform before:duration-300 hover:before:scale-100"
+    >
       {isDark ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +45,7 @@ const DarkModeToggle: React.FC = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          aria-hidden="true"
+          className="transition-all duration-500 ease-out text-base-content group-hover:rotate-12 group-hover:text-blue-400 w-5 h-5 md:w-4.5 md:h-4.5"
         >
           <circle cx="12" cy="12" r="5" />
           <line x1="12" y1="1" x2="12" y2="3" />
@@ -131,12 +68,12 @@ const DarkModeToggle: React.FC = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          aria-hidden="true"
+          className="transition-all duration-500 ease-out text-base-content group-hover:-rotate-12 group-hover:text-blue-400 w-5 h-5 md:w-4.5 md:h-4.5"
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       )}
-    </ToggleButton>
+    </button>
   );
 };
 

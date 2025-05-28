@@ -167,7 +167,7 @@ BookComponent.displayName = "BookComponent";
 const Bookshelf: React.FC = () => {
   return (
     <BookshelfSection id="bookshelf" className="container" data-aos="fade-up">
-      <SectionTitle>My Bookshelf</SectionTitle>
+      <h2>Bookshelf</h2>
       <BookshelfContainer>
         {booksWithUrls.map((book) => (
           <BookComponent key={book.title} book={book} />
@@ -196,17 +196,6 @@ const glowPulse = keyframes`
 // Styled Components
 const BookshelfSection = styled.section`
   /* This will inherit the .container and data-aos styles from global CSS */
-`;
-
-const SectionTitle = styled.h2`
-  margin-bottom: 2rem;
-  text-align: center;
-  background: linear-gradient(120deg, var(--primary-color), #2980b9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 2.5rem;
-  font-weight: 700;
 `;
 
 const BookshelfContainer = styled.div`

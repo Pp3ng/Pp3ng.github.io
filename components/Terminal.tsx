@@ -99,12 +99,12 @@ const Terminal: React.FC = () => {
 
   // Helper function to generate random colors
   const generateColor = useCallback(() => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    const hex = `#${r.toString(16).padStart(2, "0")}${g
-      .toString(16)
-      .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+    const [r, g, b] = Array.from({ length: 3 }, () =>
+      Math.floor(Math.random() * 256)
+    );
+    const hex = `#${[r, g, b]
+      .map((c) => c.toString(16).padStart(2, "0"))
+      .join("")}`;
     return { r, g, b, hex };
   }, []);
 
@@ -112,8 +112,9 @@ const Terminal: React.FC = () => {
   useEffect(() => {
     setOutputContent(welcomeMessage);
 
-    if (isMobile && outputRef.current) {
-      outputRef.current.style.fontSize = CONFIG.MOBILE_FONT_SIZE;
+    // Apply mobile styling if needed
+    if (isMobile) {
+      outputRef.current?.style.setProperty("fontSize", CONFIG.MOBILE_FONT_SIZE);
     }
   }, [welcomeMessage, isMobile]);
 
@@ -154,23 +155,27 @@ const Terminal: React.FC = () => {
         } as Record<string, string[]>;
 
         Object.entries(registry).forEach(([name, config]) => {
-          const category = config.category || "system";
+          const category = config.category ?? "system";
           const usage = config.usage ? ` ${config.usage}` : "";
           categories[category].push(
             `<span style="${TERMINAL_STYLES.INFO_TEXT}">${name}${usage}</span>: ${config.description}`
           );
         });
 
-        let result = "Available commands:\n\n";
-        Object.entries(categories).forEach(([category, commands]) => {
-          if (commands.length > 0) {
-            result += `<span style="${
-              TERMINAL_STYLES.WARNING_TEXT
-            }">${category.toUpperCase()}:</span>\n`;
-            result += commands.join("\n") + "\n";
-          }
-        });
-        return result.trimEnd();
+        const result = ["Available commands:\n"];
+
+        Object.entries(categories)
+          .filter(([, commands]) => commands.length > 0)
+          .forEach(([category, commands]) => {
+            result.push(
+              `<span style="${
+                TERMINAL_STYLES.WARNING_TEXT
+              }">${category.toUpperCase()}:</span>`
+            );
+            result.push(...commands, "");
+          });
+
+        return result.join("\n").trimEnd();
       },
       "Show available commands and their descriptions",
       "",
@@ -213,10 +218,10 @@ const Terminal: React.FC = () => {
           home: "/",
           works: "/works",
           blog: "/blog",
-        };
+        } as const;
 
-        if (pages[section as keyof typeof pages]) {
-          const targetPath = pages[section as keyof typeof pages];
+        const targetPath = pages[section as keyof typeof pages];
+        if (targetPath) {
           window.location.href = targetPath;
           return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Navigating to ${section} page...</span>`;
         } else {
@@ -272,11 +277,14 @@ const Terminal: React.FC = () => {
           "Nov",
           "Dec",
         ];
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">${
-          days[d.getDay()]
-        } ${months[d.getMonth()]} ${d.getDate()} ${d
+
+        const formattedDate = `${days[d.getDay()]} ${
+          months[d.getMonth()]
+        } ${d.getDate()} ${d
           .toTimeString()
-          .slice(0, 8)} KST ${d.getFullYear()}</span>`;
+          .slice(0, 8)} KST ${d.getFullYear()}`;
+
+        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">${formattedDate}</span>`;
       },
       "Show current date and time",
       "",
@@ -287,10 +295,12 @@ const Terminal: React.FC = () => {
       "cowsay",
       (...args: string[]) => {
         const message = args.length > 0 ? args.join(" ") : "Mooooo!";
+        const border = "-".repeat(message.length + 2);
+
         return `
-  ${"-".repeat(message.length + 2)}
+  ${border}
 < ${message} >
-  ${"-".repeat(message.length + 2)}
+  ${border}
         \\   ^__^
          \\  (oo)\\_______
             (__)\\       )\\/\\
@@ -321,9 +331,9 @@ const Terminal: React.FC = () => {
     registerCommand(
       "weather",
       async (city?: string) => {
-        const url = city
-          ? `https://wttr.in/${encodeURIComponent(city)}?format=3`
-          : "https://wttr.in/?format=3";
+        const url = `https://wttr.in/${
+          city ? encodeURIComponent(city) : ""
+        }?format=3`;
 
         const response = await fetchWithTimeout(url);
         if (!response.ok) throw new Error("Weather service error");
@@ -344,24 +354,29 @@ const Terminal: React.FC = () => {
         if (!response.ok) throw new Error("API request failed");
         const data = await response.json();
 
+        const formatPrice = (crypto: string, currency: string) =>
+          data[crypto]?.[currency]?.toFixed(
+            currency === "usd" || currency === "eur" ? 2 : 4
+          ) ?? "N/A";
+
         return `<span style="${
           TERMINAL_STYLES.SUCCESS_TEXT
         }">Cryptocurrency Prices:</span>
 
 <span style="${TERMINAL_STYLES.INFO_TEXT}">Bitcoin (BTC):</span>
-USD: $${data.bitcoin?.usd?.toFixed(2) || "N/A"}
-EUR: €${data.bitcoin?.eur?.toFixed(2) || "N/A"}
-CNY: ¥${data.bitcoin?.cny?.toFixed(2) || "N/A"}
+USD: $${formatPrice("bitcoin", "usd")}
+EUR: €${formatPrice("bitcoin", "eur")}
+CNY: ¥${formatPrice("bitcoin", "cny")}
 
 <span style="${TERMINAL_STYLES.INFO_TEXT}">Ethereum (ETH):</span>
-USD: $${data.ethereum?.usd?.toFixed(2) || "N/A"}
-EUR: €${data.ethereum?.eur?.toFixed(2) || "N/A"}
-CNY: ¥${data.ethereum?.cny?.toFixed(2) || "N/A"}
+USD: $${formatPrice("ethereum", "usd")}
+EUR: €${formatPrice("ethereum", "eur")}
+CNY: ¥${formatPrice("ethereum", "cny")}
 
 <span style="${TERMINAL_STYLES.INFO_TEXT}">Dogecoin (DOGE):</span>
-USD: $${data.dogecoin?.usd?.toFixed(4) || "N/A"}
-EUR: €${data.dogecoin?.eur?.toFixed(4) || "N/A"}
-CNY: ¥${data.dogecoin?.cny?.toFixed(4) || "N/A"}`;
+USD: $${formatPrice("dogecoin", "usd")}
+EUR: €${formatPrice("dogecoin", "eur")}
+CNY: ¥${formatPrice("dogecoin", "cny")}`;
       },
       "Show current cryptocurrency prices",
       "",
@@ -494,7 +509,12 @@ ${data?.explanation?.slice(0, 200)}...`;
           return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Country not found: ${name}</span>`;
         }
 
-        const country = data[0];
+        const [country] = data;
+        const languages = Object.values(country.languages ?? {}).join(", ");
+        const currencies = Object.values(country.currencies ?? {})
+          .map((c: any) => c.name)
+          .join(", ");
+
         return `<span style="${
           TERMINAL_STYLES.SUCCESS_TEXT
         }">Country Information:</span>
@@ -503,7 +523,7 @@ ${data?.explanation?.slice(0, 200)}...`;
           country.name.official
         }
 <span style="${TERMINAL_STYLES.INFO_TEXT}">Capital:</span> ${
-          country.capital?.[0] || "N/A"
+          country.capital?.[0] ?? "N/A"
         }
 <span style="${
           TERMINAL_STYLES.INFO_TEXT
@@ -512,14 +532,8 @@ ${data?.explanation?.slice(0, 200)}...`;
 <span style="${TERMINAL_STYLES.INFO_TEXT}">Subregion:</span> ${
           country.subregion
         }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Languages:</span> ${Object.values(
-          country.languages || {}
-        ).join(", ")}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Currencies:</span> ${Object.values(
-          country.currencies || {}
-        )
-          .map((c: any) => c.name)
-          .join(", ")}`;
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Languages:</span> ${languages}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Currencies:</span> ${currencies}`;
       },
       "Get information about a country",
       "[name]",
@@ -530,8 +544,10 @@ ${data?.explanation?.slice(0, 200)}...`;
       "user",
       async () => {
         const response = await fetchWithTimeout("https://randomuser.me/api/");
-        const data = await response.json();
-        const user = data.results[0];
+        const {
+          results: [user],
+        } = await response.json();
+
         return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Random User:</span>
 Name: ${user.name.first} ${user.name.last}
 Email: ${user.email}
@@ -569,45 +585,160 @@ Username: ${user.login.username}`;
       "system"
     );
 
+    registerCommand(
+      "password",
+      (length?: string) => {
+        const len = parseInt(length ?? "12", 10);
+        if (isNaN(len) || len < 4 || len > 64) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Password length must be between 4 and 64 characters</span>`;
+        }
+
+        const charset =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+        const password = Array.from({ length: len }, () =>
+          charset.charAt(Math.floor(Math.random() * charset.length))
+        ).join("");
+
+        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Generated Password:</span> <span style="${TERMINAL_STYLES.WARNING_TEXT}">${password}</span>\n<span style="${TERMINAL_STYLES.INFO_TEXT}">⚠️  Copy this password immediately - it won't be shown again!</span>`;
+      },
+      "Generate a secure random password",
+      "[length]",
+      "system"
+    );
+
+    registerCommand(
+      "qr",
+      (text?: string) => {
+        if (!text) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please provide text to encode. Example: qr "Hello World"</span>`;
+        }
+
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
+          text
+        )}`;
+        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">QR Code Generated:</span>
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Text:</span> ${text}
+<div class="my-2.5">
+    <img src="${qrApiUrl}" alt="QR Code" class="w-48 h-48 object-cover rounded-[15px] border-3 border-white/40">
+</div>`;
+      },
+      "Generate QR code for text",
+      "[text]",
+      "fun"
+    );
+
+    registerCommand(
+      "whereami",
+      async () => {
+        try {
+          const response = await fetchWithTimeout("https://ipapi.co/json/");
+          const data = await response.json();
+
+          const locationInfo = [
+            { label: "IP", value: data.ip },
+            { label: "City", value: `${data.city}, ${data.region}` },
+            {
+              label: "Country",
+              value: `${data.country_name} (${data.country})`,
+            },
+            { label: "Timezone", value: data.timezone },
+            { label: "ISP", value: data.org },
+            {
+              label: "Coordinates",
+              value: `${data.latitude}, ${data.longitude}`,
+            },
+          ];
+
+          const infoLines = locationInfo
+            .map(
+              ({ label, value }) =>
+                `<span style="${TERMINAL_STYLES.INFO_TEXT}">${label}:</span> ${value}`
+            )
+            .join("\n");
+
+          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Your Location:</span>\n${infoLines}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Unable to determine location. Service might be unavailable.</span>`;
+        }
+      },
+      "Get your current location and IP info",
+      "",
+      "api"
+    );
+
+    registerCommand(
+      "joke",
+      async () => {
+        const response = await fetchWithTimeout(
+          "https://official-joke-api.appspot.com/random_joke"
+        );
+        const data = await response.json();
+
+        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">😄 Random Joke:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">Q:</span> ${data.setup}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">A:</span> ${data.punchline}`;
+      },
+      "Get a random programming joke",
+      "",
+      "fun"
+    );
+
     // Performance optimized neofetch
     registerCommand(
       "neofetch",
       () => {
         const startDate = new Date(CONFIG.UPTIME_START_DATE);
         const currentDate = new Date();
-        const uptimeDays = Math.floor(
-          (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-        );
-        const locale = navigator.language || "en-US";
 
-        // Cached browser detection
-        const getBrowser = (): string => {
-          const userAgent = navigator.userAgent;
-          if (userAgent.includes("Firefox")) return "Browser (Firefox)";
-          if (userAgent.includes("Chrome") && !userAgent.includes("Edg"))
-            return "Browser (Chrome)";
-          if (userAgent.includes("Safari") && !userAgent.includes("Chrome"))
-            return "Browser (Safari)";
-          if (userAgent.includes("Edg")) return "Browser (Edge)";
-          if (userAgent.includes("OPR")) return "Browser (Opera)";
-          return "Browser (Other)";
+        // Elegant uptime calculation using modern JavaScript
+        const getUptimeString = (start: Date, now: Date): string => {
+          const totalSeconds = Math.floor(
+            (now.getTime() - start.getTime()) / 1000
+          );
+          const timeUnits = [
+            { unit: "d", value: Math.floor(totalSeconds / 86400) },
+            { unit: "h", value: Math.floor((totalSeconds % 86400) / 3600) },
+            { unit: "m", value: Math.floor((totalSeconds % 3600) / 60) },
+            { unit: "s", value: totalSeconds % 60 },
+          ];
+
+          return timeUnits
+            .filter(({ value, unit }) => value > 0 || unit === "s")
+            .map(({ value, unit }) => `${value}${unit}`)
+            .join(" ");
         };
 
-        const randomQuotes = [
-          "Time to code and conquer!",
-          "Coffee level: Critical",
-          "Bug hunting in progress...",
-          "System status: Awesome",
-          "Ready to debug!",
-        ];
+        const uptimeString = getUptimeString(startDate, currentDate);
 
-        const randomQuote =
-          randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
+        const locale = navigator.language ?? "en-US";
+
+        // Cached browser detection using a more elegant approach
+        const getBrowser = (): string => {
+          const browsers = [
+            { name: "Firefox", check: "Firefox" },
+            { name: "Chrome", check: "Chrome", exclude: "Edg" },
+            { name: "Safari", check: "Safari", exclude: "Chrome" },
+            { name: "Edge", check: "Edg" },
+            { name: "Opera", check: "OPR" },
+          ];
+
+          const userAgent = navigator.userAgent;
+          const browser = browsers.find(
+            (b) =>
+              userAgent.includes(b.check) &&
+              (!b.exclude || !userAgent.includes(b.exclude))
+          );
+
+          return `Browser (${browser?.name ?? "Other"})`;
+        };
+
+        // Use hostname style without command
+        const promptHeader =
+          '<span style="color: #60a5fa; text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); font-weight: 600;">pp3ng@portfolio</span>';
+        const { width, height } = window.screen;
 
         return `<span style="color: #4a90e2;">
-                          .---.                </span><span style="${
-                            TERMINAL_STYLES.SUCCESS_TEXT
-                          }">${randomQuote}</span><span style="color: #4a90e2;">
+                          .---.                </span>${promptHeader}<span style="color: #4a90e2;">
                          /     \\               ------------------------------------
                          \\.@-@./               </span><span style="${
                            TERMINAL_STYLES.INFO_TEXT
@@ -620,9 +751,7 @@ Username: ${user.login.username}`;
                         }">Kernel:</span> JavaScript ES2024 <i class="fab fa-js"></i><span style="color: #4a90e2;">
                        | \\     )|_             </span><span style="${
                          TERMINAL_STYLES.INFO_TEXT
-                       }">Uptime:</span> ${Math.abs(
-          uptimeDays
-        )} days <i class="fas fa-clock"></i><span style="color: #4a90e2;">
+                       }">Uptime:</span> ${uptimeString} <i class="fas fa-clock"></i><span style="color: #4a90e2;">
                       /\`\\_\`>  <_/ \\            </span><span style="${
                         TERMINAL_STYLES.INFO_TEXT
                       }">Packages:</span> 42 node_modules installed <i class="fab fa-npm"></i><span style="color: #4a90e2;">
@@ -631,18 +760,10 @@ Username: ${user.login.username}`;
                      }">Shell:</span> Terminal.js v3.14 <i class="fas fa-terminal"></i><span style="color: #4a90e2;">
                       \`-\\_____/--'             </span><span style="${
                         TERMINAL_STYLES.INFO_TEXT
-                      }">Resolution:</span> ${window.screen.width}x${
-          window.screen.height
-        } <i class="fas fa-desktop"></i><span style="color: #4a90e2;">
-                                               </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
-                                               }">DE:</span> Glass Morphism <i class="fas fa-palette"></i><span style="color: #4a90e2;">
+                      }">Resolution:</span> ${width}x${height} <i class="fas fa-desktop"></i><span style="color: #4a90e2;">
                                                </span><span style="${
                                                  TERMINAL_STYLES.INFO_TEXT
                                                }">Icons:</span> Font Awesome <i class="fab fa-font-awesome"></i><span style="color: #4a90e2;">
-                                               </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
-                                               }">Terminal:</span> Web Console Pro <i class="fas fa-code"></i><span style="color: #4a90e2;">
                                                </span><span style="${
                                                  TERMINAL_STYLES.INFO_TEXT
                                                }">CPU:</span> Brain 6.0 GHz <i class="fas fa-microchip"></i><span style="color: #4a90e2;">
@@ -675,9 +796,45 @@ Username: ${user.login.username}`;
     async (cmd: string): Promise<string | null> => {
       if (!cmd.trim()) return "";
 
-      const parts = cmd.split(" ");
-      const command = parts[0];
-      const args = parts.slice(1);
+      // Parse command with proper quote handling
+      const parseCommand = (
+        cmd: string
+      ): { command: string; args: string[] } => {
+        const result: string[] = [];
+        let current = "";
+        let inQuotes = false;
+        let quoteChar = "";
+
+        for (let i = 0; i < cmd.length; i++) {
+          const char = cmd[i];
+
+          if ((char === '"' || char === "'") && !inQuotes) {
+            inQuotes = true;
+            quoteChar = char;
+          } else if (char === quoteChar && inQuotes) {
+            inQuotes = false;
+            quoteChar = "";
+          } else if (char === " " && !inQuotes) {
+            if (current.length > 0) {
+              result.push(current);
+              current = "";
+            }
+          } else {
+            current += char;
+          }
+        }
+
+        if (current.length > 0) {
+          result.push(current);
+        }
+
+        return {
+          command: result[0] || "",
+          args: result.slice(1),
+        };
+      };
+
+      const { command, args } = parseCommand(cmd);
 
       const commandConfig = commands[command];
       if (commandConfig) {
@@ -737,7 +894,7 @@ Username: ${user.login.username}`;
 
           // Display results immediately
           if (result !== null) {
-            setOutputContent((prev) => `${prev}${result || ""}\n`);
+            setOutputContent((prev) => `${prev}${result ?? ""}\n`);
           }
         }
         setInputValue("");
@@ -765,16 +922,16 @@ Username: ${user.login.username}`;
       // Tab completion
       else if (e.key === "Tab") {
         e.preventDefault();
-        const currentInput = inputValue.split(" ")[0];
+        const [currentInput] = inputValue.split(" ");
         const suggestions = Object.keys(commands).filter((cmd) =>
           cmd.startsWith(currentInput)
         );
 
         if (suggestions.length === 1) {
-          const restOfInput = inputValue.substring(inputValue.indexOf(" "));
-          setInputValue(
-            suggestions[0] + (inputValue.includes(" ") ? restOfInput : "")
-          );
+          const restOfInput = inputValue.includes(" ")
+            ? inputValue.substring(inputValue.indexOf(" "))
+            : "";
+          setInputValue(suggestions[0] + restOfInput);
         } else if (suggestions.length > 1) {
           setOutputContent(
             (prev) =>
@@ -813,7 +970,7 @@ Username: ${user.login.username}`;
 
   return (
     <div className="flex justify-center items-center ">
-      <div className="w-full max-w-6xl mx-auto px-4">
+      <div className="w-full max-w-6xl mx-auto">
         <div className="relative" data-aos="fade-up">
           {/* Terminal Window */}
           <div className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
@@ -839,8 +996,7 @@ Username: ${user.login.username}`;
                 className="overflow-auto p-6"
                 style={{
                   height: `${CONFIG.TERMINAL_HEIGHT}px`,
-                  background:
-                    "linear-gradient(135deg, rgba(24, 24, 27, 0.75) 0%, rgba(18, 18, 20, 0.85) 100%)",
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
                   scrollbarWidth: "none",
                   msOverflowStyle: "none",
                 }}
@@ -873,14 +1029,8 @@ Username: ${user.login.username}`;
                   />
                 </div>
               </div>
-
-              {/* Glassmorphism overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none rounded-b-3xl"></div>
             </div>
           </div>
-
-          {/* Glow effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 via-blue-600/20 to-purple-600/20 rounded-3xl blur-xl -z-10"></div>
         </div>
       </div>
     </div>
