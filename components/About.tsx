@@ -179,9 +179,16 @@ const About: React.FC = () => {
         <motion.img
           src="photos/my_photo.jpg"
           alt="My Photo"
-          className="w-[220px] rounded-[20px] shadow-lg transition-all hover:shadow-xl mb-3"
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 10 }}
+          className="w-[220px] rounded-[20px] shadow-lg mb-3"
+          whileHover={{
+            scale: 1.03,
+            y: -3,
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
+          }}
+          transition={{
+            duration: 0.25,
+            ease: "easeInOut",
+          }}
         />
 
         <motion.div className="text-center" variants={itemVariants}>

@@ -4,7 +4,7 @@ import StacksCard from "./StacksCard";
 const InfoCards = () => {
   return (
     <section
-      className="py-[45px] px-5 max-w-[1024px] mx-auto"
+      className="py-[45px] max-w-[1024px] my-5 mx-auto px-[14px]"
       data-aos="fade-up"
     >
       <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2">
