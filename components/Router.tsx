@@ -23,7 +23,7 @@ const HomePage = () => (
 );
 
 const PlaygroundPage = () => (
-  <div className="pt-24 pb-4">
+  <div className="pt-18 pb-4">
     <Terminal />
   </div>
 );

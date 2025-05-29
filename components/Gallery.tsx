@@ -49,7 +49,7 @@ const Gallery: React.FC = () => {
   return (
     <div className="container" id="gallery" data-aos="fade-up">
       <h2>Gallery</h2>
-      <div className="grid grid-cols-4 gap-5 p-5 max-w-6xl mx-auto">
+      <div className="grid grid-cols-4 gap-5 pt-2 px-5 pb-5 max-w-6xl mx-auto">
         {images.map((image, i) => (
           <div
             key={`gallery-${i}`}

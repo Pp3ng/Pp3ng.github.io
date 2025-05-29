@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import AppRouter from "./components/Router";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
-import ParticlesBackground from "./components/ParticlesBackground";
+import GeometricBackground from "./components/Background";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import SEO from "./components/SEO";
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
     <HelmetProvider>
       <HashRouter>
         <SEO />
-        <ParticlesBackground />
+        <GeometricBackground />
         <ScrollProgressBar />
         <Navbar />
 

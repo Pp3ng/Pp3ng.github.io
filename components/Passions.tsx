@@ -66,7 +66,7 @@ const Passions: React.FC = () => {
         {passionsData.map((passion, index) => (
           <div
             key={`passion-${index}`}
-            className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden hover:border-white/30 hover:bg-white/10 transition-all duration-300 ease-out shadow-md hover:shadow-lg"
+            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden shadow-md"
           >
             <div className="p-4">
               <div
@@ -79,15 +79,15 @@ const Passions: React.FC = () => {
                     <img
                       src={passion.images[0].src}
                       alt={passion.images[0].alt}
-                      className="w-40 h-40 object-cover rounded-lg shadow-sm group-hover:shadow-md transition-all duration-300 ease-out"
+                      className="w-40 h-40 object-cover rounded-lg shadow-sm"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-green-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-green-500/10 rounded-lg" />
                   </div>
                 </div>
 
                 <div className="flex-1 px-3">
-                  <h3 className="text-lg font-bold mb-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+                  <h3 className="text-lg font-bold mb-2 text-blue-400">
                     {passion.title}
                   </h3>
                   <p className="text-sm text-base-content/90 leading-relaxed">
@@ -100,10 +100,10 @@ const Passions: React.FC = () => {
                     <img
                       src={passion.images[1].src}
                       alt={passion.images[1].alt}
-                      className="w-40 h-40 object-cover rounded-lg shadow-sm group-hover:shadow-md transition-all duration-300 ease-out"
+                      className="w-40 h-40 object-cover rounded-lg shadow-sm"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-bl from-green-500/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-bl from-green-500/10 to-blue-500/10 rounded-lg" />
                   </div>
                 </div>
               </div>

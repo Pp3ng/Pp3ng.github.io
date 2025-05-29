@@ -71,7 +71,6 @@ const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  margin: 50px 0;
 `;
 
 const ProjectCard = styled.div`

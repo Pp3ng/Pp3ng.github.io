@@ -101,11 +101,6 @@ const StacksCard = () => {
         background: "var(--glass-background)",
         backdropFilter: "blur(8px) saturate(180%)",
         WebkitBackdropFilter: "blur(8px) saturate(180%)",
-        border: "var(--glass-border)",
-        boxShadow:
-          "0 8px 32px rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-        outline: "1px solid rgba(255, 255, 255, 0.3)",
-        outlineOffset: "-2.7px",
       }}
     >
       <div className="flex items-center gap-2">

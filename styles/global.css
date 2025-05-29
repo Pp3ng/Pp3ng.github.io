@@ -1,11 +1,8 @@
 /* Global Styles */
 
 body {
-  margin: 0;
   padding-top: 40px;
   font-family: "Fira Code", monospace;
-  font-weight: 500;
-  background: var(--background-color);
   color: var(--text-color);
 }
 
@@ -132,7 +129,6 @@ body,
 [data-theme="dark"] .book-item,
 [data-theme="dark"] .insight-item,
 [data-theme="dark"] .container {
-  border-color: var(--card-border);
   background: var(--card-bg);
   outline-color: var(--card-outline);
   box-shadow: var(--box-shadow);
