@@ -196,7 +196,14 @@ const Terminal: React.FC = () => {
     registerCommand(
       "whoami",
       () =>
-        "Name: Penn.L.Zhou(周罗鹏)\nOccupation: Programmer\nPassions:\n- Programming: C/C++ development in Linux environment\n- Photography: Capturing moments and finding beauty in everyday scenes\n- Billiards: Strategic game requiring precision and focus",
+        `Name: Penn.L.Zhou(周罗鹏) a individual passionate about computer science and engineering 👨‍💻
+
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">Philosophy:</span>
+<blockquote style="margin: 10px 0; padding-left: 15px; border-left: 3px solid var(--primary-color); font-style: italic;">
+  <span style="${TERMINAL_STYLES.INFO_TEXT}">"Stay hungry, stay foolish."</span>
+  <br><sub style="opacity: 0.7;">— Steve Jobs, 2005 Stanford Commencement Address</sub>
+</blockquote>
+<sup style="opacity: 0.8;"><i>A tribute to the geek spirit that changes the world.</i></sup>`,
       "Display personal information",
       "",
       "info"
@@ -243,12 +250,17 @@ const Terminal: React.FC = () => {
         if (commandHistory.length === 0) {
           return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No command history found</span>`;
         }
-        return commandHistory
-          .slice(-20) // Only show last 20 commands for better performance
+        const historyToShow = commandHistory.slice(-20);
+        const startIndex = Math.max(
+          0,
+          commandHistory.length - historyToShow.length
+        );
+
+        return historyToShow
           .map(
             (cmd, i) =>
-              `<span style="${TERMINAL_STYLES.INFO_TEXT}"> ${
-                commandHistory.length - 20 + i + 1
+              `<span style="${TERMINAL_STYLES.INFO_TEXT}">${
+                startIndex + i + 1
               }</span>  ${cmd}`
           )
           .join("\n");
@@ -780,6 +792,403 @@ Username: ${user.login.username}`;
       "Display system information",
       "",
       "system"
+    );
+
+    registerCommand(
+      "movie",
+      async (title?: string) => {
+        if (!title) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a movie title. Example: movie "Interstellar"</span>`;
+        }
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://www.omdbapi.com/?t=${encodeURIComponent(
+              title
+            )}&apikey=trilogy`
+          );
+          const data = await response.json();
+
+          if (data.Response === "False") {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Movie not found: ${title}</span>`;
+          }
+
+          return `<span style="${
+            TERMINAL_STYLES.SUCCESS_TEXT
+          }">🎬 Movie Info:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${data.Title}</span> (${
+            data.Year
+          })
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Director:</span> ${data.Director}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Genre:</span> ${data.Genre}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">IMDB Rating:</span> ${
+            data.imdbRating
+          }/10
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Runtime:</span> ${data.Runtime}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Plot:</span> ${data.Plot.slice(
+            0,
+            200
+          )}...`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Movie service unavailable</span>`;
+        }
+      },
+      "Get movie information",
+      "[title]",
+      "api"
+    );
+
+    registerCommand(
+      "github",
+      async (username?: string) => {
+        if (!username) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a GitHub username. Example: github torvalds</span>`;
+        }
+
+        try {
+          const userResponse = await fetchWithTimeout(
+            `https://api.github.com/users/${encodeURIComponent(username)}`
+          );
+          const userData = await userResponse.json();
+
+          if (userData.message === "Not Found") {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">GitHub user not found: ${username}</span>`;
+          }
+
+          const reposResponse = await fetchWithTimeout(
+            `https://api.github.com/users/${encodeURIComponent(
+              username
+            )}/repos?sort=updated&per_page=5`
+          );
+          const reposData = await reposResponse.json();
+
+          const topRepos = reposData
+            .slice(0, 3)
+            .map((repo: any) => `• ${repo.name} (⭐ ${repo.stargazers_count})`)
+            .join("\n");
+
+          return `<span style="${
+            TERMINAL_STYLES.SUCCESS_TEXT
+          }">👨‍💻 GitHub Profile:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+            userData.name || userData.login
+          }</span> (@${userData.login})
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Bio:</span> ${
+            userData.bio || "No bio available"
+          }
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Followers:</span> ${
+            userData.followers
+          } | Following: ${userData.following}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Public Repos:</span> ${
+            userData.public_repos
+          }
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Location:</span> ${
+            userData.location || "Unknown"
+          }
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Top Repos:</span>
+${topRepos}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">GitHub service unavailable</span>`;
+        }
+      },
+      "Get GitHub user profile info",
+      "[username]",
+      "api"
+    );
+
+    registerCommand(
+      "news",
+      async () => {
+        try {
+          const response = await fetchWithTimeout(
+            "https://hacker-news.firebaseio.com/v0/topstories.json"
+          );
+          const storyIds = await response.json();
+
+          const stories = await Promise.all(
+            storyIds.slice(0, 3).map(async (id: number) => {
+              const storyResponse = await fetchWithTimeout(
+                `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+              );
+              return storyResponse.json();
+            })
+          );
+
+          const newsItems = stories
+            .map(
+              (story, index) =>
+                `${index + 1}. <span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+                  story.title
+                }</span>
+   Score: ${story.score} | Comments: ${story.descendants || 0}
+   <a href="${story.url}" target="_blank">${story.url?.slice(0, 50)}...</a>`
+            )
+            .join("\n\n");
+
+          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">📰 Top Hacker News:</span>
+
+${newsItems}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">News service unavailable</span>`;
+        }
+      },
+      "Get top tech news from Hacker News",
+      "",
+      "api"
+    );
+
+    registerCommand(
+      "urban",
+      async (term?: string) => {
+        if (!term) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a term. Example: urban "algorithm"</span>`;
+        }
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://api.urbandictionary.com/v0/define?term=${encodeURIComponent(
+              term
+            )}`
+          );
+          const data = await response.json();
+
+          if (!data.list || data.list.length === 0) {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No definition found for: ${term}</span>`;
+          }
+
+          const def = data.list[0];
+          return `<span style="${
+            TERMINAL_STYLES.SUCCESS_TEXT
+          }">📖 Urban Dictionary:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${def.word}</span>
+<span style="${
+            TERMINAL_STYLES.INFO_TEXT
+          }">Definition:</span> ${def.definition.slice(0, 200)}...
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Example:</span> ${def.example?.slice(
+            0,
+            150
+          )}...
+👍 ${def.thumbs_up} | 👎 ${def.thumbs_down}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Urban Dictionary service unavailable</span>`;
+        }
+      },
+      "Get Urban Dictionary definition",
+      "[term]",
+      "api"
+    );
+
+    registerCommand(
+      "lyrics",
+      async (...args: string[]) => {
+        if (args.length < 2) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify artist and song. Example: lyrics "The Beatles" "Hey Jude"</span>`;
+        }
+
+        const artist = args[0];
+        const song = args[1];
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://api.lyrics.ovh/v1/${encodeURIComponent(
+              artist
+            )}/${encodeURIComponent(song)}`
+          );
+          const data = await response.json();
+
+          if (data.error) {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Lyrics not found for: ${artist} - ${song}</span>`;
+          }
+
+          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🎵 Lyrics:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${artist} - ${song}</span>
+
+${data.lyrics}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Lyrics service unavailable</span>`;
+        }
+      },
+      "Get song lyrics",
+      "[artist] [song]",
+      "api"
+    );
+
+    registerCommand(
+      "reddit",
+      async (subreddit?: string) => {
+        const sub = subreddit || "programming";
+        try {
+          const response = await fetchWithTimeout(
+            `https://www.reddit.com/r/${sub}/hot.json?limit=5`
+          );
+          const data = await response.json();
+
+          if (!data.data || !data.data.children.length) {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Subreddit not found or empty: r/${sub}</span>`;
+          }
+
+          const posts = data.data.children
+            .slice(0, 3)
+            .map(
+              (post: any, index: number) =>
+                `${index + 1}. <span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+                  post.data.title
+                }</span>
+   👍 ${post.data.ups} | 💬 ${post.data.num_comments} | r/${post.data.subreddit}
+   <a href="https://www.reddit.com${
+     post.data.permalink
+   }" target="_blank">https://www.reddit.com${post.data.permalink.slice(
+                  0,
+                  40
+                )}...</a>`
+            )
+            .join("\n\n");
+
+          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🔥 Hot posts from r/${sub}:</span>
+
+${posts}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Reddit service unavailable</span>`;
+        }
+      },
+      "Get hot posts from Reddit",
+      "[subreddit]",
+      "api"
+    );
+
+    registerCommand(
+      "recipe",
+      async (query?: string) => {
+        if (!query) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a dish. Example: recipe "pasta"</span>`;
+        }
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(
+              query
+            )}`
+          );
+          const data = await response.json();
+
+          if (!data.meals || data.meals.length === 0) {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No recipes found for: ${query}</span>`;
+          }
+
+          const meal = data.meals[0];
+          const ingredients: string[] = [];
+          for (let i = 1; i <= 20; i++) {
+            if (meal[`strIngredient${i}`]) {
+              ingredients.push(
+                `${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
+              );
+            }
+          }
+
+          return `<span style="${
+            TERMINAL_STYLES.SUCCESS_TEXT
+          }">👨‍🍳 Recipe:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${meal.strMeal}</span>
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Category:</span> ${meal.strCategory}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Cuisine:</span> ${meal.strArea}
+
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Ingredients:</span>
+${ingredients.join("\n")}
+
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Instructions:</span>
+${meal.strInstructions}
+
+<div class="my-2.5">
+    <img src="${meal.strMealThumb}" alt="${
+            meal.strMeal
+          }" class="w-60 h-60 object-cover rounded-[15px] border-3 border-white/40">
+</div>`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Recipe service unavailable</span>`;
+        }
+      },
+      "Find a recipe",
+      "[dish name]",
+      "api"
+    );
+
+    registerCommand(
+      "pokemon",
+      async (name?: string) => {
+        const pokemonName =
+          name || Math.floor(Math.random() * 1010 + 1).toString();
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
+          );
+          const data = await response.json();
+
+          const types = data.types
+            .map((type: any) => type.type.name)
+            .join(", ");
+          const abilities = data.abilities
+            .map((ability: any) => ability.ability.name)
+            .join(", ");
+
+          return `<span style="${
+            TERMINAL_STYLES.SUCCESS_TEXT
+          }">⚡ Pokémon Info:</span>
+<span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+            data.name.charAt(0).toUpperCase() + data.name.slice(1)
+          }</span> (#${data.id})
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Type:</span> ${types}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Height:</span> ${data.height / 10}m
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Weight:</span> ${data.weight / 10}kg
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Abilities:</span> ${abilities}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Base Experience:</span> ${
+            data.base_experience
+          }
+
+<div class="my-2.5">
+    <img src="${data.sprites.front_default}" alt="${
+            data.name
+          }" class="w-32 h-32 object-contain rounded-[15px] border-3 border-white/40">
+</div>`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Pokémon not found or service unavailable</span>`;
+        }
+      },
+      "Get Pokémon information",
+      "[name or number]",
+      "fun"
+    );
+
+    registerCommand(
+      "ip",
+      async (address?: string) => {
+        if (!address) {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify an IP address. Example: ip "8.8.8.8"</span>`;
+        }
+
+        try {
+          const response = await fetchWithTimeout(
+            `https://ipapi.co/${address}/json/`
+          );
+          const data = await response.json();
+
+          if (data.error) {
+            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Invalid IP address: ${address}</span>`;
+          }
+
+          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🌐 IP Information:</span>
+<span style="${TERMINAL_STYLES.INFO_TEXT}">IP:</span> ${data.ip}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Location:</span> ${data.city}, ${data.region}, ${data.country_name}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">ISP:</span> ${data.org}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Timezone:</span> ${data.timezone}
+<span style="${TERMINAL_STYLES.INFO_TEXT}">Coordinates:</span> ${data.latitude}, ${data.longitude}`;
+        } catch {
+          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">IP lookup service unavailable</span>`;
+        }
+      },
+      "Get IP address information",
+      "[ip_address]",
+      "api"
     );
 
     return registry;
