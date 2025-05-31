@@ -1,267 +1,155 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { motion } from "framer-motion";
+import Particles from "react-particles";
+import { Engine } from "tsparticles-engine";
+import { loadSlim } from "tsparticles-slim";
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  opacity: number;
-  color: string;
-  rotation: number;
-  rotationSpeed: number;
-  shape: "hexagon" | "circle" | "square" | "triangle";
-}
-
-const GeometricBackground: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number | undefined>(undefined);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(true);
+const Background: React.FC = () => {
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const updateTheme = () =>
+      setIsDark(document.documentElement.getAttribute("data-theme") === "dark");
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
-    // Canvas setup
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+    return () => observer.disconnect();
+  }, []);
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+  const colors = useMemo(
+    () => ({
+      dark: {
+        particles: ["#4a90e2", "#42b983", "#38bdf8", "#22d3ee"],
+        links: "#4a90e2",
+        grid: "rgba(74, 144, 226, 0.15)",
+        background: `radial-gradient(ellipse at top, #0f172a 0%, #1e293b 25%, #0f172a 50%, #020617 100%),
+                   linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%)`,
+      },
+      light: {
+        particles: ["#3b82f6", "#10b981", "#6366f1", "#06b6d4"],
+        links: "#3b82f6",
+        grid: "rgba(59, 130, 246, 0.1)",
+        background: `radial-gradient(ellipse at top, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 50%, #cbd5e1 100%),
+                   linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #e2e8f0 75%, #cbd5e1 100%)`,
+      },
+    }),
+    []
+  );
 
-    // Theme-aware gradient background
-    const createGradient = () => {
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      const isDark =
-        document.documentElement.getAttribute("data-theme") === "dark";
+  const theme = colors[isDark ? "dark" : "light"];
 
-      if (isDark) {
-        gradient.addColorStop(0, "#0f172a");
-        gradient.addColorStop(0.3, "#1e293b");
-        gradient.addColorStop(0.6, "#334155");
-        gradient.addColorStop(1, "#1a1d24");
-      } else {
-        gradient.addColorStop(0, "#f8fafc");
-        gradient.addColorStop(0.3, "#f1f5f9");
-        gradient.addColorStop(0.6, "#e2e8f0");
-        gradient.addColorStop(1, "#cbd5e1");
-      }
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadSlim(engine);
+  }, []);
 
-      return gradient;
-    };
+  const particlesOptions = useMemo(
+    () => ({
+      background: { color: { value: "transparent" } },
+      fpsLimit: 120,
+      interactivity: {
+        events: {
+          onClick: { enable: true, mode: "push" },
+          onHover: { enable: true, mode: "repulse" },
+          resize: true,
+        },
+        modes: {
+          push: { quantity: 4 },
+          repulse: { distance: 150, duration: 1.2, speed: 0.5 },
+        },
+      },
+      particles: {
+        color: { value: theme.particles },
+        links: {
+          color: theme.links,
+          distance: 120,
+          enable: true,
+          opacity: 0.3,
+          width: 1,
+        },
+        move: {
+          direction: "none" as const,
+          enable: true,
+          outModes: { default: "bounce" as const },
+          random: false,
+          speed: 2,
+          straight: false,
+        },
+        number: { density: { enable: true, area: 1000 }, value: 50 },
+        opacity: {
+          value: 0.7,
+          random: {
+            enable: true,
+            minimumValue: 0.3,
+          },
+        },
+        shape: { type: "circle" },
+        size: {
+          value: { min: 2, max: 6 },
+          random: {
+            enable: true,
+            minimumValue: 1,
+          },
+        },
+      },
+      detectRetina: true,
+    }),
+    [theme]
+  );
 
-    // Initialize geometric particles
-    const initParticles = (): Particle[] => {
-      const particles: Particle[] = [];
-      const particleCount = 10;
-      const shapes: Array<"hexagon" | "circle" | "square" | "triangle"> = [
-        "hexagon",
-        "circle",
-        "square",
-        "triangle",
-      ];
-
-      const isDark =
-        document.documentElement.getAttribute("data-theme") === "dark";
-      const colors = isDark ? ["#4a90e2", "#42b983"] : ["#4a90e2", "#42b983"];
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          size: Math.random() * 35 + 25,
-          opacity: Math.random() * 0.12 + 0.03,
-          color: colors[i % colors.length],
-          rotation: 0,
-          rotationSpeed: (Math.random() - 0.5) * 0.015,
-          shape: shapes[i % shapes.length],
-        });
-      }
-
-      return particles;
-    };
-
-    // Drawing functions for each shape
-    const drawHexagon = (ctx: CanvasRenderingContext2D, size: number) => {
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const angle = (i * Math.PI) / 3;
-        const x = size * Math.cos(angle);
-        const y = size * Math.sin(angle);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-    };
-
-    const drawTriangle = (ctx: CanvasRenderingContext2D, size: number) => {
-      ctx.beginPath();
-      ctx.moveTo(0, -size);
-      ctx.lineTo(-size * 0.866, size * 0.5);
-      ctx.lineTo(size * 0.866, size * 0.5);
-      ctx.closePath();
-    };
-
-    const drawCircle = (ctx: CanvasRenderingContext2D, size: number) => {
-      ctx.beginPath();
-      ctx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
-    };
-
-    const drawSquare = (ctx: CanvasRenderingContext2D, size: number) => {
-      const halfSize = size * 0.7;
-      ctx.beginPath();
-      ctx.rect(-halfSize, -halfSize, halfSize * 2, halfSize * 2);
-    };
-
-    // Initialize particles
-    particlesRef.current = initParticles();
-
-    // Animation loop
-    const animate = () => {
-      if (!isVisible) {
-        animationRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw gradient background
-      ctx.fillStyle = createGradient();
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Update and draw particles
-      particlesRef.current.forEach((particle) => {
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.rotation += particle.rotationSpeed;
-
-        // Boundary wrapping
-        if (particle.x < -particle.size)
-          particle.x = canvas.width + particle.size;
-        if (particle.x > canvas.width + particle.size)
-          particle.x = -particle.size;
-        if (particle.y < -particle.size)
-          particle.y = canvas.height + particle.size;
-        if (particle.y > canvas.height + particle.size)
-          particle.y = -particle.size;
-
-        // Mouse interaction
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 150) {
-          const force = ((150 - distance) / 150) * 0.01;
-          particle.vx += (dx / distance) * force;
-          particle.vy += (dy / distance) * force;
-        }
-
-        // Limit velocity
-        const maxSpeed = 1;
-        const speed = Math.sqrt(
-          particle.vx * particle.vx + particle.vy * particle.vy
-        );
-        if (speed > maxSpeed) {
-          particle.vx = (particle.vx / speed) * maxSpeed;
-          particle.vy = (particle.vy / speed) * maxSpeed;
-        }
-
-        // Draw particle
-        ctx.save();
-        ctx.translate(particle.x, particle.y);
-        ctx.rotate(particle.rotation);
-        ctx.globalAlpha = particle.opacity;
-        ctx.strokeStyle = particle.color;
-        ctx.fillStyle = particle.color;
-        ctx.lineWidth = 2;
-
-        // Draw based on shape
-        switch (particle.shape) {
-          case "hexagon":
-            drawHexagon(ctx, particle.size * 0.6);
-            ctx.stroke();
-            break;
-          case "circle":
-            drawCircle(ctx, particle.size);
-            ctx.fill();
-            break;
-          case "square":
-            drawSquare(ctx, particle.size);
-            ctx.stroke();
-            break;
-          case "triangle":
-            drawTriangle(ctx, particle.size * 0.6);
-            ctx.stroke();
-            break;
-        }
-
-        ctx.restore();
-      });
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    // Mouse tracking
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseRef.current = {
-        x: event.clientX,
-        y: event.clientY,
-      };
-    };
-
-    // Visibility handling
-    const handleVisibilityChange = () => {
-      setIsVisible(!document.hidden);
-    };
-
-    // Event listeners
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // Start animation
-    animate();
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isVisible]);
+  const backgroundStyle: React.CSSProperties = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+    pointerEvents: "none",
+    background: theme.background,
+    transition: "background 0.5s ease",
+    overflow: "hidden",
+  };
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="geometric-background"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        pointerEvents: "none",
-      }}
-    />
+    <div style={backgroundStyle} className="tech-background">
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        options={particlesOptions}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "auto",
+        }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `
+            linear-gradient(${theme.grid} 1px, transparent 1px),
+            linear-gradient(90deg, ${theme.grid} 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+          opacity: 0.4,
+        }}
+      />
+    </div>
   );
 };
 
-export default GeometricBackground;
+export default Background;

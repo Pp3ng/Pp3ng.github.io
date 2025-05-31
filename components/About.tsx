@@ -3,13 +3,12 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import styled, { keyframes } from "styled-components";
 
-// pulse animation for social links
 const socialPulse = keyframes`
   0% {
-    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 9px rgba(74, 144, 226, 0);
+    box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
@@ -37,11 +36,11 @@ const SocialLink = styled(motion.a)`
   background: var(--glass-background);
   border-radius: 50%;
   border: var(--glass-border);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   text-decoration: none;
   backdrop-filter: blur(8px);
   box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &::before {
     content: "";
@@ -54,15 +53,15 @@ const SocialLink = styled(motion.a)`
       rgba(66, 185, 131, 0.3)
     );
     opacity: 0;
-    transition: opacity 0.3s ease;
     border-radius: 50%;
+    transition: opacity 0.2s ease;
   }
 
   &:hover {
-    transform: translateY(-7.2px);
-    box-shadow: 0 13.5px 27px rgba(31, 38, 135, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(31, 38, 135, 0.2);
     text-decoration: none;
-    animation: ${socialPulse} 1.5s infinite;
+    animation: ${socialPulse} 1s ease-out infinite;
   }
 
   &:hover::before {
@@ -72,13 +71,13 @@ const SocialLink = styled(motion.a)`
   i {
     font-size: 1.8rem;
     color: var(--text-color);
-    transition: all 0.3s ease;
     z-index: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
   }
 
   &:hover i {
     color: var(--primary-color);
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
@@ -94,12 +93,12 @@ const SocialTooltip = styled.span`
   color: var(--text-color);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
   white-space: nowrap;
   backdrop-filter: blur(8px);
   border: var(--glass-border);
   box-shadow: var(--box-shadow);
   z-index: 10;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 `;
 
 const About: React.FC = () => {
@@ -214,16 +213,18 @@ const About: React.FC = () => {
                   2000,
                   "Unix Enthusiast",
                   2000,
-                  "C/C++ Developer",
-                  2000,
                   "Billiards Player",
+                  2000,
+                  "Terminal Ninja",
+                  2000,
+                  "Continuous Learner",
                   2000,
                 ]}
                 wrapper="span"
                 cursor={true}
                 repeat={Infinity}
                 className="font-semibold min-w-[10px]"
-                style={{ color: "var(--accent-color)" }}
+                style={{ color: "#29be56" }}
               />
             </div>
           )}
@@ -232,16 +233,22 @@ const About: React.FC = () => {
             className="text-[1.15rem] leading-relaxed my-2 mx-auto opacity-90 max-w-[800px] text-center"
             variants={itemVariants}
           >
-            Welcome to my digital space! As an individual fascinated by the
-            intricate interplay between hardware{" "}
-            <i className="fas fa-microchip mx-[3px]"></i> and software{" "}
-            <i className="fas fa-file-code mx-[3px]"></i>, I explore the full
-            spectrum of technology. Beyond coding, I'm an avid photographer
-            capturing life's moments <i className="fas fa-camera mx-[3px]"></i>{" "}
-            and a billiards enthusiast seeking the perfect shot{" "}
-            <i className="fas fa-circle mx-[3px]"></i>. Here, I share my journey
-            through system architecture, creative pursuits, and continuous
-            learning <i className="fas fa-book mx-[3px]"></i>.
+            Hi there! I'm an individual passionate about computer science and
+            engineering <i className="fas fa-laptop mx-[3px]"></i>, exploring
+            everything from hardware{" "}
+            <i className="fas fa-microchip mx-[3px]"></i> to software{" "}
+            <i className="fas fa-file-code mx-[3px]"></i>. I love diving deep
+            into system architecture and understanding how things work at every
+            level <i className="fas fa-book mx-[3px]"></i>. When I'm not coding,
+            you'll find me behind a camera capturing moments{" "}
+            <i className="fas fa-camera mx-[3px]"></i> or at the billiards table
+            perfecting my shots <i className="fas fa-circle mx-[3px]"></i>. I
+            live by Steve Jobs' wisdom:{" "}
+            <em>
+              &quot;Your time is limited, so don't waste it living someone
+              else's life&quot;
+            </em>
+            . Welcome to my digital space!
           </motion.p>
 
           {/* Social Links */}
@@ -255,7 +262,6 @@ const About: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                whileHover={{ y: -2 }}
               >
                 <i className="fab fa-instagram"></i>
               </SocialLink>
@@ -270,7 +276,6 @@ const About: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                whileHover={{ y: -2 }}
               >
                 <i className="fab fa-x-twitter"></i>
               </SocialLink>
@@ -285,7 +290,6 @@ const About: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                whileHover={{ y: -2 }}
               >
                 <i className="fab fa-github"></i>
               </SocialLink>
@@ -295,11 +299,7 @@ const About: React.FC = () => {
             </SocialLinkWrapper>
 
             <SocialLinkWrapper>
-              <SocialLink
-                href="mailto:pp3ng@outlook.com"
-                aria-label="Email"
-                whileHover={{ y: -2 }}
-              >
+              <SocialLink href="mailto:pp3ng@outlook.com" aria-label="Email">
                 <i className="fas fa-envelope"></i>
               </SocialLink>
               <SocialTooltip className="social-tooltip">

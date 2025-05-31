@@ -231,7 +231,6 @@ const BookItem = styled.div`
   box-shadow: 0 0.5rem 2rem rgba(31, 38, 135, 0.15),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, box-shadow;
 
   &::before {
     content: "";
@@ -270,7 +269,6 @@ const BookCover = styled.img`
   border-radius: 0.3125rem;
   margin-bottom: 0.375rem;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
 
   ${BookItem}:hover & {
     transform: perspective(800px) rotateY(10deg) translateZ(20px);
@@ -309,18 +307,9 @@ const BookLink = styled.a`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: 100%;
   height: 100%;
   padding: 0.5rem 0.375rem;
-  background: transparent;
-  border: none;
-  border-radius: 0.9375rem;
-  color: inherit;
   text-decoration: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  will-change: transform;
-
   &:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;

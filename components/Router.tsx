@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import About from "./About";
-import InfoCards from "./InfoCards";
 import Terminal from "./Terminal";
 import Passions from "./Passions";
 import Gallery from "./Gallery";
@@ -17,16 +16,11 @@ const PageContainer = ({ children }: { children: React.ReactNode }) => (
 const HomePage = () => (
   <PageContainer>
     <About />
-    <InfoCards />
     <Passions />
   </PageContainer>
 );
 
-const PlaygroundPage = () => (
-  <div className="pt-18 pb-4">
-    <Terminal />
-  </div>
-);
+const PlaygroundPage = () => <Terminal />;
 
 const WorksPage = () => (
   <PageContainer>

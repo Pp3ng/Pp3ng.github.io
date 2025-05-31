@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import AppRouter from "./components/Router";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
-import GeometricBackground from "./components/Background";
+import Background from "./components/Background";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 
 const App: React.FC = () => {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   return (
     <HashRouter>
-      <GeometricBackground />
+      <Background />
       <ScrollProgressBar />
       <Navbar />
 

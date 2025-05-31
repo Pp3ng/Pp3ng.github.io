@@ -24,45 +24,11 @@ body {
   }
 }
 
-@keyframes marquee-left {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes marquee-up {
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-/* Tailwind Animation Utilities */
-.animate-marquee-left {
-  animation: marquee-left 30s linear infinite;
-}
-
-.animate-marquee-up {
-  animation: marquee-up 30s linear infinite;
-}
-
-.direction-reverse {
-  animation-direction: reverse;
-}
-
-/* Typography */
-
 p {
   font-size: 1.08em;
-  max-width: 540px;
-  margin: 18px auto;
-  color: var(--text-color);
-  line-height: 1.7;
+  max-width: 550px;
+  margin: auto;
+  line-height: 2;
 }
 
 a {
@@ -76,76 +42,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Scrollbar Styles */
-::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: 4.5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 4.5px;
-  transition: background 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #2980b9, #27ae60);
-}
-
 * {
-  scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--scrollbar-track);
-}
-
-/* Dark mode transition */
-body,
-.container,
-.navbar,
-.project-item,
-.insight-item,
-.book-item,
-.gallery-container a,
-.social-links a,
-.journey-content,
-.journey-date,
-#terminal-window,
-.passion-item,
-.dark-mode-toggle {
-  transition: background 0.3s ease, background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-}
-
-/* Dark mode persistent elements */
-[data-theme="dark"] img {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-}
-
-[data-theme="dark"] .project-item,
-[data-theme="dark"] .book-item,
-[data-theme="dark"] .insight-item,
-[data-theme="dark"] .container {
-  background: var(--card-bg);
-  outline-color: var(--card-outline);
-  box-shadow: var(--box-shadow);
-}
-
-[data-theme="dark"] .container:hover,
-[data-theme="dark"] .project-item:hover,
-[data-theme="dark"] .book-item:hover,
-[data-theme="dark"] .insight-item:hover {
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 20px rgba(52, 152, 219, 0.2);
-}
-
-[data-theme="dark"] p {
-  color: #d1d7e0;
-}
-
-[data-theme="dark"] .insight-item p {
-  color: #d1d7e0;
 }

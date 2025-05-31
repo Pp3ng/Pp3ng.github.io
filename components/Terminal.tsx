@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Configuration constants
 const CONFIG = {
@@ -17,11 +18,11 @@ const CONFIG = {
 } as const;
 
 // Define CSS styles as constants
-const TERMINAL_STYLES = {
-  SUCCESS_TEXT: "color: #42b983;",
-  ERROR_TEXT: "color: #ff5f56;",
-  INFO_TEXT: "color: #6a9ec5;",
-  WARNING_TEXT: "color: #f1c40f;",
+const TEXT_COLORS = {
+  GREEN: "color: #42b983;",
+  RED: "color: #ff5f56;",
+  BLUE: "color: #6a9ec5;",
+  YELLOW: "color: #f1c40f;",
 } as const;
 
 // Define command types
@@ -51,6 +52,7 @@ const fetchWithTimeout = async (
 };
 
 const Terminal: React.FC = () => {
+  const navigate = useNavigate();
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [inputValue, setInputValue] = useState<string>("");
@@ -80,7 +82,7 @@ const Terminal: React.FC = () => {
 
   const welcomeMessage = useMemo(
     () =>
-      `${ASCII_LOGO}\n<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Welcome to my terminal</span>\nType '<span style="${TERMINAL_STYLES.INFO_TEXT}">help</span>' for available commands\n`,
+      `${ASCII_LOGO}\n<span style="${TEXT_COLORS.GREEN}">Welcome to my terminal</span>\nType '<span style="${TEXT_COLORS.BLUE}">help</span>' for available commands\n`,
     [ASCII_LOGO]
   );
 
@@ -158,7 +160,7 @@ const Terminal: React.FC = () => {
           const category = config.category ?? "system";
           const usage = config.usage ? ` ${config.usage}` : "";
           categories[category].push(
-            `<span style="${TERMINAL_STYLES.INFO_TEXT}">${name}${usage}</span>: ${config.description}`
+            `<span style="${TEXT_COLORS.BLUE}">${name}${usage}</span>: ${config.description}`
           );
         });
 
@@ -169,7 +171,7 @@ const Terminal: React.FC = () => {
           .forEach(([category, commands]) => {
             result.push(
               `<span style="${
-                TERMINAL_STYLES.WARNING_TEXT
+                TEXT_COLORS.YELLOW
               }">${category.toUpperCase()}:</span>`
             );
             result.push(...commands, "");
@@ -198,9 +200,9 @@ const Terminal: React.FC = () => {
       () =>
         `Name: Penn.L.Zhou(周罗鹏) a individual passionate about computer science and engineering 👨‍💻
 
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">Philosophy:</span>
+<span style="${TEXT_COLORS.YELLOW}">Philosophy:</span>
 <blockquote style="margin: 10px 0; padding-left: 15px; border-left: 3px solid var(--primary-color); font-style: italic;">
-  <span style="${TERMINAL_STYLES.INFO_TEXT}">"Stay hungry, stay foolish."</span>
+  <span style="${TEXT_COLORS.BLUE}">"Stay hungry, stay foolish."</span>
   <br><sub style="opacity: 0.7;">— Steve Jobs, 2005 Stanford Commencement Address</sub>
 </blockquote>
 <sup style="opacity: 0.8;"><i>A tribute to the geek spirit that changes the world.</i></sup>`,
@@ -229,11 +231,11 @@ const Terminal: React.FC = () => {
 
         const targetPath = pages[section as keyof typeof pages];
         if (targetPath) {
-          window.location.href = targetPath;
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Navigating to ${section} page...</span>`;
+          navigate(targetPath);
+          return `<span style="${TEXT_COLORS.GREEN}">Navigating to ${section} page...</span>`;
         } else {
           return `<span style="${
-            TERMINAL_STYLES.ERROR_TEXT
+            TEXT_COLORS.RED
           }">Page not found: ${section}.</span>\nAvailable pages: ${Object.keys(
             pages
           ).join(", ")}`;
@@ -248,7 +250,7 @@ const Terminal: React.FC = () => {
       "history",
       () => {
         if (commandHistory.length === 0) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No command history found</span>`;
+          return `<span style="${TEXT_COLORS.RED}">No command history found</span>`;
         }
         const historyToShow = commandHistory.slice(-20);
         const startIndex = Math.max(
@@ -259,7 +261,7 @@ const Terminal: React.FC = () => {
         return historyToShow
           .map(
             (cmd, i) =>
-              `<span style="${TERMINAL_STYLES.INFO_TEXT}">${
+              `<span style="${TEXT_COLORS.BLUE}">${
                 startIndex + i + 1
               }</span>  ${cmd}`
           )
@@ -296,7 +298,7 @@ const Terminal: React.FC = () => {
           .toTimeString()
           .slice(0, 8)} KST ${d.getFullYear()}`;
 
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">${formattedDate}</span>`;
+        return `<span style="${TEXT_COLORS.GREEN}">${formattedDate}</span>`;
       },
       "Show current date and time",
       "",
@@ -329,9 +331,9 @@ const Terminal: React.FC = () => {
       "color",
       () => {
         const color = generateColor();
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Random Color:</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Hex:</span> ${color.hex}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">RGB:</span> rgb(${color.r}, ${color.g}, ${color.b})
+        return `<span style="${TEXT_COLORS.GREEN}">Random Color:</span>
+<span style="${TEXT_COLORS.BLUE}">Hex:</span> ${color.hex}
+<span style="${TEXT_COLORS.BLUE}">RGB:</span> rgb(${color.r}, ${color.g}, ${color.b})
 <div style="background-color: ${color.hex}; width: 100px; height: 20px; display: inline-block; border: 1px solid #fff; margin-left: 10px; vertical-align: middle;"></div> ← Color Preview`;
       },
       "Generate a random color",
@@ -371,21 +373,19 @@ const Terminal: React.FC = () => {
             currency === "usd" || currency === "eur" ? 2 : 4
           ) ?? "N/A";
 
-        return `<span style="${
-          TERMINAL_STYLES.SUCCESS_TEXT
-        }">Cryptocurrency Prices:</span>
+        return `<span style="${TEXT_COLORS.GREEN}">Cryptocurrency Prices:</span>
 
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Bitcoin (BTC):</span>
+<span style="${TEXT_COLORS.BLUE}">Bitcoin (BTC):</span>
 USD: $${formatPrice("bitcoin", "usd")}
 EUR: €${formatPrice("bitcoin", "eur")}
 CNY: ¥${formatPrice("bitcoin", "cny")}
 
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Ethereum (ETH):</span>
+<span style="${TEXT_COLORS.BLUE}">Ethereum (ETH):</span>
 USD: $${formatPrice("ethereum", "usd")}
 EUR: €${formatPrice("ethereum", "eur")}
 CNY: ¥${formatPrice("ethereum", "cny")}
 
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Dogecoin (DOGE):</span>
+<span style="${TEXT_COLORS.BLUE}">Dogecoin (DOGE):</span>
 USD: $${formatPrice("dogecoin", "usd")}
 EUR: €${formatPrice("dogecoin", "eur")}
 CNY: ¥${formatPrice("dogecoin", "cny")}`;
@@ -431,7 +431,7 @@ CNY: ¥${formatPrice("dogecoin", "cny")}`;
         );
         const data = await response.json();
         return `<span style="${
-          TERMINAL_STYLES.SUCCESS_TEXT
+          TEXT_COLORS.GREEN
         }">NASA Astronomy Picture of the Day:</span>
 Title: ${data?.title}
 Date: ${data?.date}
@@ -454,7 +454,7 @@ ${data?.explanation?.slice(0, 200)}...`;
           "https://uselessfacts.jsph.pl/random.json?language=en"
         );
         const data = await response.json();
-        return `<span style="${TERMINAL_STYLES.INFO_TEXT}">Random Fact:</span> ${data.text}`;
+        return `<span style="${TEXT_COLORS.BLUE}">Random Fact:</span> ${data.text}`;
       },
       "Get a random fact",
       "",
@@ -468,7 +468,7 @@ ${data?.explanation?.slice(0, 200)}...`;
           "https://api.adviceslip.com/advice"
         );
         const data = await response.json();
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">💡 Advice #${data.slip.id}:</span> ${data.slip.advice}`;
+        return `<span style="${TEXT_COLORS.GREEN}">💡 Advice #${data.slip.id}:</span> ${data.slip.advice}`;
       },
       "Get random advice",
       "",
@@ -482,7 +482,7 @@ ${data?.explanation?.slice(0, 200)}...`;
           "https://random-word-api.herokuapp.com/word"
         );
         const [randomWord] = await response.json();
-        return `<span style="${TERMINAL_STYLES.INFO_TEXT}">Random word:</span> ${randomWord}`;
+        return `<span style="${TEXT_COLORS.BLUE}">Random word:</span> ${randomWord}`;
       },
       "Get a random word",
       "",
@@ -497,7 +497,7 @@ ${data?.explanation?.slice(0, 200)}...`;
         );
         const message = await response.text();
         return `<span style="${
-          TERMINAL_STYLES.SUCCESS_TEXT
+          TEXT_COLORS.GREEN
         }">Random Commit Message:</span> ${message.trim()}`;
       },
       "Get a random commit message",
@@ -509,7 +509,7 @@ ${data?.explanation?.slice(0, 200)}...`;
       "country",
       async (name?: string) => {
         if (!name) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a country name. Example: country japan</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify a country name. Example: country japan</span>`;
         }
 
         const response = await fetchWithTimeout(
@@ -518,7 +518,7 @@ ${data?.explanation?.slice(0, 200)}...`;
         const data = await response.json();
 
         if (data.message) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Country not found: ${name}</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Country not found: ${name}</span>`;
         }
 
         const [country] = data;
@@ -527,25 +527,19 @@ ${data?.explanation?.slice(0, 200)}...`;
           .map((c: any) => c.name)
           .join(", ");
 
-        return `<span style="${
-          TERMINAL_STYLES.SUCCESS_TEXT
-        }">Country Information:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${country.name.common}</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Official Name:</span> ${
-          country.name.official
-        }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Capital:</span> ${
+        return `<span style="${TEXT_COLORS.GREEN}">Country Information:</span>
+<span style="${TEXT_COLORS.YELLOW}">${country.name.common}</span>
+<span style="${TEXT_COLORS.BLUE}">Official Name:</span> ${country.name.official}
+<span style="${TEXT_COLORS.BLUE}">Capital:</span> ${
           country.capital?.[0] ?? "N/A"
         }
 <span style="${
-          TERMINAL_STYLES.INFO_TEXT
+          TEXT_COLORS.BLUE
         }">Population:</span> ${country.population.toLocaleString()}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Region:</span> ${country.region}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Subregion:</span> ${
-          country.subregion
-        }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Languages:</span> ${languages}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Currencies:</span> ${currencies}`;
+<span style="${TEXT_COLORS.BLUE}">Region:</span> ${country.region}
+<span style="${TEXT_COLORS.BLUE}">Subregion:</span> ${country.subregion}
+<span style="${TEXT_COLORS.BLUE}">Languages:</span> ${languages}
+<span style="${TEXT_COLORS.BLUE}">Currencies:</span> ${currencies}`;
       },
       "Get information about a country",
       "[name]",
@@ -560,7 +554,7 @@ ${data?.explanation?.slice(0, 200)}...`;
           results: [user],
         } = await response.json();
 
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Random User:</span>
+        return `<span style="${TEXT_COLORS.GREEN}">Random User:</span>
 Name: ${user.name.first} ${user.name.last}
 Email: ${user.email}
 Phone: ${user.phone}
@@ -577,7 +571,7 @@ Username: ${user.login.username}`;
       "sha256",
       async (text?: string) => {
         if (!text) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please provide text to hash. Example: sha256 "hello world"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please provide text to hash. Example: sha256 "hello world"</span>`;
         }
 
         const encoder = new TextEncoder();
@@ -588,9 +582,9 @@ Username: ${user.login.username}`;
           .map((b) => b.toString(16).padStart(2, "0"))
           .join("");
 
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">SHA-256 Hash:</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Input:</span> ${text}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Hash:</span> ${hashHex}`;
+        return `<span style="${TEXT_COLORS.GREEN}">SHA-256 Hash:</span>
+<span style="${TEXT_COLORS.BLUE}">Input:</span> ${text}
+<span style="${TEXT_COLORS.BLUE}">Hash:</span> ${hashHex}`;
       },
       "Generate SHA-256 hash of text",
       "[text]",
@@ -602,7 +596,7 @@ Username: ${user.login.username}`;
       (length?: string) => {
         const len = parseInt(length ?? "12", 10);
         if (isNaN(len) || len < 4 || len > 64) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Password length must be between 4 and 64 characters</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Password length must be between 4 and 64 characters</span>`;
         }
 
         const charset =
@@ -611,7 +605,7 @@ Username: ${user.login.username}`;
           charset.charAt(Math.floor(Math.random() * charset.length))
         ).join("");
 
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Generated Password:</span> <span style="${TERMINAL_STYLES.WARNING_TEXT}">${password}</span>\n<span style="${TERMINAL_STYLES.INFO_TEXT}">⚠️  Copy this password immediately - it won't be shown again!</span>`;
+        return `<span style="${TEXT_COLORS.GREEN}">Generated Password:</span> <span style="${TEXT_COLORS.YELLOW}">${password}</span>\n<span style="${TEXT_COLORS.BLUE}">⚠️  Copy this password immediately - it won't be shown again!</span>`;
       },
       "Generate a secure random password",
       "[length]",
@@ -622,14 +616,14 @@ Username: ${user.login.username}`;
       "qr",
       (text?: string) => {
         if (!text) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please provide text to encode. Example: qr "Hello World"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please provide text to encode. Example: qr "Hello World"</span>`;
         }
 
         const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
           text
         )}`;
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">QR Code Generated:</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Text:</span> ${text}
+        return `<span style="${TEXT_COLORS.GREEN}">QR Code Generated:</span>
+<span style="${TEXT_COLORS.BLUE}">Text:</span> ${text}
 <div class="my-2.5">
     <img src="${qrApiUrl}" alt="QR Code" class="w-48 h-48 object-cover rounded-[15px] border-3 border-white/40">
 </div>`;
@@ -664,13 +658,13 @@ Username: ${user.login.username}`;
           const infoLines = locationInfo
             .map(
               ({ label, value }) =>
-                `<span style="${TERMINAL_STYLES.INFO_TEXT}">${label}:</span> ${value}`
+                `<span style="${TEXT_COLORS.BLUE}">${label}:</span> ${value}`
             )
             .join("\n");
 
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">Your Location:</span>\n${infoLines}`;
+          return `<span style="${TEXT_COLORS.GREEN}">Your Location:</span>\n${infoLines}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Unable to determine location. Service might be unavailable.</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Unable to determine location. Service might be unavailable.</span>`;
         }
       },
       "Get your current location and IP info",
@@ -686,9 +680,9 @@ Username: ${user.login.username}`;
         );
         const data = await response.json();
 
-        return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">😄 Random Joke:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">Q:</span> ${data.setup}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">A:</span> ${data.punchline}`;
+        return `<span style="${TEXT_COLORS.GREEN}">😄 Random Joke:</span>
+<span style="${TEXT_COLORS.YELLOW}">Q:</span> ${data.setup}
+<span style="${TEXT_COLORS.BLUE}">A:</span> ${data.punchline}`;
       },
       "Get a random programming joke",
       "",
@@ -753,40 +747,40 @@ Username: ${user.login.username}`;
                           .---.                </span>${promptHeader}<span style="color: #4a90e2;">
                          /     \\               ------------------------------------
                          \\.@-@./               </span><span style="${
-                           TERMINAL_STYLES.INFO_TEXT
+                           TEXT_COLORS.BLUE
                          }">OS:</span> ${getBrowser()} <i class="fas fa-globe"></i><span style="color: #4a90e2;">
                          /\`\\_/\`\\               </span><span style="${
-                           TERMINAL_STYLES.INFO_TEXT
+                           TEXT_COLORS.BLUE
                          }">Host:</span> Personal Portfolio v2.0 <i class="fas fa-laptop-code"></i><span style="color: #4a90e2;">
                         //  _  \\\\              </span><span style="${
-                          TERMINAL_STYLES.INFO_TEXT
+                          TEXT_COLORS.BLUE
                         }">Kernel:</span> JavaScript ES2024 <i class="fab fa-js"></i><span style="color: #4a90e2;">
                        | \\     )|_             </span><span style="${
-                         TERMINAL_STYLES.INFO_TEXT
+                         TEXT_COLORS.BLUE
                        }">Uptime:</span> ${uptimeString} <i class="fas fa-clock"></i><span style="color: #4a90e2;">
                       /\`\\_\`>  <_/ \\            </span><span style="${
-                        TERMINAL_STYLES.INFO_TEXT
+                        TEXT_COLORS.BLUE
                       }">Packages:</span> 42 node_modules installed <i class="fab fa-npm"></i><span style="color: #4a90e2;">
                      (  \\_     _/  )           </span><span style="${
-                       TERMINAL_STYLES.INFO_TEXT
+                       TEXT_COLORS.BLUE
                      }">Shell:</span> Terminal.js v3.14 <i class="fas fa-terminal"></i><span style="color: #4a90e2;">
                       \`-\\_____/--'             </span><span style="${
-                        TERMINAL_STYLES.INFO_TEXT
+                        TEXT_COLORS.BLUE
                       }">Resolution:</span> ${width}x${height} <i class="fas fa-desktop"></i><span style="color: #4a90e2;">
                                                </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
+                                                 TEXT_COLORS.BLUE
                                                }">Icons:</span> Font Awesome <i class="fab fa-font-awesome"></i><span style="color: #4a90e2;">
                                                </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
+                                                 TEXT_COLORS.BLUE
                                                }">CPU:</span> Brain 6.0 GHz <i class="fas fa-microchip"></i><span style="color: #4a90e2;">
                                                </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
+                                                 TEXT_COLORS.BLUE
                                                }">GPU:</span> Eyes RTX 5090 Ti <i class="fas fa-eye"></i><span style="color: #4a90e2;">
                                                </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
+                                                 TEXT_COLORS.BLUE
                                                }">Locale:</span> ${locale} <i class="fas fa-globe-asia"></i><span style="color: #4a90e2;">
                                                </span><span style="${
-                                                 TERMINAL_STYLES.INFO_TEXT
+                                                 TEXT_COLORS.BLUE
                                                }">Battery:</span> Coffee 99% <i class="fas fa-coffee"></i></span>`;
       },
       "Display system information",
@@ -798,7 +792,7 @@ Username: ${user.login.username}`;
       "movie",
       async (title?: string) => {
         if (!title) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a movie title. Example: movie "Interstellar"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify a movie title. Example: movie "Interstellar"</span>`;
         }
 
         try {
@@ -810,27 +804,18 @@ Username: ${user.login.username}`;
           const data = await response.json();
 
           if (data.Response === "False") {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Movie not found: ${title}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">Movie not found: ${title}</span>`;
           }
 
-          return `<span style="${
-            TERMINAL_STYLES.SUCCESS_TEXT
-          }">🎬 Movie Info:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${data.Title}</span> (${
-            data.Year
-          })
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Director:</span> ${data.Director}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Genre:</span> ${data.Genre}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">IMDB Rating:</span> ${
-            data.imdbRating
-          }/10
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Runtime:</span> ${data.Runtime}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Plot:</span> ${data.Plot.slice(
-            0,
-            200
-          )}...`;
+          return `<span style="${TEXT_COLORS.GREEN}">🎬 Movie Info:</span>
+<span style="${TEXT_COLORS.YELLOW}">${data.Title}</span> (${data.Year})
+<span style="${TEXT_COLORS.BLUE}">Director:</span> ${data.Director}
+<span style="${TEXT_COLORS.BLUE}">Genre:</span> ${data.Genre}
+<span style="${TEXT_COLORS.BLUE}">IMDB Rating:</span> ${data.imdbRating}/10
+<span style="${TEXT_COLORS.BLUE}">Runtime:</span> ${data.Runtime}
+<span style="${TEXT_COLORS.BLUE}">Plot:</span> ${data.Plot.slice(0, 200)}...`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Movie service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Movie service unavailable</span>`;
         }
       },
       "Get movie information",
@@ -842,7 +827,7 @@ Username: ${user.login.username}`;
       "github",
       async (username?: string) => {
         if (!username) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a GitHub username. Example: github torvalds</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify a GitHub username. Example: github torvalds</span>`;
         }
 
         try {
@@ -852,7 +837,7 @@ Username: ${user.login.username}`;
           const userData = await userResponse.json();
 
           if (userData.message === "Not Found") {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">GitHub user not found: ${username}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">GitHub user not found: ${username}</span>`;
           }
 
           const reposResponse = await fetchWithTimeout(
@@ -867,28 +852,24 @@ Username: ${user.login.username}`;
             .map((repo: any) => `• ${repo.name} (⭐ ${repo.stargazers_count})`)
             .join("\n");
 
-          return `<span style="${
-            TERMINAL_STYLES.SUCCESS_TEXT
-          }">👨‍💻 GitHub Profile:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+          return `<span style="${TEXT_COLORS.GREEN}">👨‍💻 GitHub Profile:</span>
+<span style="${TEXT_COLORS.YELLOW}">${
             userData.name || userData.login
           }</span> (@${userData.login})
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Bio:</span> ${
+<span style="${TEXT_COLORS.BLUE}">Bio:</span> ${
             userData.bio || "No bio available"
           }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Followers:</span> ${
+<span style="${TEXT_COLORS.BLUE}">Followers:</span> ${
             userData.followers
           } | Following: ${userData.following}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Public Repos:</span> ${
-            userData.public_repos
-          }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Location:</span> ${
+<span style="${TEXT_COLORS.BLUE}">Public Repos:</span> ${userData.public_repos}
+<span style="${TEXT_COLORS.BLUE}">Location:</span> ${
             userData.location || "Unknown"
           }
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Top Repos:</span>
+<span style="${TEXT_COLORS.BLUE}">Top Repos:</span>
 ${topRepos}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">GitHub service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">GitHub service unavailable</span>`;
         }
       },
       "Get GitHub user profile info",
@@ -917,7 +898,7 @@ ${topRepos}`;
           const newsItems = stories
             .map(
               (story, index) =>
-                `${index + 1}. <span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+                `${index + 1}. <span style="${TEXT_COLORS.YELLOW}">${
                   story.title
                 }</span>
    Score: ${story.score} | Comments: ${story.descendants || 0}
@@ -925,11 +906,11 @@ ${topRepos}`;
             )
             .join("\n\n");
 
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">📰 Top Hacker News:</span>
+          return `<span style="${TEXT_COLORS.GREEN}">📰 Top Hacker News:</span>
 
 ${newsItems}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">News service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">News service unavailable</span>`;
         }
       },
       "Get top tech news from Hacker News",
@@ -941,7 +922,7 @@ ${newsItems}`;
       "urban",
       async (term?: string) => {
         if (!term) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a term. Example: urban "algorithm"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify a term. Example: urban "algorithm"</span>`;
         }
 
         try {
@@ -953,24 +934,23 @@ ${newsItems}`;
           const data = await response.json();
 
           if (!data.list || data.list.length === 0) {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No definition found for: ${term}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">No definition found for: ${term}</span>`;
           }
 
           const def = data.list[0];
-          return `<span style="${
-            TERMINAL_STYLES.SUCCESS_TEXT
-          }">📖 Urban Dictionary:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${def.word}</span>
-<span style="${
-            TERMINAL_STYLES.INFO_TEXT
-          }">Definition:</span> ${def.definition.slice(0, 200)}...
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Example:</span> ${def.example?.slice(
+          return `<span style="${TEXT_COLORS.GREEN}">📖 Urban Dictionary:</span>
+<span style="${TEXT_COLORS.YELLOW}">${def.word}</span>
+<span style="${TEXT_COLORS.BLUE}">Definition:</span> ${def.definition.slice(
+            0,
+            200
+          )}...
+<span style="${TEXT_COLORS.BLUE}">Example:</span> ${def.example?.slice(
             0,
             150
           )}...
 👍 ${def.thumbs_up} | 👎 ${def.thumbs_down}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Urban Dictionary service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Urban Dictionary service unavailable</span>`;
         }
       },
       "Get Urban Dictionary definition",
@@ -982,7 +962,7 @@ ${newsItems}`;
       "lyrics",
       async (...args: string[]) => {
         if (args.length < 2) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify artist and song. Example: lyrics "The Beatles" "Hey Jude"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify artist and song. Example: lyrics "The Beatles" "Hey Jude"</span>`;
         }
 
         const artist = args[0];
@@ -997,15 +977,15 @@ ${newsItems}`;
           const data = await response.json();
 
           if (data.error) {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Lyrics not found for: ${artist} - ${song}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">Lyrics not found for: ${artist} - ${song}</span>`;
           }
 
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🎵 Lyrics:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${artist} - ${song}</span>
+          return `<span style="${TEXT_COLORS.GREEN}">🎵 Lyrics:</span>
+<span style="${TEXT_COLORS.YELLOW}">${artist} - ${song}</span>
 
 ${data.lyrics}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Lyrics service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Lyrics service unavailable</span>`;
         }
       },
       "Get song lyrics",
@@ -1024,14 +1004,14 @@ ${data.lyrics}`;
           const data = await response.json();
 
           if (!data.data || !data.data.children.length) {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Subreddit not found or empty: r/${sub}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">Subreddit not found or empty: r/${sub}</span>`;
           }
 
           const posts = data.data.children
             .slice(0, 3)
             .map(
               (post: any, index: number) =>
-                `${index + 1}. <span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+                `${index + 1}. <span style="${TEXT_COLORS.YELLOW}">${
                   post.data.title
                 }</span>
    👍 ${post.data.ups} | 💬 ${post.data.num_comments} | r/${post.data.subreddit}
@@ -1044,11 +1024,11 @@ ${data.lyrics}`;
             )
             .join("\n\n");
 
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🔥 Hot posts from r/${sub}:</span>
+          return `<span style="${TEXT_COLORS.GREEN}">🔥 Hot posts from r/${sub}:</span>
 
 ${posts}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Reddit service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Reddit service unavailable</span>`;
         }
       },
       "Get hot posts from Reddit",
@@ -1060,7 +1040,7 @@ ${posts}`;
       "recipe",
       async (query?: string) => {
         if (!query) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify a dish. Example: recipe "pasta"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify a dish. Example: recipe "pasta"</span>`;
         }
 
         try {
@@ -1072,7 +1052,7 @@ ${posts}`;
           const data = await response.json();
 
           if (!data.meals || data.meals.length === 0) {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">No recipes found for: ${query}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">No recipes found for: ${query}</span>`;
           }
 
           const meal = data.meals[0];
@@ -1085,17 +1065,15 @@ ${posts}`;
             }
           }
 
-          return `<span style="${
-            TERMINAL_STYLES.SUCCESS_TEXT
-          }">👨‍🍳 Recipe:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${meal.strMeal}</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Category:</span> ${meal.strCategory}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Cuisine:</span> ${meal.strArea}
+          return `<span style="${TEXT_COLORS.GREEN}">👨‍🍳 Recipe:</span>
+<span style="${TEXT_COLORS.YELLOW}">${meal.strMeal}</span>
+<span style="${TEXT_COLORS.BLUE}">Category:</span> ${meal.strCategory}
+<span style="${TEXT_COLORS.BLUE}">Cuisine:</span> ${meal.strArea}
 
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Ingredients:</span>
+<span style="${TEXT_COLORS.BLUE}">Ingredients:</span>
 ${ingredients.join("\n")}
 
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Instructions:</span>
+<span style="${TEXT_COLORS.BLUE}">Instructions:</span>
 ${meal.strInstructions}
 
 <div class="my-2.5">
@@ -1104,7 +1082,7 @@ ${meal.strInstructions}
           }" class="w-60 h-60 object-cover rounded-[15px] border-3 border-white/40">
 </div>`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Recipe service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Recipe service unavailable</span>`;
         }
       },
       "Find a recipe",
@@ -1131,17 +1109,15 @@ ${meal.strInstructions}
             .map((ability: any) => ability.ability.name)
             .join(", ");
 
-          return `<span style="${
-            TERMINAL_STYLES.SUCCESS_TEXT
-          }">⚡ Pokémon Info:</span>
-<span style="${TERMINAL_STYLES.WARNING_TEXT}">${
+          return `<span style="${TEXT_COLORS.GREEN}">⚡ Pokémon Info:</span>
+<span style="${TEXT_COLORS.YELLOW}">${
             data.name.charAt(0).toUpperCase() + data.name.slice(1)
           }</span> (#${data.id})
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Type:</span> ${types}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Height:</span> ${data.height / 10}m
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Weight:</span> ${data.weight / 10}kg
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Abilities:</span> ${abilities}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Base Experience:</span> ${
+<span style="${TEXT_COLORS.BLUE}">Type:</span> ${types}
+<span style="${TEXT_COLORS.BLUE}">Height:</span> ${data.height / 10}m
+<span style="${TEXT_COLORS.BLUE}">Weight:</span> ${data.weight / 10}kg
+<span style="${TEXT_COLORS.BLUE}">Abilities:</span> ${abilities}
+<span style="${TEXT_COLORS.BLUE}">Base Experience:</span> ${
             data.base_experience
           }
 
@@ -1151,7 +1127,7 @@ ${meal.strInstructions}
           }" class="w-32 h-32 object-contain rounded-[15px] border-3 border-white/40">
 </div>`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Pokémon not found or service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Pokémon not found or service unavailable</span>`;
         }
       },
       "Get Pokémon information",
@@ -1163,7 +1139,7 @@ ${meal.strInstructions}
       "ip",
       async (address?: string) => {
         if (!address) {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Please specify an IP address. Example: ip "8.8.8.8"</span>`;
+          return `<span style="${TEXT_COLORS.RED}">Please specify an IP address. Example: ip "8.8.8.8"</span>`;
         }
 
         try {
@@ -1173,17 +1149,17 @@ ${meal.strInstructions}
           const data = await response.json();
 
           if (data.error) {
-            return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Invalid IP address: ${address}</span>`;
+            return `<span style="${TEXT_COLORS.RED}">Invalid IP address: ${address}</span>`;
           }
 
-          return `<span style="${TERMINAL_STYLES.SUCCESS_TEXT}">🌐 IP Information:</span>
-<span style="${TERMINAL_STYLES.INFO_TEXT}">IP:</span> ${data.ip}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Location:</span> ${data.city}, ${data.region}, ${data.country_name}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">ISP:</span> ${data.org}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Timezone:</span> ${data.timezone}
-<span style="${TERMINAL_STYLES.INFO_TEXT}">Coordinates:</span> ${data.latitude}, ${data.longitude}`;
+          return `<span style="${TEXT_COLORS.GREEN}">🌐 IP Information:</span>
+<span style="${TEXT_COLORS.BLUE}">IP:</span> ${data.ip}
+<span style="${TEXT_COLORS.BLUE}">Location:</span> ${data.city}, ${data.region}, ${data.country_name}
+<span style="${TEXT_COLORS.BLUE}">ISP:</span> ${data.org}
+<span style="${TEXT_COLORS.BLUE}">Timezone:</span> ${data.timezone}
+<span style="${TEXT_COLORS.BLUE}">Coordinates:</span> ${data.latitude}, ${data.longitude}`;
         } catch {
-          return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">IP lookup service unavailable</span>`;
+          return `<span style="${TEXT_COLORS.RED}">IP lookup service unavailable</span>`;
         }
       },
       "Get IP address information",
@@ -1253,7 +1229,7 @@ ${meal.strInstructions}
         }
         return result;
       } else if (cmd.trim() !== "") {
-        return `<span style="${TERMINAL_STYLES.ERROR_TEXT}">Command not found: ${cmd}.</span> Type '<span style="${TERMINAL_STYLES.INFO_TEXT}">help</span>' for available commands.`;
+        return `<span style="${TEXT_COLORS.RED}">Command not found: ${cmd}.</span> Type '<span style="${TEXT_COLORS.BLUE}">help</span>' for available commands.`;
       }
       return "";
     },
@@ -1378,7 +1354,7 @@ ${meal.strInstructions}
   );
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center mt-24">
       <div className="w-full max-w-6xl mx-auto">
         <div className="relative" data-aos="fade-up">
           {/* Terminal Window */}

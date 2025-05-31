@@ -2,53 +2,39 @@
 :root {
   /* Base Colors */
   --primary-color: #4a90e2;
-  --primary-rgb: 74, 144, 226;
   --secondary-color: #42b983;
-  --secondary-rgb: 66, 185, 131;
 
   /* Light Theme Colors */
-  --background-color: #f5f7fa;
-  --card-bg: rgba(255, 255, 255, 0.75);
   --text-color: #1e2022;
   --text-secondary: #6c757d;
 
   /* Glass Morphism */
   --glass-background: rgba(255, 255, 255, 0.45);
   --glass-border: 1px solid rgba(255, 255, 255, 0.3);
-  --card-border: 1px solid rgba(255, 255, 255, 0.3);
-  --card-outline: rgba(255, 255, 255, 0.3);
 
   /* Shadows */
   --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
 
   /* Scrollbar */
   --scrollbar-track: #eaecef;
-  --scrollbar-thumb: #c1c7ce;
 
   /* Transitions */
   --transition: all 0.3s ease;
-  --hover-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --hover-transform: translateY(-8px) scale(1.02);
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
   /* Dark Theme Colors */
-  --background-color: #1a1d24;
-  --card-bg: rgba(30, 32, 40, 0.75);
   --text-color: #d1d7e0;
   --text-secondary: #9ca3af;
 
   /* Glass Morphism */
   --glass-background: rgba(30, 32, 40, 0.45);
   --glass-border: 1px solid rgba(45, 55, 72, 0.4);
-  --card-border: 1px solid rgba(45, 55, 72, 0.4);
-  --card-outline: rgba(45, 55, 72, 0.3);
 
   /* Shadows */
   --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 
   /* Scrollbar */
   --scrollbar-track: #2c303a;
-  --scrollbar-thumb: #454b5b;
 }
