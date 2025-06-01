@@ -232,7 +232,7 @@ const Insights: React.FC = () => {
           image: { src: "photos/programmer.png", alt: "Coder" },
         },
       ],
-      timestamp: "Mon Mar 20 02:52:22 KST 2023",
+      timestamp: "Mon Mar 20 02:52:22 UTC+8 2023",
     },
     {
       title: "Operating Systems: Linux and FreeBSD Deep Dive",
@@ -304,7 +304,7 @@ const Insights: React.FC = () => {
           image: { src: "photos/open-source.png", alt: "Ubuntu" },
         },
       ],
-      timestamp: "Wed Aug 23 23:08:31 KST 2023",
+      timestamp: "Wed Aug 23 23:08:31 UTC+8 2023",
     },
     {
       title: "Network Security: From Infrastructure to Implementation",
@@ -374,7 +374,7 @@ const Insights: React.FC = () => {
           image: { src: "photos/ssh.png", alt: "SSH Secure Shell" },
         },
       ],
-      timestamp: "Fri Sep 15 16:43:00 KST 2023",
+      timestamp: "Fri Sep 15 16:43:00 UTC+8 2023",
     },
     {
       title: "Modern Database Systems: SQL, NoSQL and Beyond",
@@ -420,7 +420,7 @@ const Insights: React.FC = () => {
           image: { src: "photos/database.png", alt: "Database Paradigms" },
         },
       ],
-      timestamp: "Wed Jan 03 05:39:34 KST 2024",
+      timestamp: "Wed Jan 03 05:39:34 UTC+8 2024",
     },
     {
       title: "High Performance Computing: CPU-GPU Synergy",
@@ -482,7 +482,7 @@ const Insights: React.FC = () => {
           },
         },
       ],
-      timestamp: "Wed Oct 16 19:58:26 CST 2024",
+      timestamp: "Wed Oct 16 19:58:26 UTC+8 2024",
     },
     {
       title: "Web Servers: Tomcat and Nginx Ecosystem",
@@ -490,11 +490,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Tomcat's architecture specializes in Java Servlet container
-              implementation , providing robust support for dynamic content
-              generation through Java Servlet and JSP processing . This
-              architecture enables efficient server-side application logic
-              execution within the Java ecosystem.
+              Tomcat is a specialized Java Servlet container designed to
+              efficiently handle dynamic content generation using Java Servlet
+              and JSP technologies. Its architecture enables robust and scalable
+              execution of server-side application logic, making it a core
+              component in Java-based web applications.
             </>
           ),
           image: { src: "photos/tomcat.png", alt: "Overview of Tomcat" },
@@ -502,11 +502,11 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              Nginx's event-driven architecture delivers exceptional static
-              content serving capability and reverse proxy functionality . Its
-              asynchronous processing model enables high concurrency handling
-              with minimal resource requirements , making it ideal for
-              high-traffic environments and microservice architectures.
+              Nginx features an event-driven, asynchronous architecture that
+              excels at serving static content and operating as a reverse proxy.
+              With its lightweight resource footprint and high concurrency
+              capabilities, Nginx is ideal for high-traffic environments and
+              modern microservice architectures.
             </>
           ),
           image: { src: "photos/nginx.png", alt: "Overview of Nginx" },
@@ -514,12 +514,12 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The Tomcat-Nginx integration represents an optimal architecture
-              for enterprise applications . Nginx provides efficient request
-              routing , SSL termination , and static content caching , while
-              Tomcat manages dynamic content generation and application logic
-              execution . This separation of concerns enhances both performance
-              and maintainability .
+              Integrating Nginx with Tomcat creates an optimized architecture
+              for enterprise applications. Nginx handles request routing, SSL
+              termination, and static content caching with high efficiency,
+              while Tomcat focuses on dynamic content generation and backend
+              logic processing. This clear separation of responsibilities
+              enhances system performance, scalability, and maintainability.
             </>
           ),
           image: {
@@ -528,7 +528,7 @@ const Insights: React.FC = () => {
           },
         },
       ],
-      timestamp: "Fri Oct 25 00:26:33 KST 2024",
+      timestamp: "Fri Oct 25 00:26:33 UTC+8 2024",
     },
     {
       title: "Hardware Spotlight: HHKB Professional",
@@ -563,7 +563,7 @@ const Insights: React.FC = () => {
           image: { src: "photos/hhkb.png", alt: "HHKB Keyboard" },
         },
       ],
-      timestamp: "Wed Nov 6 19:03:21 KST 2024",
+      timestamp: "Wed Nov 6 19:03:21 UTC+8 2024",
     },
     {
       title: "MacOS: The Perfect Blend of GUI and UNIX Power",
@@ -571,13 +571,13 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              macOS's architecture represents a sophisticated blend of
-              user-friendly interface design and robust UNIX underpinnings .
-              This combination provides an ideal development environment with
-              access to both powerful command-line tools and polished
-              productivity applications . The system's Darwin foundation ensures
-              compatibility with UNIX utilities while maintaining a distinctive
-              visual identity .
+              Recently acquired a MacBook Pro with the M4 Pro chip - an
+              incredible experience. macOS's beautiful Aqua design perfectly
+              balances a user-friendly, polished interface with serious UNIX
+              power. The desktop delivers visually stunning, intuitive
+              experience while the terminal reveals powerful command line tools.
+              Built on Darwin, it provides real UNIX compatibility without
+              sacrificing the smooth, glossy Aqua look that makes macOS unique.
             </>
           ),
           image: { src: "photos/Macos.png", alt: "macOS" },
@@ -585,32 +585,80 @@ const Insights: React.FC = () => {
         {
           text: (
             <>
-              The hardware integration in Apple's ecosystem provides exceptional
-              stability and performance optimization . When paired with quality
-              peripherals like the HHKB keyboard, the system delivers a superior
-              development experience through reliable hardware interaction and
-              predictable performance characteristics . This consistency is
-              particularly valuable for professional software development and
-              system administration tasks .
+              Coming from a Linux background, the transition to macOS was
+              surprisingly seamless. Homebrew makes package management feel just
+              like using apt or pacman - a simple `brew install` and you're good
+              to go. All my familiar command-line tools and workflows just work,
+              which made switching over way easier than I expected.
             </>
           ),
-          image: { src: "photos/mac_with_hhkb.jpg", alt: "MacBook with HHKB" },
+          image: {
+            src: "photos/Homebrew.png",
+            alt: "Homebrew Package Manager",
+          },
         },
         {
           text: (
             <>
-              macOS's development tools provide a comprehensive ecosystem for
-              software engineering . The native terminal application offers
-              seamless integration with development workflows, while scripting
-              capabilities enhance automation options . Combined with its
-              intuitive interface and robust security model , macOS represents
-              an ideal platform for professional software development.
+              The terminal experience on macOS has been a pleasant surprise.
+              Ghostty has become my go-to terminal - the performance and
+              configurability are outstanding, honestly even better than what I
+              had on Debian. Combined with the HHKB keyboard, the whole setup
+              just flows perfectly. Having the right tools really transforms how
+              smooth and enjoyable my daily workflow becomes.
             </>
           ),
-          image: { src: null, alt: null },
+          image: { src: "photos/ghostty.png", alt: "Ghostty Terminal" },
         },
       ],
-      timestamp: "Fri Jan 10 20:15:00 CST 2025",
+      timestamp: "Fri Jan 10 20:15:00 UTC+8 2025",
+    },
+    {
+      title:
+        "TypeScript Experience: From Static Typing to Full-Stack Development",
+      contents: [
+        {
+          text: (
+            <>
+              This semester I completed my full-stack university graduation
+              project using TypeScript. The static type system proved invaluable
+              for catching errors at compile time and preventing runtime bugs.
+              Advanced features like generics and mapped types enabled type-safe
+              abstractions that scaled well across the entire application
+              architecture.
+            </>
+          ),
+          image: { src: "photos/typescript.png", alt: "TypeScript" },
+        },
+        {
+          text: (
+            <>
+              The frontend was built with React and TypeScript, leveraging
+              component-based architecture for reusable UI elements and virtual
+              DOM efficiency. React hooks provided elegant state management and
+              lifecycle control, while TypeScript's type safety enhanced
+              component development. Modern patterns like context providers and
+              custom hooks created powerful abstractions for scalable frontend
+              applications.
+            </>
+          ),
+          image: { src: "photos/react.png", alt: "React" },
+        },
+        {
+          text: (
+            <>
+              The backend utilized Node.js with TypeScript for server-side
+              development, providing excellent performance through event-driven,
+              non-blocking I/O architecture. TypeScript's static typing enhanced
+              API development and server-side reliability. The combination of
+              Node.js runtime with TypeScript's type system created a robust and
+              maintainable backend environment.
+            </>
+          ),
+          image: { src: "photos/nodejs.png", alt: "Node.js" },
+        },
+      ],
+      timestamp: "Mon Jun 02 10:30:00 UTC+8 2025",
     },
   ];
 

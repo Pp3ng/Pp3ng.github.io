@@ -6,24 +6,6 @@ body {
   color: var(--text-color);
 }
 
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 7.2px 28.8px rgba(31, 38, 135, 0.25);
-  }
-  25% {
-    box-shadow: 0 7.2px 28.8px rgba(31, 38, 135, 0.35);
-  }
-  50% {
-    box-shadow: 0 7.2px 28.8px rgba(31, 38, 135, 0.45);
-  }
-  75% {
-    box-shadow: 0 7.2px 28.8px rgba(31, 38, 135, 0.35);
-  }
-  100% {
-    box-shadow: 0 7.2px 28.8px rgba(31, 38, 135, 0.25);
-  }
-}
-
 p {
   font-size: 1.08em;
   max-width: 550px;

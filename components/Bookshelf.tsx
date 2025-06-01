@@ -39,26 +39,6 @@ const bookData: Book[] = [
     pdfFilename: "The Art of Unix Programming.pdf",
   },
   {
-    title: "The C++ Programming Language",
-    cover: "BookCovers/C++.jpg",
-    pdfFilename: "The C++ Programming Language-4th.pdf",
-  },
-  {
-    title: "Linux Command Line And Shell Scripting Bible",
-    cover: "BookCovers/CLIBIBLE.jpg",
-    pdfFilename: "Linux Command Line And Shell Scripting Bible.pdf",
-  },
-  {
-    title: "Learning the vi and vim Editors",
-    cover: "BookCovers/LTVAVE.jpg",
-    pdfFilename: "Learning the vi and Vim Editors 8th Edition-2021.pdf",
-  },
-  {
-    title: "The Linux Programming Interface",
-    cover: "BookCovers/TLPI.png",
-    pdfFilename: "The Linux Programming Interface-2010.pdf",
-  },
-  {
     title: "Computer Systems A Programmer's Perspective",
     cover: "BookCovers/CSAPP.jpg",
     pdfFilename: "Computer Systems A Programmer's Perspective.pdf",
@@ -84,6 +64,36 @@ const bookData: Book[] = [
     pdfFilename: "Computer Networking-A Top Down Approach-7th.pdf",
   },
   {
+    title: "The C++ Programming Language",
+    cover: "BookCovers/C++.jpg",
+    pdfFilename: "The C++ Programming Language-4th.pdf",
+  },
+  {
+    title: "Cryptography in C and C++",
+    cover: "BookCovers/CCC.jpg",
+    pdfFilename: "Cryptography in C and C++.pdf",
+  },
+  {
+    title: "Linux Command Line And Shell Scripting Bible",
+    cover: "BookCovers/CLIBIBLE.jpg",
+    pdfFilename: "Linux Command Line And Shell Scripting Bible.pdf",
+  },
+  {
+    title: "Rasberry Pi Beginner's Guide",
+    cover: "BookCovers/PI.png",
+    pdfFilename: "Raspberry Pi Beginner's Guide.pdf",
+  },
+  {
+    title: "Learning the vi and vim Editors",
+    cover: "BookCovers/LTVAVE.jpg",
+    pdfFilename: "Learning the vi and Vim Editors 8th Edition-2021.pdf",
+  },
+  {
+    title: "The Linux Programming Interface",
+    cover: "BookCovers/TLPI.png",
+    pdfFilename: "The Linux Programming Interface-2010.pdf",
+  },
+  {
     title: "System Performance",
     cover: "BookCovers/SP.jpg",
     pdfFilename: "Systems Performance-Enterprise And The Cloud.pdf",
@@ -102,16 +112,6 @@ const bookData: Book[] = [
     title: "Programming Massively Parallel Processors",
     cover: "BookCovers/CUDA.jpg",
     pdfFilename: "Programming Massively Parallel Processors.pdf",
-  },
-  {
-    title: "How Linux Works",
-    cover: "BookCovers/HLW.jpg",
-    pdfFilename: "How Linux Works.pdf",
-  },
-  {
-    title: "Absolute FreeBSD",
-    cover: "BookCovers/AF.jpg",
-    pdfFilename: "Absolute FreeBSD 3rd Edition.pdf",
   },
 ];
 

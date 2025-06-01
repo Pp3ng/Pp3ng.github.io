@@ -54,7 +54,7 @@ const Gallery: React.FC = () => {
           <div
             key={`gallery-${i}`}
             onClick={() => openLightbox(i)}
-            className="relative overflow-hidden rounded-2xl cursor-pointer shadow-md transition-all duration-200 ease-out aspect-square w-full max-w-64 mx-auto hover:-translate-y-1 hover:shadow-lg"
+            className="relative overflow-hidden rounded-2xl cursor-pointer shadow-md transition-all duration-200 ease-out aspect-square w-full max-w-64 mx-auto hover:shadow-lg"
           >
             <img
               src={`photos/gallery/${image}`}

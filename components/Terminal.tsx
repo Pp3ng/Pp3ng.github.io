@@ -275,30 +275,21 @@ const Terminal: React.FC = () => {
     registerCommand(
       "date",
       () => {
-        const d = new Date();
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        const months = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ];
+        const now = new Date();
+        const formatted = now
+          .toLocaleString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZoneName: "short",
+          })
+          .replace(/,/g, "");
 
-        const formattedDate = `${days[d.getDay()]} ${
-          months[d.getMonth()]
-        } ${d.getDate()} ${d
-          .toTimeString()
-          .slice(0, 8)} KST ${d.getFullYear()}`;
-
-        return `<span style="${TEXT_COLORS.GREEN}">${formattedDate}</span>`;
+        return `<span style="${TEXT_COLORS.GREEN}">${formatted}</span>`;
       },
       "Show current date and time",
       "",
@@ -1358,7 +1349,15 @@ ${meal.strInstructions}
       <div className="w-full max-w-6xl mx-auto">
         <div className="relative" data-aos="fade-up">
           {/* Terminal Window */}
-          <div className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+          <div
+            className="relative overflow-hidden "
+            style={{
+              background: "var(--glass-background)",
+              backdropFilter: "blur(6px) saturate(160%)",
+              border: "var(--glass-border)",
+              borderRadius: "20px",
+            }}
+          >
             {/* Terminal Header */}
             <div className="flex items-center justify-between px-6 py-4 bg-black/30 border-b border-white/10">
               <div className="flex items-center space-x-3">
