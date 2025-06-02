@@ -631,34 +631,47 @@ Username: ${user.login.username}`;
           const response = await fetchWithTimeout("https://ipapi.co/json/");
           const data = await response.json();
 
-          const locationInfo = [
-            { label: "IP", value: data.ip },
-            { label: "City", value: `${data.city}, ${data.region}` },
+          // Combined location and network info
+          const allInfo = [
+            { label: "IP Address", value: `${data.ip} (${data.version})` },
+            {
+              label: "Location",
+              value: `${data.city}, ${data.region}${
+                data.postal ? ` ${data.postal}` : ""
+              }`,
+            },
             {
               label: "Country",
-              value: `${data.country_name} (${data.country})`,
+              value: `${data.country_name} (${data.country_code})`,
             },
-            { label: "Timezone", value: data.timezone },
-            { label: "ISP", value: data.org },
+            {
+              label: "Timezone",
+              value: `${data.timezone} (UTC${data.utc_offset})`,
+            },
             {
               label: "Coordinates",
               value: `${data.latitude}, ${data.longitude}`,
             },
+            { label: "ISP", value: data.org },
+            { label: "ASN", value: data.asn },
           ];
 
-          const infoLines = locationInfo
+          const infoText = allInfo
+            .filter(
+              ({ value }) => value && value !== "N/A" && value !== "undefined"
+            )
             .map(
               ({ label, value }) =>
                 `<span style="${TEXT_COLORS.BLUE}">${label}:</span> ${value}`
             )
             .join("\n");
 
-          return `<span style="${TEXT_COLORS.GREEN}">Your Location:</span>\n${infoLines}`;
+          return `<span style="${TEXT_COLORS.GREEN}">🌍 Your Location & IP Information: </span>\n${infoText}`;
         } catch {
           return `<span style="${TEXT_COLORS.RED}">Unable to determine location. Service might be unavailable.</span>`;
         }
       },
-      "Get your current location and IP info",
+      "Get your current location and Network info",
       "",
       "api"
     );
