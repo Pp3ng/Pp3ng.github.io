@@ -1,5 +1,32 @@
-import React, { useCallback, memo } from "react";
+import React, { useCallback, memo, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+
+// Animation variants
+const CONTAINER_VARIANTS = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const ITEM_VARIANTS = {
+  hidden: { x: -20, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 15,
+      mass: 1,
+    },
+  },
+};
 
 // Individual insight content section
 const InsightContent = memo(
@@ -11,47 +38,53 @@ const InsightContent = memo(
     children: React.ReactNode;
     image?: { src: string | null; alt: string | null };
     isActive: boolean;
-  }) => (
-    <div
-      className={`transition-all duration-300 ease-in-out overflow-hidden
-        ${
-          isActive
-            ? "max-h-[1000px] opacity-100 translate-y-0"
-            : "max-h-0 opacity-0 -translate-y-1"
-        }
-      `}
-    >
-      <div className="flex flex-col md:flex-row items-start gap-1 py-1 pl-2 relative">
-        <div className="flex-1 min-w-0">
-          <p className="text-sm leading-relaxed text-[var(--text-color)]">
-            {children}
-          </p>
-        </div>
-        {image && image.src && (
-          <div className="md:ml-1">
-            <img
-              src={image.src}
-              alt={image.alt || ""}
-              className="rounded-lg max-w-[220px] max-h-[220px] w-auto h-auto"
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-        )}
-      </div>
-    </div>
-  )
-);
+  }) => {
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [maxHeight, setMaxHeight] = useState(0);
 
-InsightContent.displayName = "InsightContent";
+    useEffect(() => {
+      if (!contentRef.current) return;
+      setMaxHeight(isActive ? contentRef.current.scrollHeight : 0);
+    }, [isActive]);
+
+    return (
+      <div
+        className="insight-content transition-all duration-500 ease-out-expo overflow-hidden"
+        style={{
+          maxHeight: `${maxHeight}px`,
+          opacity: isActive ? 1 : 0,
+          transform: `translateY(${isActive ? "0" : "-8px"})`,
+        }}
+      >
+        <div
+          ref={contentRef}
+          className="flex flex-col md:flex-row items-start gap-1 py-1 pl-2 relative"
+        >
+          <div className="flex-1 min-w-0">
+            <p className="text-sm leading-relaxed text-[var(--text-color)]">
+              {children}
+            </p>
+          </div>
+          {image?.src && (
+            <div className="md:ml-1">
+              <img
+                src={image.src}
+                alt={image.alt || ""}
+                className="rounded-lg max-w-[220px] max-h-[220px] w-auto h-auto"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+);
 
 // Timestamp component
 const InsightTimestamp = memo(({ date }: { date: string }) => (
-  <div className="text-sm text-[var(--text-color)] opacity-70 mt-2">
-    <span>{date}</span>
-  </div>
+  <div className="text-sm text-[var(--text-color)] opacity-70 mt-2">{date}</div>
 ));
-
-InsightTimestamp.displayName = "InsightTimestamp";
 
 // Individual insight item component
 const InsightItem = memo(
@@ -69,78 +102,80 @@ const InsightItem = memo(
     timestamp: string;
     variants: any;
   }) => {
-    const [isActive, setIsActive] = React.useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const toggleActive = useCallback(
       (e: React.MouseEvent) => {
         // Prevent toggle when clicking on links
-        if (
-          (e.target as HTMLElement).tagName === "A" ||
-          (e.target as HTMLElement).closest("a")
-        ) {
+        const target = e.target as HTMLElement;
+        if (target.tagName === "A" || target.closest("a") || isAnimating)
           return;
-        }
 
+        setIsAnimating(true);
         setIsActive((prev) => !prev);
 
-        if (!isActive) {
-          setTimeout(() => {
-            const element = e.currentTarget as HTMLElement;
-            const navbarElement = document.querySelector(
-              ".navbar"
-            ) as HTMLElement;
-            const navHeight = navbarElement?.offsetHeight || 0;
+        // Reset animation state and handle scroll
+        setTimeout(
+          () => {
+            setIsAnimating(false);
+            if (isActive) return; // Only scroll when expanding
 
+            const element = e.currentTarget as HTMLElement;
+            const navbar = document.querySelector(".navbar") as HTMLElement;
+            const navHeight = navbar?.offsetHeight || 0;
             const targetPosition =
               element.getBoundingClientRect().top +
               window.pageYOffset -
               (navHeight + 20);
 
-            window.scrollTo({
-              top: targetPosition,
-              behavior: "smooth",
-            });
-          }, 100);
-        }
+            window.scrollTo({ top: targetPosition, behavior: "smooth" });
+          },
+          isActive ? 500 : 250
+        );
       },
-      [isActive]
+      [isActive, isAnimating]
     );
+
+    const cardClasses = `insight-card card group backdrop-blur-[8px] backdrop-saturate-[180%] 
+    border border-[var(--glass-border)] cursor-pointer relative overflow-hidden z-10 my-6 rounded-[12px] p-2
+    hover:shadow-[0_8px_24px_rgba(31,38,135,0.15)] transition-all duration-500 ease-out-expo
+    ${
+      isActive
+        ? "border-l-[6px] border-[var(--primary-color)] shadow-[0_8px_24px_rgba(31,38,135,0.2)]"
+        : "border-l-4 border-l-[var(--primary-color)] shadow-[0_4px_12px_rgba(31,38,135,0.1)]"
+    }`;
+
+    const backgroundClasses = `absolute inset-0 bg-gradient-to-r from-[var(--primary-color)]/20 to-[var(--secondary-color)]/20 
+    transition-all duration-500 ease-out z-[-1] 
+    ${
+      isActive
+        ? "opacity-30"
+        : "opacity-0 group-hover:opacity-100 group-hover:animate-gradient-shift"
+    }`;
+
+    const titleClasses = `card-title transition-all duration-300 ease-in-out-back text-base mb-2 text-[var(--primary-color)] 
+    ${isActive ? "transform scale-105" : ""}`;
 
     return (
       <motion.div
         variants={variants}
-        className={`card group backdrop-blur-[8px] backdrop-saturate-[180%]
-          border border-[var(--glass-border)] border-l-4 
-          ${
-            isActive
-              ? "border-l-[6px] border-[var(--primary-color)]"
-              : "border-l-[var(--primary-color)]"
-          } 
-          shadow-[0_4px_12px_rgba(31,38,135,0.1)] hover:shadow-[0_8px_24px_rgba(31,38,135,0.15)]
-          transition-all duration-300 ease-in-out cursor-pointer
-          relative overflow-hidden z-10 my-6 rounded-[12px] p-2 ${
-            !isActive ? "h-[90px]" : ""
-          }`}
+        className={cardClasses}
+        style={{
+          minHeight: isActive ? "auto" : "90px",
+          transform: `scale(${isActive ? 1.01 : 1})`,
+        }}
         onClick={toggleActive}
       >
-        <div
-          className={`absolute inset-0 bg-gradient-to-r from-[var(--primary-color)]/20 to-[var(--secondary-color)]/20 opacity-0 
-          transition-opacity duration-300 ease-in-out z-[-1] ${
-            !isActive
-              ? "group-hover:opacity-100 group-hover:animate-gradient-shift"
-              : ""
-          }`}
-        ></div>
+        <div className={backgroundClasses} />
 
         <div className="card-body p-0 flex flex-col h-full">
-          <h3 className="card-title text-[var(--primary-color)] transition-all duration-300 text-base mb-2">
-            {title}
-          </h3>
+          <h3 className={titleClasses}>{title}</h3>
 
-          <div className={`flex-1 ${!isActive ? "overflow-hidden" : ""}`}>
+          <div className="flex-1">
             {contents.map((content, index) => (
               <InsightContent
-                key={`content-${index}`}
+                key={index}
                 image={content.image}
                 isActive={isActive}
               >
@@ -149,44 +184,22 @@ const InsightItem = memo(
             ))}
           </div>
 
-          <InsightTimestamp date={timestamp} />
+          <div
+            className={`transition-all duration-300 ${
+              isActive
+                ? "opacity-100 translate-y-0"
+                : "opacity-70 translate-y-1"
+            }`}
+          >
+            <InsightTimestamp date={timestamp} />
+          </div>
         </div>
       </motion.div>
     );
   }
 );
 
-InsightItem.displayName = "InsightItem";
-
-// Main component
 const Insights: React.FC = () => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 70,
-        damping: 10,
-      },
-    },
-  };
-
-  // Insights data (organized to improve maintainability)
   const insightsData = [
     {
       title: "Language Abstraction Levels: Performance vs Productivity",
@@ -666,7 +679,7 @@ const Insights: React.FC = () => {
     <motion.div
       className="container mx-auto px-4 py-6 mt-[30px]"
       id="insights"
-      variants={containerVariants}
+      variants={CONTAINER_VARIANTS}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
@@ -674,34 +687,41 @@ const Insights: React.FC = () => {
       <h2> Technical Insights </h2>
       {insightsData.map((insight, index) => (
         <InsightItem
-          key={`insight-${index}`}
+          key={index}
           title={insight.title}
           contents={insight.contents.map((content) => ({
             text: content.text,
             image: content.image || { src: null, alt: null },
           }))}
           timestamp={insight.timestamp}
-          variants={itemVariants}
+          variants={ITEM_VARIANTS}
         />
       ))}
     </motion.div>
   );
 };
 
-// Add custom keyframe animation for gradient shift
-const style = document.createElement("style");
-style.textContent = `
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  .animate-gradient-shift {
-    animation: gradient-shift 3s ease-in-out infinite;
-    background-size: 200% 200%;
-  }
-`;
-document.head.appendChild(style);
+// Inject styles once
+if (!document.getElementById("insights-styles")) {
+  const style = document.createElement("style");
+  style.id = "insights-styles";
+  style.textContent = `
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .animate-gradient-shift {
+      animation: gradient-shift 3s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+
+    .insight-card { will-change: transform, box-shadow, border-color; }
+    .insight-content { will-change: max-height, opacity, transform; }
+    .ease-out-expo { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+    .ease-in-out-back { transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  `;
+  document.head.appendChild(style);
+}
 
 export default Insights;

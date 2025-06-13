@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import styled, { keyframes } from "styled-components";
 
@@ -109,7 +109,7 @@ const About: React.FC = () => {
   const [titleTypingDone, setTitleTypingDone] = useState(false);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -120,16 +120,16 @@ const About: React.FC = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5 },
     },
   };
 
-  const photoVariants = {
+  const photoVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
