@@ -5,15 +5,15 @@ interface ProjectData {
   title: string;
   repoUrl: string;
   description: string;
-  language?: string;
-  stars?: number;
-  forks?: number;
 }
 
 interface GitHubRepoData {
   stargazers_count: number;
-  forks_count: number;
   language: string;
+}
+
+interface ProjectCardProps extends ProjectData {
+  repoData?: GitHubRepoData;
 }
 
 const projectsData: ProjectData[] = [
@@ -48,10 +48,10 @@ const projectsData: ProjectData[] = [
       "A lightweight shell implementation focusing on essential command-line functionality. Features built-in commands, process management, and pipeline support while maintaining a clean, efficient interface for system interaction and task automation.",
   },
   {
-    title: "Tiny_Packer",
-    repoUrl: "https://github.com/Pp3ng/TinyPacker",
+    title: "ChaCha20",
+    repoUrl: "https://github.com/Pp3ng/ChaCha20",
     description:
-      "An efficient compression utility optimized for small file operations. Implements a sliding window algorithm to achieve effective compression ratios while maintaining quick processing times, particularly suited for configuration files and small text documents.",
+      "An implementation of the ChaCha20 stream cipher in C. Designed for high performance and security, compliant with RFC 7539 standards. The library is suitable for cryptographic applications requiring fast and secure data encryption.",
   },
   {
     title: "Directory_Analyzer",
@@ -63,7 +63,7 @@ const projectsData: ProjectData[] = [
     title: "pdd",
     repoUrl: "https://github.com/Pp3ng/pdd",
     description:
-      "A high-performance data duplication and transfer utility built as a modern alternative to Unix dd. Features real-time progress monitoring, direct I/O operations, and optimized buffer management. Implements advanced error handling and verification mechanisms while maintaining compatibility with traditional dd syntax.",
+      "A high-performance data duplication and transfer utility built as a modern alternative to Unix dd. Features real-time progress monitoring, direct I/O operations, and optimized buffer management. Implements verification mechanisms while maintaining compatibility with traditional dd syntax.",
   },
 ];
 
@@ -73,7 +73,7 @@ const ProjectsGrid = styled.div`
   gap: 24px;
 `;
 
-const ProjectCard = styled.div`
+const StyledProjectCard = styled.div`
   background: var(--glass-background);
   backdrop-filter: blur(8px) saturate(180%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);
@@ -123,29 +123,20 @@ const ProjectCard = styled.div`
   }
 `;
 
-const ProjectHeader = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px;
-`;
-
 const ProjectTitle = styled.h3`
-  margin: 0;
+  margin: 0 0 8px 0;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary-color);
-  flex: 1;
 `;
 
 const ProjectLink = styled.a`
   text-decoration: none;
   color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  transition: color 0.2s ease;
 
   &:hover {
-    color: var(--primary-color);
+    color: var(--accent-color);
   }
 `;
 
@@ -156,7 +147,7 @@ const ProjectDescription = styled.p`
   flex: 1;
 `;
 
-const ProjectFooter = styled.div`
+const ProjectStats = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
@@ -165,16 +156,22 @@ const ProjectFooter = styled.div`
   color: var(--text-secondary);
 `;
 
-const LanguageDot = styled.span<{ color?: string }>`
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color || "#3178c6"};
-  margin-right: 4px;
+const LanguageTag = styled.span<{ $color: string }>`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+
+  &::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: ${(props) => props.$color};
+  }
 `;
 
-const StatItem = styled.div`
+const StatBadge = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
@@ -186,106 +183,104 @@ const StatItem = styled.div`
   }
 `;
 
-const Projects: React.FC = () => {
-  const [reposData, setReposData] = useState<{ [key: string]: GitHubRepoData }>(
+const LANGUAGE_COLORS = {
+  "C++": "#f34b7d",
+  C: "#555555",
+  TypeScript: "#3178c6",
+} as const;
+
+const useGitHubData = (projects: ProjectData[]) => {
+  const [reposData, setReposData] = useState<Record<string, GitHubRepoData>>(
     {}
   );
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchRepoData = useCallback(async (repoUrl: string) => {
-    try {
-      const repoPath = repoUrl.replace("https://github.com/", "");
-      const response = await fetch(`https://api.github.com/repos/${repoPath}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching repo data:", error);
-      return null;
-    }
-  }, []);
 
   useEffect(() => {
+    const fetchRepoData = async (
+      repoUrl: string
+    ): Promise<GitHubRepoData | null> => {
+      try {
+        const repoPath = repoUrl.replace("https://github.com/", "");
+        const response = await fetch(
+          `https://api.github.com/repos/${repoPath}`
+        );
+
+        if (!response.ok) return null;
+
+        return await response.json();
+      } catch {
+        return null;
+      }
+    };
+
     const fetchAllReposData = async () => {
-      setIsLoading(true);
-      const reposDataPromises = projectsData.map((project) =>
-        fetchRepoData(project.repoUrl)
+      const results = await Promise.allSettled(
+        projects.map((project) => fetchRepoData(project.repoUrl))
       );
 
-      const results = await Promise.all(reposDataPromises);
-      const newReposData: { [key: string]: GitHubRepoData } = {};
+      const newReposData: Record<string, GitHubRepoData> = {};
 
-      results.forEach((data, index) => {
-        if (data) {
-          newReposData[projectsData[index].title] = {
-            stargazers_count: data.stargazers_count,
-            forks_count: data.forks_count,
-            language: data.language,
-          };
+      results.forEach((result, index) => {
+        if (result.status === "fulfilled" && result.value) {
+          const { stargazers_count, language } = result.value;
+          newReposData[projects[index].title] = { stargazers_count, language };
         }
       });
 
       setReposData(newReposData);
-      setIsLoading(false);
     };
 
     fetchAllReposData();
-  }, [fetchRepoData]);
+  }, [projects]);
 
-  const getLanguageColor = (language: string): string => {
-    const colors: { [key: string]: string } = {
-      "C++": "#f34b7d",
-      C: "#555555",
-      TypeScript: "#3178c6",
-    };
-    return colors[language] || "#3178c6";
-  };
+  return { reposData };
+};
+
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  repoUrl,
+  description,
+  repoData,
+}) => (
+  <StyledProjectCard>
+    <ProjectTitle>
+      <ProjectLink href={repoUrl} target="_blank" rel="noopener noreferrer">
+        {title}
+      </ProjectLink>
+    </ProjectTitle>
+
+    <ProjectDescription>{description}</ProjectDescription>
+
+    {repoData && (
+      <ProjectStats>
+        {repoData.language && (
+          <LanguageTag $color={LANGUAGE_COLORS[repoData.language] || "#3178c6"}>
+            {repoData.language}
+          </LanguageTag>
+        )}
+
+        <StatBadge>
+          <i className="fas fa-star"></i>
+          {repoData.stargazers_count}
+        </StatBadge>
+      </ProjectStats>
+    )}
+  </StyledProjectCard>
+);
+
+const Projects: React.FC = () => {
+  const { reposData } = useGitHubData(projectsData);
 
   return (
     <div className="container" id="projects" data-aos="fade-up">
       <h2>Projects</h2>
       <ProjectsGrid>
-        {projectsData.map((project, index) => {
-          const repoData = reposData[project.title];
-          return (
-            <ProjectCard key={`project-${index}`}>
-              <ProjectHeader>
-                <ProjectTitle>
-                  <ProjectLink
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {project.title}
-                  </ProjectLink>
-                </ProjectTitle>
-              </ProjectHeader>
-              <ProjectDescription>{project.description}</ProjectDescription>
-              <ProjectFooter>
-                {repoData?.language && (
-                  <StatItem>
-                    <LanguageDot color={getLanguageColor(repoData.language)} />
-                    {repoData.language}
-                  </StatItem>
-                )}
-                {repoData?.stargazers_count !== undefined && (
-                  <StatItem>
-                    <i className="fas fa-star"></i>
-                    {repoData.stargazers_count}
-                  </StatItem>
-                )}
-                {repoData?.forks_count !== undefined && (
-                  <StatItem>
-                    <i className="fas fa-code-fork"></i>
-                    {repoData.forks_count}
-                  </StatItem>
-                )}
-              </ProjectFooter>
-            </ProjectCard>
-          );
-        })}
+        {projectsData.map((project) => (
+          <ProjectCard
+            key={project.title}
+            {...project}
+            repoData={reposData[project.title]}
+          />
+        ))}
       </ProjectsGrid>
     </div>
   );
