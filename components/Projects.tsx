@@ -48,10 +48,10 @@ const projectsData: ProjectData[] = [
       "A lightweight shell implementation focusing on essential command-line functionality. Features built-in commands, process management, and pipeline support while maintaining a clean, efficient interface for system interaction and task automation.",
   },
   {
-    title: "ChaCha20",
-    repoUrl: "https://github.com/Pp3ng/ChaCha20",
+    title: "ChaCha20-Poly1305-AEAD",
+    repoUrl: "https://github.com/Pp3ng/ChaCha20-Poly1305-AEAD",
     description:
-      "An implementation of the ChaCha20 stream cipher in C. Designed for high performance and security, compliant with RFC 7539 standards. The library is suitable for cryptographic applications requiring fast and secure data encryption.",
+      "A pure C implementation of the ChaCha20 stream cipher, Poly1305 message authentication code and their combined authenticated encryption with associated data mode. It includes a command-line tool for file encryption and a comprehensive test suite to ensure compliance with RFC 7539.",
   },
   {
     title: "Directory_Analyzer",
