@@ -53,18 +53,6 @@ const projectsData: ProjectData[] = [
     description:
       "A pure C implementation of the ChaCha20 stream cipher, Poly1305 message authentication code and their combined authenticated encryption with associated data mode. It includes a command-line tool for file encryption and a comprehensive test suite to ensure compliance with RFC 7539.",
   },
-  {
-    title: "Directory_Analyzer",
-    repoUrl: "https://github.com/Pp3ng/Directory-Analyzer",
-    description:
-      "A comprehensive file system analysis tool providing detailed insights into directory structures. Generates statistical reports on file distributions, sizes, and types while offering an efficient interface for understanding complex file system hierarchies.",
-  },
-  {
-    title: "pdd",
-    repoUrl: "https://github.com/Pp3ng/pdd",
-    description:
-      "A high-performance data duplication and transfer utility built as a modern alternative to Unix dd. Features real-time progress monitoring, direct I/O operations, and optimized buffer management. Implements verification mechanisms while maintaining compatibility with traditional dd syntax.",
-  },
 ];
 
 const ProjectsGrid = styled.div`
