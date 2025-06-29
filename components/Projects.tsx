@@ -18,12 +18,6 @@ interface ProjectCardProps extends ProjectData {
 
 const projectsData: ProjectData[] = [
   {
-    title: "PGS",
-    repoUrl: "https://github.com/Pp3ng/PGS",
-    description:
-      "A high-performance static HTTP server meticulously crafted in C++. Engineered with a focus on efficiency, it harnesses epoll-based event handling and a sophisticated thread pool architecture to achieve optimal throughput while maintaining robust resource management.",
-  },
-  {
     title: "CinCout",
     repoUrl: "https://github.com/Pp3ng/CinCout",
     description:
@@ -46,6 +40,12 @@ const projectsData: ProjectData[] = [
     repoUrl: "https://github.com/Pp3ng/Pshell",
     description:
       "A lightweight shell implementation focusing on essential command-line functionality. Features built-in commands, process management, and pipeline support while maintaining a clean, efficient interface for system interaction and task automation.",
+  },
+  {
+    title: "Pdd",
+    repoUrl: "https://github.com/Pp3ng/Pdd",
+    description:
+      "A modern, POSIX-compatible implementation of the classic Unix dd command, designed to be portable and user-friendly. It provides a real-time progress bar, automatic block size optimization, and improved error handling over the traditional dd command.",
   },
   {
     title: "ChaCha20-Poly1305-AEAD",
